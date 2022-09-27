@@ -62,6 +62,11 @@ li, a {
   -ms-user-select: none;
 }
 
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+ }
+
 .form-control#password {
   border-radius: .25rem;
   position: relative;

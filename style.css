@@ -62,20 +62,6 @@ li, a {
   -ms-user-select: none;
 }
 
-.circle-white {
-  background-color: white;
-  width: 34px;
-  height: 32px;
-  border-radius: 30px;
-  margin-left: 18px;
-  position: absolute;
-  z-index: 1;
-}
-
-input.placeholder {
-  font-style: italic !important;
-}
-
 .form-control#password {
   border-radius: .25rem;
   position: relative;

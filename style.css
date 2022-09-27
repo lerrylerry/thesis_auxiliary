@@ -4,10 +4,18 @@
   font-family: 'Roboto Condensed', sans-serif;
 }
 
+li, a {
+  font-size: 18px;
+  margin: 0px 12px 0px 0px;
+}
+
 .card {
-  background-color: #c8b6ff;
   border-right-color: #198754;
   border-right-width: 10px;
+}
+
+.violet {
+  background-color: #c8b6ff !important;
 }
 
 .parent {
@@ -21,8 +29,14 @@
   font-size: 16px;
 }
 
-.navbar-brand, .display-6, label {
+.display-6, label {
   font-weight: 600 !important;
+  color: #000 !important;
+}
+
+.navbar-brand {
+  font-weight: 600 !important;
+  color: #fff !important;
 }
 
 .navbar-nav li a {
@@ -35,11 +49,17 @@
 }
 
 .logo {
-  width: 70px;
+  width: 160px;
   height: 64px;
-  border-radius: 50px 50px;
   margin-right: 10px;
   z-index: 2;
+  /* image cannot be drag or selected */
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 .circle-white {
@@ -71,7 +91,7 @@ input.placeholder {
   margin-top: 10px;
 }
 
-.btn.btn-outline-success:hover {
+.btn.btn-success:hover {
   background-color: #57E86B !important;
   color: #000 !important;
   opacity: 0.8 !important;

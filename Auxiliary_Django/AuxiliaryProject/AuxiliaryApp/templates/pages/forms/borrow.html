@@ -1,0 +1,65 @@
+{% extends 'pages/scripts2.html' %}
+{% load static %}
+
+{% block title %}
+<title>BORROW ITEMS</title>
+{% endblock title %}
+
+{% block content %}
+<body>
+    <form action="#" method="POST">
+        <div class="parent2 container d-flex justify-content-center align-items-center h-100 my-5">
+            <div class="card violet pb-3">
+                <div class="card-body">
+                    <header><strong>REQUEST ITEM</strong></header>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="name">Name</label><br>
+                            <select class="form-select" name="name" id="">
+                                <option value="">Choose a Janitor</option>
+                                <option value="1">Personnel 1</option>
+                                <option value="2">Personnel 2</option>
+                                <option value="3">More options</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-sm-6">
+                            <label for="pin">PIN</label>
+                            <input class="form-control" type="number" name="pin" id="" placeholder="enter your pin">
+                        </div>
+                    </div>
+                    <br>
+                    <table class="table text-center">
+                        <thead>
+                          <tr>
+                            <th scope="col">Items</th>
+                            <th scope="col">Available</th>
+                            <th scope="col">Quantity</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Hand Soap</td>
+                            <td>150</td>
+                            <td><input class="form-control" type="number" name="pin" id="" value="0"></td>
+                          </tr>
+                          <tr>
+                            <td>Toilet Paper</td>
+                            <td>150</td>
+                            <td><input class="form-control" type="number" name="pin" id="" value="0"></td>
+                          </tr>
+                          <tr>
+                            <td>Round Rags</td>
+                            <td>150</td>
+                            <td><input class="form-control" type="number" name="pin" id="" value="0"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+                <button class="btn btn-success btn w-50 mx-auto rounded-pill login">SUBMIT</button>
+            </div>
+        </div>
+    </form>
+</body>
+{% endblock content %}

@@ -1,0 +1,33 @@
+{% extends 'pages/scripts3.html' %}
+{% load static %}
+
+{% block title %}
+<title>LOGIN</title>
+<script src="https://kit.fontawesome.com/b0b19ae0c7.js" crossorigin="anonymous"></script>
+{% endblock title %}
+
+{% block content %}
+<body>
+    <div class="parent container d-flex justify-content-center align-items-center h-100">
+        <div class="card violet w-100 p-5">
+            <div class="card-body display-6 mx-auto mb-3">LOGIN</div>
+                <div>
+                    <label for="username" class="form-label">Username:</label>
+                    <input type="text" class="form-control" id="username" placeholder="Enter your username">
+                </div>
+                <br>
+                <div>
+                    <label for="password" class="form-label">Password:</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                        <span>
+                            <i class="fa-solid fa-eye-slash" id="togglePassword"></i> 
+                        </span>
+                    </div>     
+                </div>
+                <br>
+                <a class="btn btn-success w-50 mx-auto rounded-pill login" href="{% url 'admin-homepage' %}">ENTER</a>
+        </div> 
+    </div>
+</body>
+{% endblock content %}

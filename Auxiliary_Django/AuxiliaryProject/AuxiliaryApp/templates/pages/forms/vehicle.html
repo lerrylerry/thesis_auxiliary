@@ -1,0 +1,42 @@
+{% extends 'pages/scripts2.html' %}
+{% load static %}
+
+{% block title %}
+<title>REQUEST FOR VEHICLE FORM</title>
+{% endblock title %}
+
+{% block content %}
+<body>
+    <form action="#" method="POST">
+        <div class="parent2 container d-flex justify-content-center align-items-center h-100">
+            <div class="card violet pb-3">
+                <div class="card-body">
+                    <header><strong>REQUEST FOR VEHICLE FORM</strong></header>
+                    <hr>
+                    <div class="row">
+                        <label>NO OF PASSENGERS</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="row">
+                        <label>DESTINATION</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="row">
+                        <label>PURPOSE</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="row">
+                        <label>DATE/S</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="row">
+                        <label>REQUEST MADE BY</label>
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+                <button class="btn btn-success btn w-50 mx-auto rounded-pill login">SUBMIT</button>
+            </div>
+        </div>
+    </form>
+</body>
+{% endblock content %}

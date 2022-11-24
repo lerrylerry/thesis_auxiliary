@@ -1,0 +1,36 @@
+{% extends 'pages/scripts3.html' %}
+{% load static %}
+
+{% block title %}
+<title>HOME</title>
+{% endblock title %}
+
+{% block content %}
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark px-5">
+        <div class="container">   
+            <img class="logo" src="{% static 'media/brand-logo.png' %}" alt="tup-logo">
+            <!--<a class="navbar-brand" href="#"><center>Auxiliary <br> System</center></a>-->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+              <ul class="navbar-nav">
+                <li class="nav-item dropdown mr-3">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Services
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="{% url 'borrowed' %}">Borrow/Get Items</a></li>
+                    <li><a class="dropdown-item" href="{% url 'client-form' %}">Request for Minor Repair</a></li>
+                    <li><a class="dropdown-item" href="{% url 'vehicle-form' %}">Request for Vehicle</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <a class="text-white btn btn-outline-success" href="{% url 'login' %}">Login</a>
+        </div>
+    </nav>
+    <img class="image" src="{% static 'media/photo.png' %}" alt="background-photo">
+</body>
+{% endblock content %}

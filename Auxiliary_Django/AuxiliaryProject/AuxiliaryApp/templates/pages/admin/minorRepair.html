@@ -1,0 +1,35 @@
+{% extends 'pages/scripts.html' %}
+{% load static %}
+
+{% block title %}
+<title>Auxiliary System</title>
+{% endblock title %}
+
+{% block content %}
+<body>
+  {% include 'pages/admin/sidebar.html' %} 
+    <!-- TABLE MINOR REPAIR -->
+    <div class="mt-5">
+      <div class="row">
+        <div class="col-lg-7">
+          <h4 class="mt-1 mb-1">MINOR REPAIR</h4>
+        </div>
+        <div class="col-lg-5" style="display: inline-flex;">
+          <input type="text" class="form-control" id="searchNames" onkeyup="search(0)" placeholder="Search name...">
+          <span class="input-group-text bg-danger text-white"><i class='bx bx-search-alt-2 nav_logo-icon'></i></span>
+        </div>
+      </div>
+      <div class="tableData overflow-auto">
+        <table class="table mt-4 table-hover" id="myTable">
+          <thead class="table-dark">
+            <tr>
+              <th scope="col">NAME</th>
+              <th scope="col">FORM</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </section>
+</body>
+{% endblock content %}

@@ -45,18 +45,18 @@ def vehicle(request):
 '''<-----------------------------FORMSPAGE--------------------------------->'''
 
 def adminForm(request):
-    return render(request, 'pages/forms/admin.html')
+    return render(request, 'pages/forms/admin-form.html')
 
 def borrowForm(request):
-    return render(request, 'pages/forms/borrow.html')
+    return render(request, 'pages/forms/borrow-form.html')
 
 def clientForm(request):
-    return render(request, 'pages/forms/client.html')
+    return render(request, 'pages/forms/client-form.html')
 
 def personnelForm(request):
-    return render(request, 'pages/forms/personnel.html')
+    return render(request, 'pages/forms/personnel-form.html')
 
 def vehicleForm(request):
-    return render(request, 'pages/forms/vehicle.html')
+    return render(request, 'pages/forms/vehicle-form.html')
 
 '''<----------------------------------------------------------------------->'''

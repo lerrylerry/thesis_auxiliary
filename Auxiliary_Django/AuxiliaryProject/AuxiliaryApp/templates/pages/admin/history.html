@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-<title>Auxiliary System</title>
+<title>Admin | History</title>
 {% endblock title %}
 
 {% block content %}
@@ -31,7 +31,11 @@
           </thead>
         </table>
       </div>
+      <button type="button" class="btn btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#vehiclerequestModal">link of form</button>
     </div>
+
+    <!--HISTORY MODAL-->
+    {% include 'pages/modals/addItems-modal.html' %}
   </section>
 </body>
 

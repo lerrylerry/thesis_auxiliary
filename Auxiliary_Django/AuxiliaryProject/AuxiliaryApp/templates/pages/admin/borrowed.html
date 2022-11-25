@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-<title>Auxiliary System</title>
+<title>Admin | Borrowed</title>
 {% endblock title %}
 
 {% block content %}
@@ -29,7 +29,11 @@
           </thead>
         </table>
       </div>
+      <button type="button" class="btn btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#borrowModal">Borrow</button>
     </div>
+    <!--BORROWED MODAL-->
+    {% include 'pages/modals/vehicle-modal.html' %}
+    
   </section>
 </body>
 {% endblock content %}

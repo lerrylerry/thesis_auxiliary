@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-<title>Auxiliary System</title>
+<title>Admin | Vehicle Request</title>
 {% endblock title %}
 
 {% block content %}
@@ -29,7 +29,12 @@
           </thead>
         </table>
       </div>
+      <button type="button" class="btn btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#vehiclerequestModal">REQUEST VEHICLE</button>
     </div>
+
+    <!--VEHICLE REQUEST-->
+    {% include 'pages/modals/vehicle-modal.html' %}
+    
   </section>
 </body>
 {% endblock content %}

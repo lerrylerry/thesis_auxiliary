@@ -7,27 +7,105 @@
 {% endblock title %}
 
 {% block content %}
-<body>
-    <div class="parent container d-flex justify-content-center align-items-center h-100">
-        <div class="card violet w-100 p-5">
-            <div class="card-body display-6 mx-auto mb-3">LOGIN</div>
-                <div>
-                    <label for="username" class="form-label">Username:</label>
-                    <input type="text" class="form-control" id="username" placeholder="Enter your username">
-                </div>
-                <br>
-                <div>
-                    <label for="password" class="form-label">Password:</label>
-                    <div class="input-group">
-                        <input type="password" class="form-control" id="password" placeholder="Enter your password">
-                        <span>
-                            <i class="fa-solid fa-eye-slash" id="togglePassword"></i> 
-                        </span>
-                    </div>     
-                </div>
-                <br>
-                <a class="btn btn-success w-50 mx-auto rounded-pill login" href="{% url 'admin-homepage' %}">ENTER</a>
-        </div> 
+
+<body class="bg-image">
+  <div class="logIn">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="card-title">LOGIN</h1>
+        {% if request.user.is_authenticated %}
+        <form method="POST" name="login" action="/login/" novalidate>
+          {% csrf_token %}
+          <div class="mb-3 mt-3">
+            <label for="formGroupExampleInput" class="form-label">Username</label>
+            <input type="text" id="user" name="username" class="form-control" placeholder="Enter Username">
+          </div>
+          <div class="mb-3">
+            <label for="formGroupExampleInput2" class="form-label">Password</label>
+            <input type="password" id="pass" name="password" class="form-control" placeholder="Enter Password">
+          </div>
+          <div class="mb-3">
+            <label for="userType">User Type</label>
+              <select name="userType" id="userType">
+                <option value="ADMIN">ADMIN</option>
+                <option value="UTILITY_PERSONNEL">UTILITY_PERSONNEL</option>
+                <option value="REPAIR_MAN">REPAIR_MAN</option>
+                <option value="ASSISTANT_DIRECTOR">ASSISTANT_DIRECTOR</option>
+              </select>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-danger" style="width: 100%;" id="login">Sign in</button>
+          </div>
+        </form>
+        {% else %}
+        <form method="POST" name="login" action="/login/" novalidate>
+          {% csrf_token %}
+          <div class="mb-3 mt-3">
+            <label for="formGroupExampleInput" class="form-label">Username</label>
+            <input type="text" id="user" name="username" class="form-control" placeholder="Enter Username">
+          </div>
+          <div class="mb-3">
+            <label for="formGroupExampleInput2" class="form-label">Password</label>
+            <input type="password" id="pass" name="password" class="form-control" placeholder="Enter Password">
+          </div>
+          <div class="mb-3">
+            <label for="userType">User Type</label>
+              <select name="userType" id="userType">
+                <option value="ADMIN">ADMIN</option>
+                <option value="UTILITY_PERSONNEL">UTILITY_PERSONNEL</option>
+                <option value="REPAIR_MAN">REPAIR_MAN</option>
+                <option value="ASSISTANT_DIRECTOR">ASSISTANT_DIRECTOR</option>
+              </select>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-danger" style="width: 100%;" id="login">Sign in</button>
+          </div>
+        </form>
+        <div class="footer mt-4">
+          <label style=" opacity: 70%; font-size: 15px;">Don't have an account?</label>
+          <button type="button" class="btn btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#signupModal">Sign up here</button>
+          <br><br>
+        </div>
+        {% endif %}
+      </div>
     </div>
+  </div>
+
+   <!--MODAL SIGNUP-->
+   <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+     <div class="modal-content">
+      <div class="modal-header">
+       <h5 class="modal-title" id="exampleModalLabel">Signup Form</h5>
+       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <form action="#" >
+        <div class="row">
+         <div class="col-md-12 mt-2">
+          <label for="" class="form-label">Full Name</label>
+          <input type="text" id="sname" class="form-control" name="name" placeholder="Enter Full Name" required>
+         </div>
+         <div class="col-md-12 mt-2">
+          <label for="" class="form-label">Email</label>
+          <input type="email" id="semail" class="form-control" name="email" placeholder="Enter Email" required>
+         </div>
+         <div class="col-md-12 mt-2">
+          <label for="" class="form-label">Password</label>
+          <input type="password" id="spass" class="form-control" name="password" placeholder="Enter Password" required>
+         </div>
+         <div class="col-md-12 mt-2">
+          <label for="" class="form-label">Retype Password</label>
+          <input type="password" id="srepass" class="form-control" name="re-password" placeholder="Retype Password" required>
+         </div>
+         <div class="col-md-12 mt-4 mb-2" style="text-align: right;">
+          <button id="submits" class="btn btn-danger" type="submit" name="submit">Submit</button>
+         </div>
+        </div>
+       </form>
+      </div>
+     </div>
+    </div>
+   </div>
 </body>
 {% endblock content %}

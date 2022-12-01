@@ -1,3 +1,5 @@
+{% load static %}
+{% block content %}
 <div class="modal fade" id="additemsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
    <div class="modal-content">
@@ -6,28 +8,32 @@
      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
-     <form action="#">
+     <form action="add-items" method="POST">
       <div class="row">
         <div class="col-md-12 mt-2">
+          {% csrf_token %}
           <label for="" class="form-label">Item Name</label>
-          <input id="name" type="text" class="form-control" name="names" placeholder="Enter Item Name" required>
+          {{form.item_name}}
+          <!--<input id="name" type="text" class="form-control" name="names" placeholder="Enter Item Name" required>-->
          </div>
        <div class="col-md-12 mt-2">
         <label for="" class="form-label">Unit</label>
-        <select id="unit" type="text" list="value" class="form-control" name="units" placeholder="Enter Unit" required>
+        {{form.item_unit}}
+       <!-- <select id="unit" type="text" list="value" class="form-control" name="units" placeholder="Enter Unit" required>
         <option>Select...</option>
         <option>option 1</option>
         <option>option 2</option>
         <option>option 3</option>
         <option> option 4 </option>
         <option> option 5 </option>
-        </select>
+        </select>-->
        <div class="col-md-12 mt-2">
         <label for="" class="form-label">Quantity</label>
-        <input id="quantity" type="number" class="form-control" name="Quantities" placeholder="Enter Quantity" required>
+       {{form.item_quantity}}
+       <!-- <input id="quantity" type="number" class="form-control" name="Quantities" placeholder="Enter Quantity" required>-->
        </div>
        <div class="col-md-12 mt-4 mb-2" style="text-align: right;">
-        <button id="addsupplies" class="btn btn-danger" type="submit" name="additemlists">Add Item Lists</button>
+        <button id="additems" class="btn btn-danger" type="submit" name="additemlists">Add Item Lists</button>
        </div>
       </div>
      </form>
@@ -35,3 +41,4 @@
    </div>
   </div>
  </div>
+ {% endblock content %}

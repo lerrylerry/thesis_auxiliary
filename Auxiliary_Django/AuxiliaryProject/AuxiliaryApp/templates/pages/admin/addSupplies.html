@@ -29,6 +29,13 @@
             </tr>
           </thead>
           <tbody id="addsuppliesTable">
+            {% for x in items%}
+            <tr>
+              <td>{{x.item_name}}</td>
+              <td>{{x.item_unit}}</td>
+              <td>{{x.item_quantity}}</td>
+            </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>

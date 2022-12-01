@@ -26,9 +26,23 @@
               <th scope="col">ITEM NAME</th>
               <th scope="col">UNIT</th>
               <th scope="col">QUANTITY</th>
+              
             </tr>
           </thead>
           <tbody id="additemsTable">
+            <tr>
+            {% if items %}
+            {% for x in items %}
+            <td>
+               {{x.item_name}}
+            </td>
+            <td>{{x.item_unit}}</td>
+            <td>
+                {{x.item_quantity}}
+            </td>
+          </tr>
+            {% endfor %}
+            {% endif %}
           </tbody>
         </table>
       </div>
@@ -36,9 +50,10 @@
     <button type="button" class="btn btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#additemsModal">Add Items</button>
   </div>
 
-  <!--MINOR REPAIR MODAL-->
-  {% include 'pages/modals/minorRepair-modal.html' %}
+  <!--ADD ITEMS MODAL-->
+  {% include 'pages/modals/additems-modal.html' %}
 
   </section>
 </body>
+
 {% endblock content %}

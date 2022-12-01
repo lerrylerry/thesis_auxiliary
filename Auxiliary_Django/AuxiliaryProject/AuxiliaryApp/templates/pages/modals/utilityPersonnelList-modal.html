@@ -14,7 +14,11 @@
          </div>
          <div class="col-md-12 mt-2">
           <label for="" class="form-label">Status</label>
-          <input id="status" type="text" class="form-control" name="stat" placeholder="Status" required>
+          <select id="status" type="text" class="form-control" name="stat" placeholder="Status" required>
+            <option selected = "true" disabled = "disabled">Select...</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+            </select>
          </div>
          <div class="col-md-12 mt-4 mb-2" style="text-align: right;">
           <button id="janitorlist" class="btn btn-danger" type="submit" name="addjanitorlists">Add Janitor Lists</button>

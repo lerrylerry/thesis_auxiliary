@@ -16,6 +16,7 @@ urlpatterns = [
     path('utility-personnel-list/', views.utilityPersonnelList, name='utility-personnel-list'),
     path('minor-repair/', views.minorRepair, name='minor-repair'),
     path('vehicle/', views.vehicle, name='vehicle'),
+    path('camera/', views.camera, name='camera'),
 
     path('admin-form/', views.adminForm, name='admin-form'),
     path('borrow-form/', views.borrowForm, name='borrow-form'),

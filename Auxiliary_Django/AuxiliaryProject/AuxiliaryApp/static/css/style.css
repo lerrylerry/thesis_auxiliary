@@ -8,6 +8,45 @@
 body{
   overflow: hidden;
 }
+.logIn {
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.bg-image{
+  background-image: url("/static/media/background.png");
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -moz-background-size: cover ;
+  background-size: cover;
+  background-position: center;
+}
+
+.logIn .card .card-title{
+  text-align: center;
+}
+.logIn .card {
+  width: 40%;
+  min-width: 300px;
+}
+
+.logIn .card .footer {
+  text-align: center;
+}
+
+.logIn .card .footer p {
+  font-size: 12px;
+  opacity: 70%;
+}
 .sidebar{
   position: fixed;
   top: 0;
@@ -19,10 +58,10 @@ body{
   transition: all 0.5s ease;
 }
 .sidebar.close{
-  width: 74px;
+  width: 80px;
 }
 .sidebar .logo-details{
-  height: 60px;
+  height: 87px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -36,7 +75,7 @@ body{
   line-height: 50px;
 }
 .sidebar .logo-details .logo_name{
-  font-size: 18px;
+  font-size: 25px;
   color: #fff;
   font-weight: 600;
   transition: 0.3s ease;
@@ -287,6 +326,15 @@ body{
 
 .height-100 {
   height: 100vh;
+}
+.image {
+  background-color: rgba(0,0,0,.2);
+  width: 100%;
+  height: 100%;
+  opacity: 60%;
+  background-position: center center;
+  background-size: cover;
+  overflow: auto;
 }
 @media screen and (max-width: 400px){
   .sidebar{

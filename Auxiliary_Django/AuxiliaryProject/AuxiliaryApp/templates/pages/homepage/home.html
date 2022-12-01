@@ -21,7 +21,7 @@
                     Services
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <li><a class="dropdown-item" href="{% url 'borrowed' %}">Borrow/Get Items</a></li>
+                    <li><a class="dropdown-item" href="{% url 'borrow-form' %}">Borrow/Get Items</a></li>
                     <li><a class="dropdown-item" href="{% url 'client-form' %}">Request for Minor Repair</a></li>
                     <li><a class="dropdown-item" href="{% url 'vehicle-form' %}">Request for Vehicle</a></li>
                   </ul>
@@ -31,6 +31,6 @@
             <a class="text-white btn btn-outline-success" href="{% url 'login' %}">Login</a>
         </div>
     </nav>
-    <img class="image" src="{% static 'media/photo.png' %}" alt="background-photo">
+    <img class="image" src="{% static '' %}" alt="background-photo">
 </body>
 {% endblock content %}

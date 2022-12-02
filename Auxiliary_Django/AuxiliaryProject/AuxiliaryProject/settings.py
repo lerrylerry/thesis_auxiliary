@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'AuxiliaryProject.wsgi.application'
 DATABASES = {
 'default': {
 'ENGINE': 'django.db.backends.mysql',
-'NAME': 'trial',
+'NAME': 'auxdb',
 'USER': 'root',
 'PASSWORD': '',
 'HOST': 'localhost',
@@ -140,7 +140,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 LOGIN_REDIRECT_URL = 'admin-homepage'
 LOGOUT_REDIRECT_URL = 'index'
-LOGIN_URL = 'login_user'
+LOGIN_URL = 'signin'
 
 EMAIL_BACKEND ='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

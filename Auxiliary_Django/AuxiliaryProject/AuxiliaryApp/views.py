@@ -12,40 +12,15 @@ from django.contrib.auth import authenticate, login, logout
 def index(request):
     return render(request, 'pages/homepage/home.html')
 
-# def signup(request):
- 
-#     if request.user.is_authenticated:
-#         return redirect('/books')
-     
-#     if request.method == 'POST':
-#         form = UserCreationForm(request.POST)
- 
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data['username']
-#             password = form.cleaned_data['password1']
-#             user = authenticate(username = username,password = password)
-#             login(request, user)
-#             return redirect('/books')
-         
-#         else:
-#             return render(request,'itemsapp/signup.html',{'form':form})
-     
-#     else:
-#         form = UserCreationForm()
-#         return render(request,'itemsapp/signup.html',{'form':form})
-
-def login(request):
-    if request.user.is_authenticated:
-        return redirect('/admin-homepage')
+def signin(request):
+    # if request.user.is_authenticated:
+    #     return redirect('/admin-homepage')
      
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
         userType = request.POST['userType']
-        print(username, password, userType)
-        user = authenticate(request, username=username, password=password)
-        print(user.userType)
+        user = authenticate(request, username=username, password=password, userType=userType)
 
         if user is not None and user.userType == 'ADMIN':
             login(request, user)
@@ -66,7 +41,30 @@ def login(request):
             return render(request, 'pages/homepage/home.html')
      
     else:
-        return render(request, 'pages/homepage/login.html')
+        return render(request, 'pages/homepage/signin.html')
+
+def signup(request):
+ 
+    if request.user.is_authenticated:
+        return redirect('/books')
+     
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+ 
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(username = username,password = password)
+            login(request, user)
+            return redirect('/books')
+         
+        else:
+            return render(request,'itemsapp/signup.html',{'form':form})
+     
+    else:
+        form = UserCreationForm()
+        return render(request,'itemsapp/signup.html',{'form':form})
 
 def logout(request):
     logout(request)

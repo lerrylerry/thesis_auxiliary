@@ -13,32 +13,7 @@
     <div class="card">
       <div class="card-body">
         <h1 class="card-title">LOGIN</h1>
-        {% if request.user.is_authenticated %}
-        <form method="POST" name="login" action="/login/" novalidate>
-          {% csrf_token %}
-          <div class="mb-3 mt-3">
-            <label for="formGroupExampleInput" class="form-label">Username</label>
-            <input type="text" id="user" name="username" class="form-control" placeholder="Enter Username">
-          </div>
-          <div class="mb-3">
-            <label for="formGroupExampleInput2" class="form-label">Password</label>
-            <input type="password" id="pass" name="password" class="form-control" placeholder="Enter Password">
-          </div>
-          <div class="mb-3">
-            <label for="userType">User Type</label>
-              <select name="userType" id="userType">
-                <option value="ADMIN">ADMIN</option>
-                <option value="UTILITY_PERSONNEL">UTILITY_PERSONNEL</option>
-                <option value="REPAIR_MAN">REPAIR_MAN</option>
-                <option value="ASSISTANT_DIRECTOR">ASSISTANT_DIRECTOR</option>
-              </select>
-          </div>
-          <div class="col-12">
-            <button type="submit" class="btn btn-danger" style="width: 100%;" id="login">Sign in</button>
-          </div>
-        </form>
-        {% else %}
-        <form method="POST" name="login" action="/login/" novalidate>
+        <form method="POST" name="login" action="/signin/" novalidate>
           {% csrf_token %}
           <div class="mb-3 mt-3">
             <label for="formGroupExampleInput" class="form-label">Username</label>
@@ -66,7 +41,6 @@
           <button type="button" class="btn btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#signupModal">Sign up here</button>
           <br><br>
         </div>
-        {% endif %}
       </div>
     </div>
   </div>
@@ -80,7 +54,7 @@
        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-       <form action="#" >
+       <form method="POST" action="/signup/" novalidate>
         <div class="row">
          <div class="col-md-12 mt-2">
           <label for="" class="form-label">Full Name</label>

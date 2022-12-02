@@ -24,10 +24,24 @@
           <thead class="table-dark">
             <tr>
               <th scope="col">NAME</th>
+              <th scope="col">PINCODE</th>
               <th scope="col">STATUS</th>
             </tr>
           </thead>
           <tbody id="janitorlistTable">
+            <tr>
+              {% if up %}
+              {% for x in up %}
+              <td>
+                 {{x.up_name}}
+              </td>
+              <td>{{x.up_code}}</td>
+              <td>
+                  {{x.up_status}}
+              </td>
+            </tr>
+              {% endfor %}
+              {% endif %}
           </tbody>
         </table>
       </div>

@@ -81,6 +81,7 @@ def addItems(request):
         form = itemsForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('/add-items')
     else:
         form = itemsForm()
     items = itemsDB.objects.all()
@@ -107,7 +108,16 @@ def utilityPersonnel(request):
     return render(request, 'pages/admin/utilityPersonnel.html')
 
 def utilityPersonnelList(request):
-    return render(request, 'pages/admin/utilityPersonnelList.html')
+    if request.method == "POST":
+        form = janitorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/utility-personnel-list')
+    else:
+        form = janitorForm()
+    up = janitorDB.objects.exclude(up_status = 'INACTIVE')
+    context = {'form':form, 'up':up}
+    return render(request, 'pages/admin/utilityPersonnelList.html', context)
 
 def minorRepair(request):
     return render(request, 'pages/admin/minorRepair.html')
@@ -126,7 +136,17 @@ def adminForm(request):
     return render(request, 'pages/forms/admin-form.html')
 
 def borrowForm(request):
-    return render(request, 'pages/forms/borrow-form.html')
+    if request.method == "POST":
+        form = borrowUPForm(request.POST)
+        if form.is_valid():
+            #up_name = (request.POST[up_name])
+            form.save()
+    else:
+        form = borrowUPForm()
+    items = itemsDB.objects.all()
+    up = janitorDB.objects.exclude(up_status = 'INACTIVE')
+    context = {'form':form, 'items':items, 'up':up}
+    return render(request, 'pages/forms/borrow-form.html', context)
 
 def clientForm(request):
     return render(request, 'pages/forms/client-form.html')

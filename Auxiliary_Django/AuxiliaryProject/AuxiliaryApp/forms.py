@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import CustomUser
-from AuxiliaryApp.models import itemsDB, janitorDB
+from AuxiliaryApp.models import itemsDB, janitorDB, vehicleDB
 
 
 class itemsForm(forms.ModelForm):
@@ -70,4 +70,42 @@ class borrowUPForm(forms.ModelForm):
                     'class': 'form-control',
                     }
             ), 
+        }
+
+class vehiclesForm(forms.ModelForm):
+    class Meta:
+        model = vehicleDB
+        fields = ['req_name', 'passengers','destination', 'purpose','date']
+        widgets = {
+            'req_name': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ex: Juan Dela Cruz'
+                    }
+            ), 
+            'passengers': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ex: 4'
+                    }
+            ), 
+            'destination': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ex: TUP Manila'
+                    }
+            ), 
+            'purpose': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ex: Meeting'
+                    }
+            ), 
+            'date': forms.NumberInput(
+                    attrs={
+                        'class': 'form-control',
+                        'type':'date'
+                        }
+                ),
+
         }

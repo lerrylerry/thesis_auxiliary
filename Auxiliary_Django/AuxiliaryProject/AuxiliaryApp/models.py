@@ -32,3 +32,10 @@ class janitorDB(models.Model):
     up_name = models.CharField(max_length=25,null=True, blank=True)
     up_code = models.CharField(max_length=4, null=True, blank=True)
     up_status = models.CharField(max_length=100, choices=UP_STATUS, verbose_name='userType')
+
+class vehicleDB(models.Model):
+    req_name = models.CharField(max_length=25,null=True, blank=True)
+    passengers = models.IntegerField(null=True, blank=True)
+    destination = models.CharField(max_length=25,null=True, blank=True)
+    purpose = models.CharField(max_length=25,null=True, blank=True)
+    date = models.DateField(max_length=10)

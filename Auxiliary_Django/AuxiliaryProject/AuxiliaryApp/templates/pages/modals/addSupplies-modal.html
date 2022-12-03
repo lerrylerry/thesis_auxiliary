@@ -6,25 +6,25 @@
      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
-     <form action="#">
+     <form method="POST">
       <div class="row">
        <div class="col-md-12 mt-2">
         <label for="" class="form-label">Supply Name</label>
-        <input id="name" type="text" class="form-control" name="names" placeholder="Enter Supply Name" required>
+        <select id="unit" type="text" list="value" class="form-control" name="units" placeholder="Enter Unit" required>
+          {% for x in items %}
+          <option value="x.id">
+            {{x.item_name}}
+          </option>
+          {% endfor %}  
+          </select>
        </div>
        <div class="col-md-12 mt-2">
-        <label for="" class="form-label">Unit</label>
-        <select id="unit" type="text" list="value" class="form-control" name="units" placeholder="Enter Unit" required>
-        <option>Select...</option>
-        <option>option 1</option>
-        <option>option 2</option>
-        <option>option 3</option>
-        <option> option 4 </option>
-        <option> option 5 </option>
-        </select>
+        <!--<label for="" class="form-label">Unit</label>
+        <input id="name" type="text" class="form-control" name="names" placeholder="Enter Supply Name" required>-->
        <div class="col-md-12 mt-2">
         <label for="" class="form-label">Quantity</label>
-        <input id="quantity" type="number" class="form-control" name="Quantities" placeholder="Enter Quantity" required>
+        {{form.item_quantity}}
+        <!--<input id="quantity" type="number" class="form-control" name="Quantities" placeholder="Enter Quantity" required>-->
        </div>
        <div class="col-md-12 mt-4 mb-2" style="text-align: right;">
         <button id="addsupplies" class="btn btn-danger" type="submit" name="additemlists">Add Supply Lists</button>

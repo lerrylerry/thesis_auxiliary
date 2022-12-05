@@ -127,7 +127,9 @@ def minorRepair(request):
     return render(request, 'pages/admin/minorRepair.html')
 
 def vehicle(request):
-    return render(request, 'pages/admin/vehicle.html')
+    vehicles = vehicleDB.objects.all()
+    context = {'vehicles':vehicles}
+    return render(request, 'pages/admin/vehicle.html', context)
 
 def camera(request):
     return render(request, 'pages/admin/camera.html')
@@ -159,6 +161,13 @@ def personnelForm(request):
     return render(request, 'pages/forms/personnel-form.html')
 
 def vehicleForm(request):
-    return render(request, 'pages/forms/vehicle-form.html')
+    if request.method == "POST":
+        form = vehiclesForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = vehiclesForm()
+    context = {'form':form}
+    return render(request, 'pages/forms/vehicle-form.html', context)
 
 '''<----------------------------------------------------------------------->'''

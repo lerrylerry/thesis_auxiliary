@@ -26,10 +26,21 @@
               <th scope="col">NAME</th>
               <th scope="col">FORM</th>
             </tr>
+            <tbody id="vehicleTable">
+              <tr>
+              {% if vehicles %}
+              {% for x in vehicles %}
+              <td>
+                 {{x.req_name}}
+              </td>
+              {% endfor %}
+              {% endif %}
+              </tr>
+            </tbody>  
           </thead>
         </table>
       </div>
-      <button type="button" class="btn btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#vehiclerequestModal">REQUEST VEHICLE</button>
+      <!--<button type="button" class="btn btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#vehiclerequestModal">REQUEST VEHICLE</button>-->
     </div>
 
     <!--VEHICLE REQUEST-->

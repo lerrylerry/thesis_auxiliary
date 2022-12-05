@@ -1,0 +1,38 @@
+   <!--MODAL SIGNUP-->
+   <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+     <div class="modal-content">
+      <div class="modal-header">
+       <h5 class="modal-title" id="exampleModalLabel">Signup Form</h5>
+       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <form method="POST" action="/signup/" novalidate>
+        {% csrf_token %}
+        {% comment %} <div class="row">
+         <div class="col-md-12 mt-2">
+          <label for="" class="form-label">Full Name</label>
+          <input type="text" id="sname" class="form-control" name="name" placeholder="Enter Full Name" required>
+         </div>
+         <div class="col-md-12 mt-2">
+          <label for="" class="form-label">Email</label>
+          <input type="email" id="semail" class="form-control" name="email" placeholder="Enter Email" required>
+         </div>
+         <div class="col-md-12 mt-2">
+          <label for="" class="form-label">Password</label>
+          <input type="password" id="spass" class="form-control" name="password" placeholder="Enter Password" required>
+         </div>
+         <div class="col-md-12 mt-2">
+          <label for="" class="form-label">Retype Password</label>
+          <input type="password" id="srepass" class="form-control" name="re-password" placeholder="Retype Password" required>
+         </div>
+         <div class="col-md-12 mt-4 mb-2" style="text-align: right;">
+          <button id="submits" class="btn btn-danger" type="submit" name="submit">Submit</button>
+         </div>
+        </div> {% endcomment %}
+        {{ form }}
+       </form>
+      </div>
+     </div>
+    </div>
+   </div>

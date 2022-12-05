@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 # from django.http import HttpResponse
 
 from .models import *
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .forms import *
 
 from django.contrib.auth import authenticate, login, logout
@@ -13,9 +12,6 @@ def index(request):
     return render(request, 'pages/homepage/home.html')
 
 def signin(request):
-    # if request.user.is_authenticated:
-    #     return redirect('/admin-homepage')
-     
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -44,27 +40,18 @@ def signin(request):
         return render(request, 'pages/homepage/signin.html')
 
 def signup(request):
- 
-    if request.user.is_authenticated:
-        return redirect('/books')
-     
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
- 
+        form = userForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password1']
-            user = authenticate(username = username,password = password)
-            login(request, user)
-            return redirect('/books')
+            return redirect('/signin')
          
         else:
-            return render(request,'itemsapp/signup.html',{'form':form})
+            return render(request,'pages/homepage/signup.html',{'form':form})
      
     else:
-        form = UserCreationForm()
-        return render(request,'itemsapp/signup.html',{'form':form})
+        form = userForm()
+    return render(request,'pages/homepage/signup.html',{'form':form})
 
 def logout(request):
     logout(request)
@@ -87,10 +74,29 @@ def addItems(request):
     return render(request, 'pages/admin/addItems.html', context)
 
 def addSupplies(request):
+    if request.method == "POST":
+        form = itemsForm(request.POST)
+        if form.is_valid():
+            try:#pag meron na
+                old = request.POST.get('item_name')#sa form nakuha
+                old_qt = request.POST.get('item_quantity')#sa form nakuha
+                check =  itemsDB.objects.get(item_name=old)#kinuha sa db 
+                if old == check.item_name:
+                    new_value = int(old_qt) + check.item_quantity
+                    check.item_quantity = new_value
+                    check.save()
+                    print('working')
+                else:
+                    print('error')
+
+            except:#pag wala pa
+                print('error')
+                form.save()
+            # return redirect('/add-items')
+    else:
+        form = itemsForm()
     items = itemsDB.objects.all()
-    context = {
-        'items':items
-    }
+    context = {'form':form, 'items':items}
     return render(request, 'pages/admin/addSupplies.html',context)
 
 def borrowed(request):

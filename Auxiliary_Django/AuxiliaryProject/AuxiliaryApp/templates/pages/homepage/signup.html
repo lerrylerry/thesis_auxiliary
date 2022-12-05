@@ -1,0 +1,16 @@
+{% extends 'pages/scripts.html' %}
+{% load static %}
+
+{% block title %}
+<title>Register</title>
+{% endblock title %}
+
+{% block content %}
+
+<form method="POST" action="/signup/" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">SUBMIT</button>
+</form>
+
+{% endblock content %}

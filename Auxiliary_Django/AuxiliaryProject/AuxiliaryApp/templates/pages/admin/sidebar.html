@@ -25,7 +25,7 @@
         </div>
         <ul class="sub-menu">
           <li><a class="link_name" href="{% url 'utility-personnel' %}">Janitorial System</a></li>
-          <li><a href="{% url 'add-items' %}">Add Items</a></li>
+          {% comment %} <li><a href="{% url 'add-items' %}">Add Items</a></li> {% endcomment %}
           <li><a href="{% url 'add-supplies' %}">Add Supplies</a></li>
           <li><a href="{% url 'borrowed' %}">Borrowed Items</a></li>
           <li><a href="{% url 'utility-personnel-list' %}">Janitor List</a></li>

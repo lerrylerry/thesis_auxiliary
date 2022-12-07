@@ -87,7 +87,7 @@ DATABASES = {
 'ENGINE': 'django.db.backends.mysql',
 'NAME': 'auxdb',
 'USER': 'root',
-'PASSWORD': '09275585118',
+'PASSWORD': '',
 'HOST': 'localhost',
 'PORT': '3306',
 'OPTIONS': {

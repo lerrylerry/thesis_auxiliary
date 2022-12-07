@@ -127,7 +127,7 @@ class borrowUPForm(forms.ModelForm):
 class vehiclesForm(forms.ModelForm):
     class Meta:
         model = vehicleDB
-        fields = ['req_name', 'passengers','destination', 'purpose','date']
+        fields = ['req_name', 'passengers','destination', 'purpose','date','email']
         widgets = {
             'req_name': forms.TextInput(
                 attrs={
@@ -159,5 +159,11 @@ class vehiclesForm(forms.ModelForm):
                         'type':'date'
                         }
                 ),
-
+            'email': forms.TextInput(
+                    attrs={
+                        'class': 'form-control',
+                        'type':'email',
+                        'placeholder': 'Enter Email'
+                        }
+                ),
         }

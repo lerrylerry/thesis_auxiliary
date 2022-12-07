@@ -77,21 +77,12 @@ def addSupplies(request):
     if request.method == "POST":
         form = itemsForm(request.POST)
         if form.is_valid():
-            try:#pag meron na
-                old = request.POST.get('item_name')#sa form nakuha
-                old_qt = request.POST.get('item_quantity')#sa form nakuha
-                check =  itemsDB.objects.get(item_name=old)#kinuha sa db 
-                if old == check.item_name:
-                    new_value = int(old_qt) + check.item_quantity
-                    check.item_quantity = new_value
-                    check.save()
-                    print('working')
-                else:
-                    print('error')
-
-            except:#pag wala pa
-                print('error')
-                form.save()
+            old = request.POST['units']
+            quantity = int(request.POST['item_quantity'])
+            check = itemsDB.objects.get(id=old)
+            new_val = check.item_quantity + quantity
+            check.item_quantity = new_val
+            check.save()
             # return redirect('/add-items')
     else:
         form = itemsForm()
@@ -127,11 +118,21 @@ def minorRepair(request):
     return render(request, 'pages/admin/minorRepair.html')
 
 def vehicle(request):
+    #vehicles = vehicleDB.objects.get(id=id)
     vehicles = vehicleDB.objects.all()
+    #form = vehicleForm(instance=vehicles)
     context = {'vehicles':vehicles}
     return render(request, 'pages/admin/vehicle.html', context)
 
 def camera(request):
+    return render(request, 'pages/admin/camera.html')
+
+def vehicle_accept(request):
+    #email
+    return render(request, 'pages/admin/camera.html')
+
+def vehicle_decline(request):
+    #modal
     return render(request, 'pages/admin/camera.html')
 
 '''<----------------------------------------------------------------------->'''
@@ -145,8 +146,19 @@ def borrowForm(request):
     if request.method == "POST":
         form = borrowUPForm(request.POST)
         if form.is_valid():
-            #up_name = (request.POST[up_name])
-            form.save()
+
+            up_id = request.POST["name"]
+            #for x in janitorDB
+            print(up_id)
+            borrow = janitorDB.objects.get(id=up_id)
+            print(borrow.up_code)
+            code = request.POST['up_code']
+            print(code)
+            if borrow.up_code == code:
+                print("nice")
+            else:
+                print("errror")
+            #form.save()
     else:
         form = borrowUPForm()
     items = itemsDB.objects.all()

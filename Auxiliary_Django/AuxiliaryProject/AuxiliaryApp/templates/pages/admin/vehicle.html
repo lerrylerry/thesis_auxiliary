@@ -26,26 +26,27 @@
               <th scope="col">NAME</th>
               <th scope="col">FORM</th>
             </tr>
-            <tbody id="vehicleTable">
-              <tr>
-              {% if vehicles %}
-              {% for x in vehicles %}
-              <td>
-                 {{x.req_name}}
-              </td>
-              {% endfor %}
-              {% endif %}
-              </tr>
-            </tbody>  
           </thead>
+          <tbody id="vehicleTable">
+            {% for x in vehicles %}
+            <tr>
+              <td>
+                {{x.req_name}}
+              </td>
+              <td>
+                <a href="request={{x.id}}" data-bs-toggle="modal" data-bs-target="#vehiclerequestModal{{x.id}}">{{x.id}}</a>
+              </td>
+
+              <!--VEHICLE REQUEST-->
+              {% include 'pages/modals/vehicle-modal.html' %}
+              
+            </tr>
+            {% endfor %}
+          </tbody>  
         </table>
       </div>
-      <!--<button type="button" class="btn btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#vehiclerequestModal">REQUEST VEHICLE</button>-->
     </div>
 
-    <!--VEHICLE REQUEST-->
-    {% include 'pages/modals/vehicle-modal.html' %}
-    
   </section>
 </body>
 {% endblock content %}

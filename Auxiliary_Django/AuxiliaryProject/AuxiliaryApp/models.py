@@ -34,7 +34,7 @@ class janitorDB(models.Model):
     ]
 
     up_name = models.CharField(max_length=25,null=True, blank=True)
-    up_code = models.CharField(max_length=4, null=True, blank=True)
+    up_code = models.CharField(max_length=4, null=True, blank=True)#pin
     up_status = models.CharField(max_length=100, choices=UP_STATUS, verbose_name='userType')
 
 class vehicleDB(models.Model):
@@ -43,3 +43,7 @@ class vehicleDB(models.Model):
     destination = models.CharField(max_length=25,null=True, blank=True)
     purpose = models.CharField(max_length=25,null=True, blank=True)
     date = models.DateField(max_length=10)
+    email = models.EmailField(max_length=300, default=None)
+
+class borrowDB(models.Model):
+    janitor_id = models.ForeignKey(janitorDB, on_delete=models.RESTRICT)

@@ -20,7 +20,7 @@
                             <select class="form-select" name="name" id="">
                                 <option value="">Choose a Janitor</option>
                                 {% for x in up %}
-                                <option value="x.id">
+                                <option value={{x.id}}>
                                   {{x.up_name}}
                                 </option>
                                 {% endfor %}  

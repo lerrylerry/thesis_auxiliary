@@ -6,6 +6,9 @@ from .forms import *
 
 from django.contrib.auth import authenticate, login, logout
 
+from django.core.mail import send_mail
+from django.conf import settings
+
 '''<-----------------------------HOMEPAGE---------------------------------->'''
 
 def index(request):
@@ -127,13 +130,21 @@ def vehicle(request):
 def camera(request):
     return render(request, 'pages/admin/camera.html')
 
-def vehicle_accept(request):
-    #email
-    return render(request, 'pages/admin/camera.html')
+def vehicle_accept(request, id):
+    query = vehicleDB.objects.get(id=id)
+    receiver = query.email
+
+    send_mail(
+        subject='Accepted Successfully',
+        message="Thank You"+"! \nThis email was used to ... for TUPC Auxiliary System.",
+        from_email='Developers '+settings.EMAIL_HOST_USER,
+        recipient_list=[receiver],
+        fail_silently=False
+    )
+    return render(request, 'pages/admin/vehicle.html')
 
 def vehicle_decline(request):
-    #modal
-    return render(request, 'pages/admin/camera.html')
+    return render(request, 'pages/admin/vehicle.html')
 
 '''<----------------------------------------------------------------------->'''
 

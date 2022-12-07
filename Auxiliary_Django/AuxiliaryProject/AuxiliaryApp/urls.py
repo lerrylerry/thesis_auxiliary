@@ -19,8 +19,8 @@ urlpatterns = [
     path('vehicle/', views.vehicle, name='vehicle'),
     path('camera/', views.camera, name='camera'),
 
-    path('vehicle_accept/', views.vehicle_accept, name='vehicle_accept'),
-    path('vehicle_decline/', views.vehicle_decline, name='vehicle_decline'),
+    path('vehicle/<int:id>', views.vehicle_accept, name='vehicle_accept'),
+    path('vehicle/', views.vehicle_decline, name='vehicle_decline'),
 
 
     path('admin-form/', views.adminForm, name='admin-form'),

@@ -6,25 +6,26 @@
         <a type="a" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
       </div>
       <div class="modal-body">
-        <form action="#">
+        <form method="POST">
+          {% csrf_token %}
           <div class="row">
             <div class="col-md-12 mt-2">
               {% comment %} {% for x in vehicles %} {% endcomment %}
               <div class="row">
                   <label>NO OF PASSENGERS</label>
-                  <input type="text" value={{x.passengers}} class="form-control" disabled>
+                  <input type="text" value="{{x.passengers}}" class="form-control" disabled>
               </div>
               <div class="row">
                   <label>DESTINATION</label>
-                  <input type="text" value={{x.destination}} class="form-control" disabled>
+                  <input type="text" value="{{x.destination}}" class="form-control" disabled>
               </div>
               <div class="row">
                   <label>PURPOSE</label>
-                  <input type="text" value={{x.purpose}} class="form-control" disabled>
+                  <input type="text" value="{{x.purpose}}" class="form-control" disabled>
               </div>
               <div class="row">
                   <label>DATE/S</label>
-                  <input type="text" value={{x.date}} class="form-control" disabled>
+                  <input type="text" value="{{x.date}}" class="form-control" disabled>
               </div>
               <div class="row">
                   <label>REQUEST MADE BY</label>
@@ -32,16 +33,47 @@
               </div>
               <div class="row">
                 <label>EMAIL</label>
-                <input type="email" value="{{x.email}}" class="form-control" disabled>
+                <input type="email" name="email" value="{{x.email}}" class="form-control" disabled>
             </div>
             </div>
             {% comment %} {% endfor %} {% endcomment %}
             <div class="col-md-12 mt-2 d-flex justify-content-around">
-              <a href="/vehicle_accept/" class="btn btn-success">ACCEPT</a>
-              <a href="/vehicle_decline/" class="btn btn-danger">DECLINE</a>
+              <a href="/vehicle/{{x.id}}" class="btn btn-success">ACCEPT</a>
+              <button type="button" data-bs-toggle="modal" data-bs-target="#sec">DECLINE</button>
             </div>
           </div>
         </form>
       </div>
     </div>
   </div>
+
+  
+  <div class="modal" id="sec">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">VEHICLE REQUEST</h5>
+        <a type="a" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+      </div>
+      <div class="modal-body">
+        <form method="POST">
+            {% csrf_token %}
+          <div class="row">
+            <div class="col-md-12 mt-2">
+              <div class="row">
+                  <label>REMARKS</label>
+                  <input type="text" class="form-control">
+              </div>
+            </div>
+            <div class="col-md-12 mt-2 d-flex justify-content-around">
+              <a href="/vehicle_accept/{{x.id}}" class="btn btn-success">SEND</a>
+              <a href="/vehicle_decline/" class="btn btn-danger">CANCEL</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!--REMARKS-->
+  {% comment %} {% include 'pages/modals/remark-modal.html' %} {% endcomment %}

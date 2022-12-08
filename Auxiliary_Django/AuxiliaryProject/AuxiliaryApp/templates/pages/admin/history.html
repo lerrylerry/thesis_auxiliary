@@ -28,10 +28,12 @@
               <th scope="col">SERVICE</th>
               <th scope="col">FORM</th>
               <th scope="col">DATE</th>
+              <th scope="col">STATUS</th>
               {% elif user.userType == 'ASSISTANT_DIRECTOR' %}
               <th scope="col">NAME</th>
               <th scope="col">FORM</th>
               <th scope="col">DATE</th>
+              <th scope="col">STATUS</th>
               {% endif %}
             </tr>
           </thead>
@@ -44,6 +46,7 @@
               <td>{{x.service}}</td>
               <td><a href="history={{x.his_form}}" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#historyModal{{x.id}}">{{x.his_form}}</a></td>
               <td>{{x.his_date}}</td>
+              <td>{{x.his_status}}</td>
               {% include 'pages/modals/history-modal.html' %}
             </tr>
           </tbody>
@@ -56,6 +59,7 @@
               <td>{{x.his_name}}</td>
               <td><a href="history={{x.his_form}}" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#historyModal{{x.id}}">{{x.his_form}}</a></td>
               <td>{{x.his_date}}</td>
+              <td>{{x.his_status}}</td>
               {% include 'pages/modals/history-modal.html' %}
             </tr>
           </tbody>
@@ -63,7 +67,7 @@
           {% endif %}
         </table>
       </div>
-      <button type="button" class="btn btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#vehiclerequestModal">link of form</button>
+      <!-- <button type="button" class="btn btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#vehiclerequestModal">link of form</button> -->
     </div>
 
     <!--HISTORY MODAL-->

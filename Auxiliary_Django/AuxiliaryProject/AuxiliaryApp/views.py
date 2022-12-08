@@ -142,7 +142,7 @@ def minorRepair(request):
 def vehicle(request):
     if request.user.userType == 'ASSISTANT_DIRECTOR':
         #vehicles = vehicleDB.objects.get(id=id)
-        vehicles = vehicleDB.objects.all()
+        vehicles = vehicleDB.objects.filter(status = 'PENDING')
         #form = vehicleForm(instance=vehicles)
         context = {'vehicles':vehicles}
         return render(request, 'pages/admin/vehicle.html', context)
@@ -156,9 +156,10 @@ def camera(request):
 def vehicle_accept(request, id):
     query = vehicleDB.objects.get(id=id)
     receiver = query.email
-    
+    query.status = "ACCEPTED"
+    query.save()
     #createhistory
-    his = historyDB.objects.create(his_name = query.req_name, service = 'VEHICLE', his_form = query.id)
+    his = historyDB.objects.create(his_name = query.req_name, service = 'VEHICLE', his_form = query.id, his_status=query.status)
     his.save()
 
     send_mail(
@@ -170,8 +171,13 @@ def vehicle_accept(request, id):
     )
     return redirect('vehicle')
 
-def vehicle_decline(request):
-    return redirect('history')
+def vehicle_decline(request, id):
+    query = vehicleDB.objects.get(id=id)
+    query.status = "REJECTED"
+    query.save()
+    his = historyDB.objects.create(his_name = query.req_name, service = 'VEHICLE', his_form = query.id, his_status=query.status)
+    his.save()
+    return redirect('vehicle')
 
 '''<----------------------------------------------------------------------->'''
 

@@ -43,6 +43,7 @@ class vehicleDB(models.Model):
     purpose = models.CharField(max_length=25,null=True, blank=True)
     date = models.DateField(max_length=10)
     email = models.EmailField(max_length=300, default=None)
+    status = models.CharField(max_length=100, verbose_name='status', default='PENDING')
 
 class borrowDB(models.Model):
     janitor_id = models.ForeignKey(janitorDB, on_delete=models.RESTRICT)
@@ -52,3 +53,4 @@ class historyDB(models.Model):
     service = models.CharField(max_length=50,null=True, blank=True)
     his_form = models.CharField(max_length=50,null=True, blank=True)
     his_date = models.DateTimeField(auto_now_add=True)
+    his_status = models.CharField(max_length=50,null=True, blank=True)

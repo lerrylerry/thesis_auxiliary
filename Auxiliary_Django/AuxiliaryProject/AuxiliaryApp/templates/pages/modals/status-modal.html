@@ -1,0 +1,36 @@
+<div class="modal fade" id="statusModal{{x.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">STATUS UPDATE</h5>
+        <a type="a" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+      </div>
+      <div class="modal-body">
+        <form method="POST">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-12 mt-2">
+                {% comment %} {% for x in vehicles %} {% endcomment %}
+              <div class="row">
+                  <label>NAME</label>
+                  <input type="text" value="{{x.up_name}}" class="form-control" disabled>
+              </div>
+              <div class="row">
+                  <label>PINCODE</label>
+                  <input type="text" value="{{x.up_code}}" class="form-control" disabled>
+              </div>
+              <div class="row">
+                  <label>STATUS</label>
+                  <input type="text" value="{{x.up_status}}" class="form-control" disabled>
+              </div>
+            </div>
+            <div class="col-md-12 mt-2 d-flex justify-content-around">
+                <a href="/utility-personnel-list/{{x.id}}">Change Status</a>
+                <!-- <a href="/utility-personnel-list/{{x.id}}">INACTIVE</a> -->
+            </div>
+            {% comment %} {% endfor %} {% endcomment %}
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

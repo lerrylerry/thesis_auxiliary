@@ -7,7 +7,7 @@
 
 {% block content %}
 <body>
-  {% include 'pages/admin/sidebar.html' %} 
+  {% include 'pages/sidebar.html' %} 
     <!-- TABLE HISTORY -->
     <div class="mt-5">
       <div class="row">
@@ -22,13 +22,45 @@
       <div class="tableData overflow-auto">
         <table class="table mt-4 table-hover" id="myTable">
           <thead class="table-dark">
-            <tr>
+            <tr> 
+              {% if user.userType == 'ADMIN' %}
               <th scope="col">NAME</th>
               <th scope="col">SERVICE</th>
               <th scope="col">FORM</th>
               <th scope="col">DATE</th>
+              {% elif user.userType == 'ASSISTANT_DIRECTOR' %}
+              <th scope="col">NAME</th>
+              <th scope="col">FORM</th>
+              <th scope="col">DATE</th>
+              {% endif %}
             </tr>
           </thead>
+          
+          {% if user.userType == 'ADMIN' %}
+          {% for x in his %}
+          <tbody>
+            <tr>
+              <td>{{x.his_name}}</td>
+              <td>{{x.service}}</td>
+              <td><a href="history={{x.his_form}}" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#historyModal{{x.id}}">{{x.his_form}}</a></td>
+              <td>{{x.his_date}}</td>
+              {% include 'pages/modals/history-modal.html' %}
+            </tr>
+          </tbody>
+          {% endfor %}
+          
+          {% elif user.userType == 'ASSISTANT_DIRECTOR' %}
+          {% for x in vehi_his %}
+          <tbody>
+            <tr>
+              <td>{{x.his_name}}</td>
+              <td><a href="history={{x.his_form}}" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#historyModal{{x.id}}">{{x.his_form}}</a></td>
+              <td>{{x.his_date}}</td>
+              {% include 'pages/modals/history-modal.html' %}
+            </tr>
+          </tbody>
+          {% endfor %}
+          {% endif %}
         </table>
       </div>
       <button type="button" class="btn btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#vehiclerequestModal">link of form</button>

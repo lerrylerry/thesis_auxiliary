@@ -61,7 +61,7 @@ class itemsForm(forms.ModelForm):
         model= itemsDB
         fields = ['item_name','item_unit','item_quantity']
         widgets = {
-            'item_name': forms.Select(
+            'item_name': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'Ex: Round Rags'
@@ -84,7 +84,7 @@ class itemsForm(forms.ModelForm):
 class janitorForm(forms.ModelForm):
     class Meta:
         model = janitorDB
-        fields = ['up_name','up_code','up_status']
+        fields = ['up_name','up_code']
         widgets = {
             'up_name': forms.TextInput(
                 attrs={
@@ -98,11 +98,11 @@ class janitorForm(forms.ModelForm):
                     'placeholder': 'Ex: 4325'
                     }
             ), 
-            'up_status': forms.Select(
-                attrs={
-                    'class': 'form-control',
-                    }
-            ), 
+            # 'up_status': forms.Select(
+            #     attrs={
+            #         'class': 'form-control',
+            #         }
+            # ), 
          }
 class borrowUPForm(forms.ModelForm):
     up_code = forms.CharField(

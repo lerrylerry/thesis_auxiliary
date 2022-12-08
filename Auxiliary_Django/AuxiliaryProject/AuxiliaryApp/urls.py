@@ -7,7 +7,9 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('signin/', views.signin, name='signin'),
     path('signup/', views.signup, name='signup'),
+    path('logout/', views.logoutUser, name='logoutUser'),
 
+    path('utility-personnel-list/<int:id>', views.status, name='status'),
     path('add-items/', views.addItems, name='add-items'),
     path('add-supplies/', views.addSupplies, name='add-supplies'),
     path('borrowed/', views.borrowed, name='borrowed'),

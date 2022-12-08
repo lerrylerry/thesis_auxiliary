@@ -5,7 +5,7 @@ from .models import *
 from .forms import *
 
 from django.contrib.auth import authenticate, login, logout
-
+from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.conf import settings
 
@@ -18,15 +18,11 @@ def signin(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        userType = request.POST['userType']
-        user = authenticate(request, username=username, password=password, userType=userType)
+        user = authenticate(request, username=username, password=password)
 
         if user is not None and user.userType == 'ADMIN':
             login(request, user)
             return redirect('admin-homepage')
-        elif user is not None and user.userType == 'UTILITY_PERSONNEL':
-            login(request, user)
-            return redirect('utility-personnel')
         elif user is not None and user.userType == 'REPAIR_MAN':
             print('repair-man')
             login(request, user)
@@ -34,7 +30,7 @@ def signin(request):
         elif user is not None and user.userType == 'ASSISTANT_DIRECTOR':
             print('asst-direc')
             login(request, user)
-            return redirect('/')
+            return redirect('vehicle')
         else:
             print('Account not found or Empty or Invalid')
             return render(request, 'pages/homepage/home.html')
@@ -49,32 +45,48 @@ def signup(request):
             form.save()
             return redirect('/signin')
          
-        else:
+        else: 
             return render(request,'pages/homepage/signup.html',{'form':form})
      
     else:
         form = userForm()
     return render(request,'pages/homepage/signup.html',{'form':form})
 
-def logout(request):
+def logoutUser(request):
     logout(request)
-    return redirect('index')
+    return redirect('signin')
 
 '''<----------------------------------------------------------------------->'''
 
 '''<-----------------------------ADMINPAGE--------------------------------->'''
-
-def addItems(request):
-    if request.method == "POST":
-        form = itemsForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/add-items')
+def status(request, id):
+    stats= janitorDB.objects.get(id=id)
+    if stats.up_status == 'ACTIVE':
+        stats.up_status = 'INACTIVE'
+        stats.save()
     else:
-        form = itemsForm()
-    items = itemsDB.objects.all()
-    context = {'form':form, 'items':items}
-    return render(request, 'pages/admin/addItems.html', context)
+        stats.up_status = 'ACTIVE'
+        stats.save()
+    return redirect('utility-personnel-list')
+    # up = janitorDB.objects.all()
+    # context = {'up':up}
+    # return render(request, 'pages/admin/utilityPersonnelList.html', context)
+
+@login_required(login_url='index')
+def addItems(request):
+    if request.user.userType == 'ADMIN':
+        if request.method == "POST":
+            form = itemsForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('/add-items')
+        else:
+            form = itemsForm()
+        items = itemsDB.objects.all()
+        context = {'form':form, 'items':items}
+        return render(request, 'pages/admin/addItems.html', context)
+    else:
+        return redirect('index')
 
 def addSupplies(request):
     if request.method == "POST":
@@ -97,7 +109,13 @@ def borrowed(request):
     return render(request, 'pages/admin/borrowed.html')
 
 def history(request):
-    return render(request, 'pages/admin/history.html')
+    vehi_his = historyDB.objects.filter(service = 'VEHICLE')
+    his = historyDB.objects.all()
+    context ={
+        'his':his,
+        'vehi_his':vehi_his
+        }
+    return render(request, 'pages/admin/history.html',context)
 
 def adminHomepage(request):
     return render(request, 'pages/admin/homepage.html')
@@ -113,19 +131,24 @@ def utilityPersonnelList(request):
             return redirect('/utility-personnel-list')
     else:
         form = janitorForm()
-    up = janitorDB.objects.exclude(up_status = 'INACTIVE')
+    up = janitorDB.objects.all()
     context = {'form':form, 'up':up}
     return render(request, 'pages/admin/utilityPersonnelList.html', context)
 
 def minorRepair(request):
     return render(request, 'pages/admin/minorRepair.html')
 
+@login_required(login_url='index')
 def vehicle(request):
-    #vehicles = vehicleDB.objects.get(id=id)
-    vehicles = vehicleDB.objects.all()
-    #form = vehicleForm(instance=vehicles)
-    context = {'vehicles':vehicles}
-    return render(request, 'pages/admin/vehicle.html', context)
+    if request.user.userType == 'ASSISTANT_DIRECTOR':
+        #vehicles = vehicleDB.objects.get(id=id)
+        vehicles = vehicleDB.objects.all()
+        #form = vehicleForm(instance=vehicles)
+        context = {'vehicles':vehicles}
+        return render(request, 'pages/admin/vehicle.html', context)
+    else:
+        return redirect('index')
+
 
 def camera(request):
     return render(request, 'pages/admin/camera.html')
@@ -133,6 +156,10 @@ def camera(request):
 def vehicle_accept(request, id):
     query = vehicleDB.objects.get(id=id)
     receiver = query.email
+    
+    #createhistory
+    his = historyDB.objects.create(his_name = query.req_name, service = 'VEHICLE', his_form = query.id)
+    his.save()
 
     send_mail(
         subject='Accepted Successfully',
@@ -141,10 +168,10 @@ def vehicle_accept(request, id):
         recipient_list=[receiver],
         fail_silently=False
     )
-    return render(request, 'pages/admin/vehicle.html')
+    return redirect('vehicle')
 
 def vehicle_decline(request):
-    return render(request, 'pages/admin/vehicle.html')
+    return redirect('history')
 
 '''<----------------------------------------------------------------------->'''
 

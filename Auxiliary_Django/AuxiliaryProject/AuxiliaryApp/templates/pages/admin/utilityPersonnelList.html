@@ -7,12 +7,12 @@
 
 {% block content %}
 <body>
-  {% include 'pages/admin/sidebar.html' %} 
+  {% include 'pages/sidebar.html' %} 
     <!-- JANITOR'S LIST -->
     <div class="mt-5">
       <div class="row">
         <div class="col-lg-7">
-          <h4 class="mt-1 mb-1">JANITOR'S LIST</h4>
+          <h4 class="mt-1 mb-1">UTILITY PERSONNEL LIST</h4>
         </div>
         <div class="col-lg-5" style="display: inline-flex;">
           <input type="text" class="form-control" id="searchNames" onkeyup="search(0)" placeholder="Search items...">
@@ -33,8 +33,9 @@
               {% if up %}
               {% for x in up %}
               <td>
-                 {{x.up_name}}
-              </td>
+                <a href="person={{x.id}}" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#statusModal{{x.id}}">{{x.up_name}}</a>
+              </td> 
+              {% include 'pages/modals/status-modal.html' %}
               <td>{{x.up_code}}</td>
               <td>
                   {{x.up_status}}

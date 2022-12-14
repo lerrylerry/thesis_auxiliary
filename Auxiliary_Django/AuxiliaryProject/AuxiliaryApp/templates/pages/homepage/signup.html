@@ -7,10 +7,21 @@
 
 {% block content %}
 
-<form method="POST" action="/signup/" novalidate>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">SUBMIT</button>
-</form>
+<body class="bg-image">
+    <div class="logIn">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="card-title">SIGN UP</h1>
+          <form method="POST" action="/signup/" novalidate>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">SUBMIT</button>
+        </form>
+    </div>
+</div>
+</div>    
+
+</body>
+
 
 {% endblock content %}

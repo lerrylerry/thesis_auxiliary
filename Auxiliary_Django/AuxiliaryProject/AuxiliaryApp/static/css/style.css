@@ -20,6 +20,15 @@ body{
       -ms-flex-align: center;
           align-items: center;
 }
+.image{
+  background-image: url("/static/media/home.png");
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -moz-background-size: cover ;
+  background-size: cover;
+  background-position: center;
+}
 
 .bg-image{
   background-image: url("/static/media/background.png");

@@ -6,12 +6,13 @@
      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
-     <form method="POST">
+     <form method="POST" action="{% url 'add-supplies' %}">
       {% csrf_token %}
       <div class="row">
        <div class="col-md-12 mt-2">
         <label for="" class="form-label">Supply Name</label>
         <select id="unit" type="text" list="value" class="form-control" name="units" placeholder="Enter Unit" required>
+          {% comment %} <option>Items</option> {% endcomment %}
           {% for x in items %}
           <option value={{x.id}}>
             {{x.item_name}}

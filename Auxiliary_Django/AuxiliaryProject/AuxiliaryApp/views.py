@@ -98,12 +98,12 @@ def addSupplies(request):
             new_val = check.item_quantity + quantity
             check.item_quantity = new_val
             check.save()
-            # return redirect('/add-items')
+            return redirect('/add-items')
     else:
         form = itemsForm()
     items = itemsDB.objects.all()
     context = {'form':form, 'items':items}
-    return render(request, 'pages/admin/addSupplies.html',context)
+    return render(request, 'pages/admin/addItems.html',context)
 
 def borrowed(request):
     return render(request, 'pages/admin/borrowed.html')

@@ -41,7 +41,8 @@ def signin(request):
 
 def signup(request):
     if request.method == 'POST':
-        if CustomUser.objects.filter(userType="ADMIN").exists():
+        if CustomUser.objects.filter(userType = 'ADMIN').exists():
+
             form = userForm(request.POST, no_admin=True)
         else:
             form = userForm(request.POST, no_admin=False)
@@ -50,9 +51,9 @@ def signup(request):
                 return redirect('/signin')
             else: 
                 return render(request,'pages/homepage/signup.html',{'form':form})
-
     else:
-        if CustomUser.objects.filter(userType="ADMIN").exists():
+        if CustomUser.objects.filter(userType = 'ADMIN').exists():
+
             form = userForm(no_admin=True)
         else:
             form = userForm(no_admin=False)
@@ -112,17 +113,15 @@ def addSupplies(request):
     return render(request, 'pages/admin/addItems.html',context)
 
 def borrowed(request):
-    items = itemsDB.objects.all()
     requests = borrowDB.objects.prefetch_related('utility_personnel').filter(status='PENDING')
     context = {
-        'requests':requests,
-        'items':items
+        'requests':requests
     }
     return render(request, 'pages/admin/borrowed.html', context)
 
 def history(request):
     vehi_his = historyDB.objects.filter(service = 'VEHICLE')
-    his = historyDB.objects.exclude(service = "VEHICLE")
+    his = historyDB.objects.all()
     context ={
         'his':his,
         'vehi_his':vehi_his

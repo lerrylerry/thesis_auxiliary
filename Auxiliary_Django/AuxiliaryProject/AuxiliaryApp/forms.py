@@ -9,7 +9,6 @@ USERTYPE = [
     ]
 
 class userForm(UserCreationForm):
-
     password1 = forms.CharField(
         max_length=30, widget=forms.PasswordInput(
             attrs={
@@ -62,13 +61,11 @@ class userForm(UserCreationForm):
             ), 
             
          }
-
-    def __init__(self, *args, **kwargs):
-        no_admin = kwargs.pop('no_admin', False)
-        super(userForm, self).__init__(*args, **kwargs)
+    def __init__(self,*args,**kwargs):
+        no_admin=kwargs.pop('no_admin',False)
+        super(userForm,self).__init__(*args,**kwargs)
         if no_admin:
-            self.fields['userType'].choices = USERTYPE[1:]
-        
+            self.fields['userType'].choices=USERTYPE[1:]
 
 class itemsForm(forms.ModelForm):
     class Meta:

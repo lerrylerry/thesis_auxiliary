@@ -6,11 +6,9 @@
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form method="POST">
-        {% csrf_token %}
+      <form action="#">
         <div class="row">
             <div class="col-md-12 mt-2">
-              
                 <label for="name">Name</label><br>
                 <select class="form-select" name="name" id="" disabled>
                     <option value="1">Personnel 1</option>
@@ -25,7 +23,7 @@
             </div>
         </div>
         <div class="row">
-          <!-- <label for="" class="form-label">Unit</label>
+          <label for="" class="form-label">Unit</label>
           <select id="unit" type="text" list="value" class="form-control" name="units" placeholder="Enter Unit" required>
           <option>Select...</option>
           <option>option 1</option>
@@ -33,7 +31,7 @@
           <option>option 3</option>
           <option> option 4 </option>
           <option> option 5 </option>
-          </select> -->
+          </select>
           <table class="table text-center">
             <thead>
               <tr>
@@ -43,16 +41,22 @@
               </tr>
             </thead>
             <tbody>
-              {% for x in requests %}
               <tr>
-                <td>
-                  {{x.item_req}}
-               </td>
-               <!-- <td>{{x.item_quantity}} {{x.item_unit}}</td>    -->
-                          
+                <td>Hand Soap</td>
+                <td>100<span class="text-danger">(-50)</span></td>
+                <td><input class="form-control" type="number" name="pin" id="" value="50" disabled></td>
+              </tr>
+              <tr>
+                <td>Toilet Paper</td>
+                <td>100<span class="text-danger">(-50)</span></td>
+                <td><input class="form-control" type="number" name="pin" id="" value="50" disabled></td>
+              </tr>
+              <tr>
+                <td>Round Rags</td>
+                <td>100<span class="text-danger">(-50)</span></td>
+                <td><input class="form-control" type="number" name="pin" id="" value="50" disabled></td>
               </tr>
             </tbody>
-            {% endfor %}
           </table>
           <div class="col-md-12 mt-4 mb-2 d-flex justify-content-around">
                 <button class="btn btn-success">ACCEPT</button>

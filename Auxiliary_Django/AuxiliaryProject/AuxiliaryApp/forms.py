@@ -66,6 +66,7 @@ class userForm(UserCreationForm):
         super(userForm,self).__init__(*args,**kwargs)
         if no_admin:
             self.fields['userType'].choices=USERTYPE[1:]
+        
 
 class itemsForm(forms.ModelForm):
     class Meta:

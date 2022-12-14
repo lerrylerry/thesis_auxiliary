@@ -20,16 +20,30 @@
       <div class="iocn-link">
         <a>
           <i class='bx bx-note nav_icon'></i>
-          <span class="link_name">Utility</span>
+          <span class="link_name">Inventory</span>
         </a>
         <i class='bx bxs-chevron-down arrow' ></i>
       </div>
       <ul class="sub-menu">
-        <li><a class="link_name" >Utility</a></li>
+        <li><a class="link_name" >Inventory</a></li>
         <li><a href="{% url 'add-items' %}">Add Items</a></li>
-        {% comment %} <li><a href="{% url 'add-supplies' %}">Add Supplies</a></li> {% endcomment %}
-        <li><a href="{% url 'borrowed' %}">Borrowed Items</a></li>
+        <li><a href="{% url 'borrowed' %}">Request Items</a></li>
+        
+      </ul>
+    </li>
+    <li>
+      <div class="iocn-link">
+        <a>
+          <i class='bx bx-user nav_icon'></i>
+          <span class="link_name">Personnels</span>
+        </a>
+        <i class='bx bxs-chevron-down arrow' ></i>
+      </div>
+      <ul class="sub-menu">
+        <li><a class="link_name" >Personnels</a></li>
         <li><a href="{% url 'utility-personnel-list' %}">Utility Personnel List</a></li>
+        <li><a href="{% url 'utility-personnel-list' %}">Maintenace Personnel List</a></li>
+
       </ul>
     </li>
     <li>
@@ -41,15 +55,6 @@
         <li><a class="link_name" href="{% url 'minor-repair' %}">Minor Repair</a></li>
       </ul>
     </li>
-    <!-- <li>
-      <a href="{% url 'vehicle' %}">
-        <i class='bx bx-cart-alt'></i>
-        <span class="link_name">Vehicle Reservation</span>
-      </a>
-      <ul class="sub-menu blank">
-        <li><a class="link_name" href="{% url 'vehicle' %}">Vehicle Reservation</a></li>
-      </ul>
-    </li> -->
     <li>
       <a href="{% url 'history' %}">
         <i class='bx bx-history'></i>

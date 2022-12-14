@@ -24,7 +24,7 @@
           <thead class="table-dark">
             <tr>
               <th scope="col">ITEM NAME</th>
-              <th scope="col">UNIT</th>
+              {% comment %} <th scope="col">UNIT</th> {% endcomment %}
               <th scope="col">QUANTITY</th>
               
             </tr>
@@ -36,10 +36,8 @@
             <td>
                {{x.item_name}}
             </td>
-            <td>{{x.item_unit}}</td>
-            <td>
-                {{x.item_quantity}}
-            </td>
+            <td>{{x.item_quantity}} {{x.item_unit}}</td>
+            
           </tr>
             {% endfor %}
             {% endif %}

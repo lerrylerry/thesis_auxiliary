@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.conf import settings
+from django.contrib import messages
 
 '''<-----------------------------HOMEPAGE---------------------------------->'''
 
@@ -106,11 +107,17 @@ def addSupplies(request):
     return render(request, 'pages/admin/addItems.html',context)
 
 def borrowed(request):
-    return render(request, 'pages/admin/borrowed.html')
+    items = itemsDB.objects.all()
+    requests = borrowDB.objects.prefetch_related('utility_personnel').filter(status='PENDING')
+    context = {
+        'requests':requests,
+        'items':items
+    }
+    return render(request, 'pages/admin/borrowed.html', context)
 
 def history(request):
     vehi_his = historyDB.objects.filter(service = 'VEHICLE')
-    his = historyDB.objects.all()
+    his = historyDB.objects.exclude(service = "VEHICLE")
     context ={
         'his':his,
         'vehi_his':vehi_his
@@ -190,7 +197,6 @@ def borrowForm(request):
     if request.method == "POST":
         form = borrowUPForm(request.POST)
         if form.is_valid():
-
             up_id = request.POST["name"]
             #for x in janitorDB
             print(up_id)
@@ -200,9 +206,23 @@ def borrowForm(request):
             print(code)
             if borrow.up_code == code:
                 print("nice")
+                items = itemsDB.objects.all()
+                dict = {}
+                for x in range(len(items)):
+                    name = items[x].item_name
+                    quantity = request.POST.get(name)
+                    print('working')
+                    if quantity != '0' and quantity != '':
+                        dict[name] = quantity
+                if len(dict) != 0:
+                    save = borrowDB.objects.create(utility_personnel_id=up_id,items_req=dict)
+                    messages.success(request, 'SUCCESS: Request Sent')
+                else:
+                    messages.error(request, 'ERROR: No Quantity')
+                print(dict)
             else:
                 print("errror")
-            #form.save()
+                messages.error(request, "ERROR: Wrong PIN")
     else:
         form = borrowUPForm()
     items = itemsDB.objects.all()

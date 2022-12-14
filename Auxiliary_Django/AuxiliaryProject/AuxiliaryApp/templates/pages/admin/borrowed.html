@@ -27,11 +27,25 @@
               <th scope="col">FORM</th>
             </tr>
           </thead>
+          <tbody>
+            {% if requests %}
+            {% for x in requests %}
+            <tr>
+              <td><a href=" " data-bs-toggle="modal" data-bs-target="#borrowModal">{{ x.utility_personnel.up_name }}</a></td>
+              <td>{{ x.status }}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+              <tr>
+                <td colspan="2">No Requests</td>
+              </tr>
+            {% endif %}
+          </tbody>
         </table>
       </div>
     </div>
     <!--BORROWED MODAL-->
-    {% include 'pages/modals/vehicle-modal.html' %}
+    {% include 'pages/modals/borrowed-modal.html' %}
     
   </section>
 </body>

@@ -14,6 +14,7 @@ class CustomUser(AbstractUser):
 
     userType = models.CharField(max_length=100, choices=USERTYPE, verbose_name='userType')
 
+
 class itemsDB(models.Model):
     # ITEMS = [
     #     ('Round Rags' , 'Round Rags'),

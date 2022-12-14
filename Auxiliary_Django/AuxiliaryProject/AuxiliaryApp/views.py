@@ -41,16 +41,21 @@ def signin(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = userForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/signin')
-         
-        else: 
-            return render(request,'pages/homepage/signup.html',{'form':form})
-     
+        if CustomUser.objects.filter(userType="ADMIN").exists():
+            form = userForm(request.POST, no_admin=True)
+        else:
+            form = userForm(request.POST, no_admin=False)
+            if form.is_valid():
+                form.save()
+                return redirect('/signin')
+            else: 
+                return render(request,'pages/homepage/signup.html',{'form':form})
+
     else:
-        form = userForm()
+        if CustomUser.objects.filter(userType="ADMIN").exists():
+            form = userForm(no_admin=True)
+        else:
+            form = userForm(no_admin=False)
     return render(request,'pages/homepage/signup.html',{'form':form})
 
 def logoutUser(request):

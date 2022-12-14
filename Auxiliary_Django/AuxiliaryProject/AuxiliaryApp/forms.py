@@ -2,7 +2,14 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
 
+USERTYPE = [
+        ('ADMIN','ADMIN'),
+        ('RERAIR_MAN','REPAIR_MAN'),
+        ('ASSISTANT_DIRECTOR','ASSISTANT_DIRECTOR'),
+    ]
+
 class userForm(UserCreationForm):
+
     password1 = forms.CharField(
         max_length=30, widget=forms.PasswordInput(
             attrs={
@@ -55,6 +62,13 @@ class userForm(UserCreationForm):
             ), 
             
          }
+
+    def __init__(self, *args, **kwargs):
+        no_admin = kwargs.pop('no_admin', False)
+        super(userForm, self).__init__(*args, **kwargs)
+        if no_admin:
+            self.fields['userType'].choices = USERTYPE[1:]
+        
 
 class itemsForm(forms.ModelForm):
     class Meta:

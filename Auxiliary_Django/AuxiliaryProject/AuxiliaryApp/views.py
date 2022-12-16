@@ -24,40 +24,59 @@ def signin(request):
         if user is not None and user.userType == 'ADMIN':
             login(request, user)
             return redirect('admin-homepage')
-        elif user is not None and user.userType == 'REPAIR_MAN':
-            print('repair-man')
-            login(request, user)
-            return redirect('/')
         elif user is not None and user.userType == 'ASSISTANT_DIRECTOR':
             print('asst-direc')
             login(request, user)
             return redirect('vehicle')
         else:
-            print('Account not found or Empty or Invalid')
+            print('Account not found or invalid')
             return render(request, 'pages/homepage/home.html')
      
     else:
-        return render(request, 'pages/homepage/signin.html')
+        x = 0
+        if CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() < 2:
+            print("no match")
+            return render(request, 'pages/homepage/signin.html', {'x':x})
+        print("match")
+        return render(request, 'pages/homepage/signin.html', {'x':x+1})
 
 def signup(request):
     if request.method == 'POST':
-        if CustomUser.objects.filter(userType = 'ADMIN').exists():
-
-            form = userForm(request.POST, no_admin=True)
+        if CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 2:
+            form = userForm(request.POST ,no_delete=True)
+            print("no_delete")
+        elif CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 1:
+            if CustomUser.objects.filter(userType = 'ADMIN').exists():
+                form = userForm(request.POST, no_admin=True)
+                print("no_admin")
+            elif CustomUser.objects.filter(userType = 'ASSISTANT_DIRECTOR').exists():
+                form = userForm(request.POST, no_asst=True)
+                print("no_asst")
         else:
-            form = userForm(request.POST, no_admin=False)
-            if form.is_valid():
-                form.save()
-                return redirect('/signin')
-            else: 
-                return render(request,'pages/homepage/signup.html',{'form':form})
+            form = userForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('/signin')
+        else: 
+            return render(request,'pages/homepage/signup.html',{'form':form})
+                
     else:
-        if CustomUser.objects.filter(userType = 'ADMIN').exists():
-
-            form = userForm(no_admin=True)
+        if CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 2:
+            form = userForm(no_delete=True)
+            print("no_delete")
+        elif CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 1:
+            if CustomUser.objects.filter(userType = 'ADMIN').exists():
+                form = userForm(no_admin=True)
+                print("no_admin")
+            elif CustomUser.objects.filter(userType = 'ASSISTANT_DIRECTOR').exists():
+                form = userForm(no_asst=True)
+                print("no_asst")
         else:
-            form = userForm(no_admin=False)
+            form = userForm()
+            print("nothing")
     return render(request,'pages/homepage/signup.html',{'form':form})
+
 
 def logoutUser(request):
     logout(request)
@@ -147,7 +166,9 @@ def utilityPersonnelList(request):
     return render(request, 'pages/admin/utilityPersonnelList.html', context)
 
 def minorRepair(request):
-    return render(request, 'pages/admin/minorRepair.html')
+    repair = clientrepairDB.objects.filter(status = 'PENDING')
+    context = {'repair':repair}
+    return render(request, 'pages/admin/minorRepair.html',context)
 
 @login_required(login_url='index')
 def vehicle(request):
@@ -235,7 +256,16 @@ def borrowForm(request):
     return render(request, 'pages/forms/borrow-form.html', context)
 
 def clientForm(request):
-    return render(request, 'pages/forms/client-form.html')
+    if request.method == "POST":
+        form = clientrepairForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+            # return redirect('/utility-personnel-list')
+    else:
+        form = clientrepairForm()
+    context = {'form':form}
+    return render(request, 'pages/forms/client-form.html', context)
 
 def personnelForm(request):
     return render(request, 'pages/forms/personnel-form.html')

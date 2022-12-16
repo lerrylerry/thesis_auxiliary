@@ -4,9 +4,16 @@ from .models import *
 
 USERTYPE = [
         ('ADMIN','ADMIN'),
-        ('RERAIR_MAN','REPAIR_MAN'),
         ('ASSISTANT_DIRECTOR','ASSISTANT_DIRECTOR'),
     ]
+
+USER_A = [
+    ('ADMIN','ADMIN'),
+]
+
+USER_B = [
+    ('ASSISTANT_DIRECTOR','ASSISTANT_DIRECTOR'),
+]
 
 class userForm(UserCreationForm):
     password1 = forms.CharField(
@@ -63,10 +70,18 @@ class userForm(UserCreationForm):
          }
     def __init__(self,*args,**kwargs):
         no_admin=kwargs.pop('no_admin',False)
+        no_asst=kwargs.pop('no_asst',False)
+        no_delete=kwargs.pop('no_delete',False)
         super(userForm,self).__init__(*args,**kwargs)
         if no_admin:
-            self.fields['userType'].choices=USERTYPE[1:]
-        
+            self.fields['userType'].choices=USER_B
+        elif no_asst:
+            self.fields['userType'].choices=USER_A
+        elif no_delete:
+            self.fields.pop('userType')
+        else:
+            self.fields['userType'].choices=USERTYPE
+
 
 class itemsForm(forms.ModelForm):
     class Meta:
@@ -178,4 +193,65 @@ class vehiclesForm(forms.ModelForm):
                         'placeholder': 'Enter Email'
                         }
                 ),
+        }
+
+class clientrepairForm(forms.ModelForm):
+    class Meta:
+        model = clientrepairDB
+        fields = '__all__'
+        widgets ={
+            'name': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    }
+            ), 
+            'department': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    }
+            ), 
+            'position': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    }
+            ), 
+            'prop_type': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    }
+            ), 
+            'brand': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    }
+            ), 
+            'serial': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    }
+            ), 
+            'prop_no': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+
+                    }
+            ), 
+            'acq_date': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'type':'date'
+                    }
+            ),
+            'acq_cost': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    }
+            ),
+            'defect': forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'State your Reason'
+                    }
+            ), 
+            
         }

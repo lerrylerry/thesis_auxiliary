@@ -20,6 +20,15 @@ body{
       -ms-flex-align: center;
           align-items: center;
 }
+.images{
+  background-image: url("/static/media/ATTACH-PHOTO.png");
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -moz-background-size: cover ;
+  background-size: cover;
+  background-position: center;          
+}
 .image{
   background-image: url("/static/media/home.png");
   background-repeat: no-repeat;
@@ -75,13 +84,13 @@ body{
   display: flex;
   align-items: center;
 }
-.sidebar .logo-details i{
-  font-size: 22px;
-  color: #fff;
+.sidebar .logo-details img{
   height: 50px;
-  min-width: 78px;
-  text-align: center;
-  line-height: 50px;
+  width: 50px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin: 0 14px 0 12px;
+  transition: all 0.5s ease;
 }
 .sidebar .logo-details .logo_name{
   font-size: 25px;

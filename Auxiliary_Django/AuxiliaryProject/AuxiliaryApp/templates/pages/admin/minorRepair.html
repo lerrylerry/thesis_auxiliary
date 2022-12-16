@@ -24,9 +24,23 @@
           <thead class="table-dark">
             <tr>
               <th scope="col">NAME</th>
-              <th scope="col">FORM</th>
+              <th scope="col">STATUS</th>
             </tr>
           </thead>
+          <tbody>
+            {% if repair %}
+            {% for x in repair %}
+            <tr>
+              <td><a href="" data-bs-toggle="modal" data-bs-target="#minorRepairModal">{{x.name}}</a></td>
+              <td>{{ x.status }}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+              <tr>
+                <td colspan="2">No Requests</td>
+              </tr>
+            {% endif %}
+          </tbody>
         </table>
       </div>
     </div>

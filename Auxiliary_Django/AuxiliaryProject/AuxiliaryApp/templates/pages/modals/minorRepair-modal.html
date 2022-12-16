@@ -1,0 +1,182 @@
+{% load static %}
+{% block content %}
+<div class="modal fade" id="minorRepairModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+   <div class="modal-content">
+    <div class="modal-header">
+     <h5 class="modal-title" id="exampleModalLabel">MINOR REPAIR FORM</h5>
+     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+     <form method="POST">
+        <div class="container my-4">
+            <header><strong>REQUESTED BY</strong></header>
+            <div class="row">
+                <div class="col-sm-8">
+                    <label>NAME</label>
+                    {{form.name}}
+                    <!-- <input type="text" class="form-control"> -->
+                </div>
+                <div class="col-sm-4">
+                    <label>POSITION/TITLE</label>
+                    {{form.position}}
+                    <!-- <input type="text" class="form-control"> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="row-sm">
+                    <label>DEPARTMENT</label>
+                    {{form.department}}
+                    <!-- <input type="text" class="form-control"> -->
+                </div>
+            </div>
+            <header><strong>DESCRIPTION OF PROPERTY</strong></header>
+            <hr>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label>TYPE</label>
+                    {{form.prop_type}}
+                    <!-- <input type="text" class="form-control"> -->
+                    <label>SERIAL NO.</label>
+                    {{form.serial}}
+                    <!-- <input type="text" class="form-control"> -->
+                    <label>ACQUISITION DATE</label>
+                    {{form.acq_date}}
+                    <!-- <input type="text" class="form-control"> -->
+                </div>
+                <div class="col-sm-6">
+                    <label>BRAND MODEL</label>
+                    {{form.brand}}
+                    <!-- <input type="text" class="form-control"> -->
+                    <label>PROPERTY NO</label>
+                    {{form.prop_no}}
+                    <!-- <input type="text" class="form-control"> -->
+                    <label>ACQUISITION COST</label>
+                    {{form.acq_cost}}
+                    <!-- <input type="text" class="form-control"> -->
+                </div>
+            </div>
+            <header><strong>DEFECTS AND COMPLAINTS</strong></header>
+            <hr>
+            <div class="row">
+                <div class="col-sm">
+                    <label>NATURE AND SCOPE OF WORK TO BE DONE</label>
+                    {{form.defect}}
+                    <!-- <textarea class="form-control"></textarea> -->
+                </div>
+            </div>    
+        <div class="parent2 container d-flex justify-content-center align-items-center h-100 my-5">
+            <div class="card violet pb-3">
+                <div class="card-body">
+                    <header><strong>INITIAL ASSESSMENT</strong></header>
+                    <hr>
+                    <div class="row">
+                        <div class="d-flex justify-content-around">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                <label class="form-check-label" for="inlineRadio1">Can be Repaired/Fabricated in-house</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                <label class="form-check-label" for="inlineRadio2">Cannot be Repaired/Fabricated in-house</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>ASSESSED BY</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <!--
+                        <div class="col-sm-4">
+                            <label>SIGNATURE</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        -->
+                        <div class="col-sm-4">
+                            <label>Date Assessed</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-sm-4">
+                            <label>Personnel Assigned</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <br>
+                    <header><strong>SUPPLIES AND MATERIALS</strong></header>
+                    <hr>
+                    <div class="table-responsive-sm">
+                        <table class="table caption-bottom">
+                            <caption><i>PARTS TO BE REPLACED/SUPPLIED</i></caption>
+                            <thead class="table">
+                            <tr>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Unit</th>
+                                <th scope="col">Particulars</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>---</td>
+                                <td>---</td>
+                                <td>---</td>
+                            </tr>
+                            <tr>
+                                <td>---</td>
+                                <td>---</td>
+                                <td>---</td>
+                            </tr>
+                            <tr>
+                                <td>---</td>
+                                <td>---</td>
+                                <td>---</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <header><strong>APPROVAL</strong></header>
+                    <hr>
+                    <div class="row">
+                        <div class="d-flex justify-content-around">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                <label class="form-check-label" for="inlineRadio1">APPROVED</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                <label class="form-check-label" for="inlineRadio2">DISAPPROVED</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                <label class="form-check-label" for="inlineRadio3">RESUBMIT REQUEST</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label>HEAD, AUXILIARY SERVICES</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-sm-4">
+                            <label>DATE</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="col-sm-4">
+                            <!--
+                            <label>SIGNATURE</label>
+                            <input type="text" class="form-control">
+                            -->
+                            <label>TIME</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-success btn w-50 mx-auto rounded-pill login">SUBMIT</button>
+            </div>
+        </div>
+     </form>
+    </div>
+   </div>
+  </div>
+ </div>
+ {% endblock content %}

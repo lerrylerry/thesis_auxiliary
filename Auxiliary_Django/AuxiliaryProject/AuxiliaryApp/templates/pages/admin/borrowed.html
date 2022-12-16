@@ -24,28 +24,29 @@
           <thead class="table-dark">
             <tr>
               <th scope="col">NAME</th>
-              <th scope="col">FORM</th>
+              <th scope="col">STATUS</th>
             </tr>
           </thead>
           <tbody>
-            {% if requests %}
+            <!-- {% if requests %} -->
             {% for x in requests %}
             <tr>
-              <td><a href="">{{ x.utility_personnel.up_name }}</a></td>
+              <td><a href="" data-bs-toggle="modal" data-bs-target="#borrowModal{{x.id}}">{{ x.utility_personnel.up_name }}</a></td>
               <td>{{ x.status }}</td>
             </tr>
+            <!--BORROWED MODAL-->
+            {% include 'pages/modals/borrowed-modal.html' %}
             {% endfor %}
-            {% else %}
+            <!-- {% else %}
               <tr>
                 <td colspan="2">No Requests</td>
               </tr>
-            {% endif %}
+            {% endif %} -->
           </tbody>
         </table>
       </div>
     </div>
-    <!--BORROWED MODAL-->
-    {% include 'pages/modals/vehicle-modal.html' %}
+    
     
   </section>
 </body>

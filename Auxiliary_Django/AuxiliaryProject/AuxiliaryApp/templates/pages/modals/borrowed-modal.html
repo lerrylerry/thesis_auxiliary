@@ -1,4 +1,4 @@
-<div class="modal fade" id="borrowModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="borrowModal{{x.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -6,32 +6,15 @@
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form action="#">
+      <form method="POST">
+        {% csrf_token %}
         <div class="row">
             <div class="col-md-12 mt-2">
                 <label for="name">Name</label><br>
-                <select class="form-select" name="name" id="" disabled>
-                    <option value="1">Personnel 1</option>
-                    <option value="2">Personnel 2</option>
-                    <option value="3">More options</option>
-                </select>
-            </div>
-            
-            <div class="col-md-12 mt-2">
-                <label for="pin">PIN</label>
-                <input class="form-control" type="number" name="pin" id="" value="1234" disabled>
+                <input type="text" value="{{x.utility_personnel.up_name}}" class="form-control" disabled>
             </div>
         </div>
         <div class="row">
-          <label for="" class="form-label">Unit</label>
-          <select id="unit" type="text" list="value" class="form-control" name="units" placeholder="Enter Unit" required>
-          <option>Select...</option>
-          <option>option 1</option>
-          <option>option 2</option>
-          <option>option 3</option>
-          <option> option 4 </option>
-          <option> option 5 </option>
-          </select>
           <table class="table text-center">
             <thead>
               <tr>
@@ -41,21 +24,13 @@
               </tr>
             </thead>
             <tbody>
+              {% for key in x.items_req %}
               <tr>
-                <td>Hand Soap</td>
-                <td>100<span class="text-danger">(-50)</span></td>
+                <td>{{ key }}</td>
+                <td>100<span class="text-danger">(-{{ key.x.items_req}})</span></td>
                 <td><input class="form-control" type="number" name="pin" id="" value="50" disabled></td>
               </tr>
-              <tr>
-                <td>Toilet Paper</td>
-                <td>100<span class="text-danger">(-50)</span></td>
-                <td><input class="form-control" type="number" name="pin" id="" value="50" disabled></td>
-              </tr>
-              <tr>
-                <td>Round Rags</td>
-                <td>100<span class="text-danger">(-50)</span></td>
-                <td><input class="form-control" type="number" name="pin" id="" value="50" disabled></td>
-              </tr>
+              {% endfor %}
             </tbody>
           </table>
           <div class="col-md-12 mt-4 mb-2 d-flex justify-content-around">

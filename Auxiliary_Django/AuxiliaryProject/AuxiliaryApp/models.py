@@ -52,8 +52,24 @@ class borrowDB(models.Model):
     status = models.CharField(max_length=8, default="PENDING")
 
 class historyDB(models.Model):
+    
     his_name = models.CharField(max_length=50,null=True, blank=True)
     service = models.CharField(max_length=50,null=True, blank=True)
     his_form = models.CharField(max_length=50,null=True, blank=True)
     his_date = models.DateTimeField(auto_now_add=True)
     his_status = models.CharField(max_length=50,null=True, blank=True)
+
+class clientrepairDB(models.Model):
+    name = models.CharField(max_length=50,null=True, blank=True)
+    department = models.CharField(max_length=50,null=True, blank=True)
+    position = models.CharField(max_length=50,null=True, blank=True)
+    date = models.DateTimeField(auto_now_add=True)
+    ##########desc of prop##########
+    prop_type = models.CharField(max_length=50,null=True, blank=True)
+    brand = models.CharField(max_length=50,null=True, blank=True)
+    serial = models.CharField(max_length=50,null=True, blank=True)
+    prop_no = models.CharField(max_length=50,null=True, blank=True)
+    acq_date = models.DateField(max_length=10)
+    acq_cost = models.IntegerField(null=True, blank=True)
+    defect = models.CharField(max_length=500,null=True, blank=True)
+    status = models.CharField(max_length=8, default="PENDING")

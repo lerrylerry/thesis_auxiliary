@@ -6,79 +6,71 @@
 {% endblock title %}
 
 {% block content %}
-<body>
-    <form action="#" method="POST">
+<body class="images">
+    <form action="{% url 'client-form' %}" method="POST">
+        {% csrf_token %}
         <div class="parent2 container d-flex justify-content-center align-items-center h-100 my-4">
             <div class="card violet pb-3">
                 <div class="card-body">
-                    <header><strong>DESCRIPTION OF PROPERTY</strong></header>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label>TYPE</label>
-                            <input type="text" class="form-control">
-                            <label>SERIAL NO.</label>
-                            <input type="text" class="form-control">
-                            <label>ACQUISITION DATE</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="col-sm-6">
-                            <label>BRAND MODEL</label>
-                            <input type="text" class="form-control">
-                            <label>PROPERTY NO</label>
-                            <input type="text" class="form-control">
-                            <label>ACQUISITION COST</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </div>
-                    <br>
-                    <header><strong>DEFECTS AND COMPLAINTS</strong></header>
-                    <hr>
-                    <div class="row">
-                        <div class="col-sm">
-                            <label>NATURE AND SCOPE OF WORK TO BE DONE</label>
-                            <textarea class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <br>
                     <header><strong>REQUESTED BY</strong></header>
-                    <hr>
                     <div class="row">
                         <div class="col-sm-8">
                             <label>NAME</label>
-                            <input type="text" class="form-control">
+                            {{form.name}}
+                            <!-- <input type="text" class="form-control"> -->
                         </div>
                         <div class="col-sm-4">
                             <label>POSITION/TITLE</label>
-                            <input type="text" class="form-control">
+                            {{form.position}}
+                            <!-- <input type="text" class="form-control"> -->
                         </div>
                     </div>
                     <div class="row">
                         <div class="row-sm">
                             <label>DEPARTMENT</label>
-                            <input type="text" class="form-control">
+                            {{form.department}}
+                            <!-- <input type="text" class="form-control"> -->
                         </div>
                     </div>
+                    <header><strong>DESCRIPTION OF PROPERTY</strong></header>
+                    <hr>
                     <div class="row">
                         <div class="col-sm-6">
-                            <label>Date Submitted</label>
-                            <input type="text" class="form-control">
+                            <label>TYPE</label>
+                            {{form.prop_type}}
+                            <!-- <input type="text" class="form-control"> -->
+                            <label>SERIAL NO.</label>
+                            {{form.serial}}
+                            <!-- <input type="text" class="form-control"> -->
+                            <label>ACQUISITION DATE</label>
+                            {{form.acq_date}}
+                            <!-- <input type="text" class="form-control"> -->
                         </div>
                         <div class="col-sm-6">
-                            <label>Time Submitted</label>
-                            <input type="text" class="form-control">
+                            <label>BRAND MODEL</label>
+                            {{form.brand}}
+                            <!-- <input type="text" class="form-control"> -->
+                            <label>PROPERTY NO</label>
+                            {{form.prop_no}}
+                            <!-- <input type="text" class="form-control"> -->
+                            <label>ACQUISITION COST</label>
+                            {{form.acq_cost}}
+                            <!-- <input type="text" class="form-control"> -->
                         </div>
-                        <!--
-                        <div class="col-6">
-                            <label>SIGNATURE</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        -->
                     </div>
-                </div>
-                <button class="btn btn-success btn w-50 mx-auto rounded-pill login">SUBMIT</button>
+                    <header><strong>DEFECTS AND COMPLAINTS</strong></header>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm">
+                            <label>NATURE AND SCOPE OF WORK TO BE DONE</label>
+                            {{form.defect}}
+                            <!-- <textarea class="form-control"></textarea> -->
+                        </div>
+                    </div>
+                <button type="submit" class="btn btn-success btn w-50 mx-auto rounded-pill login">SUBMIT</button>
             </div>
         </div>
     </form>
 </body>
 {% endblock content %}
+                

@@ -132,10 +132,20 @@ body{
   display: block
 }
 .sidebar .nav-links li i{
-  height: 50px;
+  height: 60px;
   min-width: 78px;
   text-align: center;
   line-height: 50px;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.sidebar .nav-links li p{
+  height: 55px;
+  min-width: 78px;
+  text-align: center;
+  line-height: 700px;
   color: #fff;
   font-size: 20px;
   cursor: pointer;
@@ -157,13 +167,21 @@ body{
   font-weight: 400;
   color: #fff;
   transition: all 0.4s ease;
+  
+}
+.sidebar .nav-links li p .link_name{
+  font-size: 18px;
+  font-weight: 400;
+  color: #fff;
+  transition: all 0.4s ease;
+  
 }
 .sidebar.close .nav-links li a .link_name{
   opacity: 0;
   pointer-events: none;
 }
 .sidebar .nav-links li .sub-menu{
-  padding: 6px 6px 14px 80px;
+  padding: 8px 8px 14px 80px;
   margin-top: -10px;
   background: #1d1b31;
   display: none;
@@ -218,49 +236,6 @@ body{
 .sidebar .nav-links li:hover .sub-menu.blank{
   top: 50%;
   transform: translateY(-50%);
-}
-.sidebar .log-details{
-  position: fixed;
-  bottom: 0;
-  width: 255px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #1d1b31;
-  padding: 12px 0;
-  transition: all 0.5s ease;
-}
-.sidebar.close .log-details{
-  background: none;
-}
-.sidebar.close .log-details{
-  width: 78px;
-}
-.sidebar .log-details .profile-content{
-  display: flex;
-  align-items: center;
-}
-.sidebar .log-details img{
-  height: 52px;
-  width: 52px;
-  object-fit: cover;
-  border-radius: 16px;
-  margin: 0 14px 0 12px;
-  background: #1d1b31;
-  transition: all 0.5s ease;
-}
-.sidebar.close .log-details img{
-  padding: 10px;
-}
-.sidebar .log-details .out{
-  color: #fff;
-  font-size: 18px;
-  font-weight: 500;
-  white-space: nowrap;
-}
-.sidebar.close .log-details i,
-.sidebar.close .log-details .out{
-  display: none;
 }
 .home-section{
   position: relative;

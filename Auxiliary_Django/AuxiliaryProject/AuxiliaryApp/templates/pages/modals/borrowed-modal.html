@@ -1,44 +1,46 @@
-<div class="modal fade" id="borrowModal{{x.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="borrowModal{{x.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">BORROW REQUEST</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <form method="POST">
-        {% csrf_token %}
-        <div class="row">
-            <div class="col-md-12 mt-2">
-                <label for="name">Name</label><br>
-                <input type="text" value="{{x.utility_personnel.up_name}}" class="form-control" disabled>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">BORROW REQUEST</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="row">
-          <table class="table text-center">
-            <thead>
-              <tr>
-                <th scope="col">Items</th>
-                <th scope="col">Available</th>
-                <th scope="col">Quantity</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for key in x.items_req %}
-              <tr>
-                <td>{{ key }}</td>
-                <td>100<span class="text-danger">(-{{ key.x.items_req}})</span></td>
-                <td><input class="form-control" type="number" name="pin" id="" value="50" disabled></td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-          <div class="col-md-12 mt-4 mb-2 d-flex justify-content-around">
-                <button class="btn btn-success">ACCEPT</button>
-                <button class="btn btn-danger">DECLINE</button>
+        <div class="modal-body">
+          <form method="POST">
+          {% csrf_token %}
+          <div class="row">
+              <div class="col-md-12 mt-2">
+                  <label for="name">Name</label>
+                  <br>
+                  <input type="text" value="{{x.utility_personnel.up_name}}" class="form-control" disabled>
+              </div>
           </div>
-        </div>
-      </form>
+          <div class="row">
+            <table class="table text-center">
+              <thead>
+                <tr>
+                  <th scope="col">Items</th>
+                  <th scope="col">Available</th>
+                  <th scope="col">Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for key, value in x.items_req.items %}
+                
+                <tr>
+                  <td>{{ key }}</td>
+                  <td>{{x.item_quantity}}<span class="text-danger">(-{{value}})</span></td>
+                  <td><input class="form-control" type="number" name="quantity" id="" value="{{value}}" disabled></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="col-md-12 mt-4 mb-2 d-flex justify-content-around">
+                  <button class="btn btn-success">ACCEPT</button>
+                  <button class="btn btn-danger">DECLINE</button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
     </div>

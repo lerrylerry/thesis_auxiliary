@@ -6,7 +6,7 @@
   font-family: 'Poppins', sans-serif;
 }
 body{
-  overflow: hidden;
+  overflow: scroll;
 }
 .logIn {
   height: 100vh;

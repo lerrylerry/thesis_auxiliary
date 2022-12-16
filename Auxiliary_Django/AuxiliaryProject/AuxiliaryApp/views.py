@@ -133,8 +133,10 @@ def addSupplies(request):
 
 def borrowed(request):
     requests = borrowDB.objects.prefetch_related('utility_personnel').filter(status='PENDING')
+    items = itemsDB.objects.all()
     context = {
-        'requests':requests
+        'requests':requests,
+        'items':items
     }
     return render(request, 'pages/admin/borrowed.html', context)
 

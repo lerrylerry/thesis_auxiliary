@@ -6,11 +6,11 @@
 {% endblock title %}
 
 {% block content %}
-<body class="images">
+<body>
     <form action="{% url 'client-form' %}" method="POST">
         {% csrf_token %}
-        <div class="parent2 container d-flex justify-content-center align-items-center h-100 my-4">
-            <div class="card violet pb-3">
+        <div class="container d-flex justify-content-center align-items-center h-100 my-4">
+            <div class="card pb-3">
                 <div class="card-body">
                     <header><strong>REQUESTED BY</strong></header>
                     <div class="row">

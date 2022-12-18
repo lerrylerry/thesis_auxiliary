@@ -8,6 +8,7 @@
 {% block content %}
 <body>
   {% include 'pages/sidebar.html' %} 
+  
     <!-- TABLE BORROWED -->
     <div class="mt-5">
       <div class="row">
@@ -34,8 +35,6 @@
               <td><a href="borrow={{x.id}}" data-bs-toggle="modal" data-bs-target="#borrowModal{{x.id}}">{{ x.utility_personnel.up_name }}</a></td>
               <td>{{ x.status }}</td>
             </tr>
-            <!--BORROWED MODAL-->
-            
             {% comment %} {% else %}
               <tr>
                 <td colspan="2">No Requests</td>
@@ -45,6 +44,7 @@
         </table>
       </div>
     </div>
+    <!--BORROWED MODAL-->
     {% include 'pages/modals/borrowed-modal.html' %}
     {% endfor %}
               

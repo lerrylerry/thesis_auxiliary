@@ -11,7 +11,7 @@
       <div class="row">
        <div class="col-md-12 mt-2">
         <label for="" class="form-label">Supply Name</label>
-        <select id="unit" type="text" list="value" class="form-control" name="units" placeholder="Enter Unit" required>
+        <select id="unit" type="text" list="value" class="form-control" name="items" placeholder="Enter Unit" required>
           {% comment %} <option>Items</option> {% endcomment %}
           {% for x in items %}
           <option value={{x.id}}>
@@ -20,10 +20,6 @@
           {% endfor %}  
           </select> 
        </div>
-       {% comment %} <div class="col-md-12 mt-2">
-        <label for="" class="form-label">Unit</label>
-        {{form.item_unit}}
-       </div> {% endcomment %}
        <div class="col-md-12 mt-2">
         <label for="" class="form-label">Quantity</label>
         {{form.item_quantity}}

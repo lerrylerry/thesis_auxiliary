@@ -15,15 +15,9 @@ class CustomUser(AbstractUser):
     userType = models.CharField(max_length=100, choices=USERTYPE, verbose_name='userType')
 
 class itemsDB(models.Model):
-    # ITEMS = [
-    #     ('Round Rags' , 'Round Rags'),
-    #     ('Soft Broom' , 'Soft Broom'),
-    #     ('Stick Broom' , 'Stick Broom'),
-    #     ('Toilet Paper' , 'Toilet Paper'),
-    #     ('Garbage Bag' , 'Garbage Bag')
-    # ]
     item_name = models.CharField(max_length=25, null=True, blank=True)
     item_unit = models.CharField(max_length=25, null=True, blank=True)
+    itemsName_Quantity = models.JSONField(default=dict)
     item_quantity = models.IntegerField(null=True, blank=True)
 
 class janitorDB(models.Model):
@@ -55,7 +49,6 @@ class historyDB(models.Model):
     
     his_name = models.CharField(max_length=50,null=True, blank=True)
     service = models.CharField(max_length=50,null=True, blank=True)
-    his_form = models.CharField(max_length=50,null=True, blank=True)
     his_date = models.DateTimeField(auto_now_add=True)
     his_status = models.CharField(max_length=50,null=True, blank=True)
 

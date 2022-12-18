@@ -104,7 +104,13 @@ def addItems(request):
         if request.method == "POST":
             form = itemsForm(request.POST)
             if form.is_valid():
-                form.save()
+                dict = {}
+                name = request.POST['item_name']
+                quantity = request.POST['item_quantity']
+                unit = request.POST['item_unit']
+                dict[name] = quantity
+                items = itemsDB.objects.create(item_name = name, item_quantity = quantity, item_unit = unit, itemsName_Quantity = dict)
+                # form.save()
                 return redirect('/add-items')
         else:
             form = itemsForm()
@@ -118,11 +124,12 @@ def addSupplies(request):
     if request.method == "POST":
         form = itemsForm(request.POST)
         if form.is_valid():
-            old = request.POST['units']
+            itemName = request.POST['items']
             quantity = int(request.POST['item_quantity'])
-            check = itemsDB.objects.get(id=old)
+            check = itemsDB.objects.get(id=itemName)
             new_val = check.item_quantity + quantity
             check.item_quantity = new_val
+            check.itemsName_Quantity[check.item_name] = new_val
             check.save()
             return redirect('/add-items')
     else:
@@ -140,6 +147,25 @@ def borrowed(request):
     }
     return render(request, 'pages/admin/borrowed.html', context)
 
+def borrowed_accept(request, id):
+    #updatesupplies
+    # borrowItems = borrowDB.objects.all()
+    # allItems = itemsDB.objects.all()
+    
+    # quantity = int(request.POST['quantity'])
+    # check = itemsDB.objects.get(id=old)
+    # new_val = check.item_quantity - quantity
+    # check.item_quantity = new_val
+    # check.itemsName_Quantity[check.item_name] = new_val
+    # check.save()
+
+    query = borrowDB.objects.get(id=id)
+    query.status = "ACCEPTED"
+    query.save()
+    #createhistory
+    his = historyDB.objects.create(his_name = query.utility_personnel.up_name, service = 'UTILITY', his_status=query.status)
+    his.save()
+    return redirect('borrowed')
 def history(request):
     vehi_his = historyDB.objects.filter(service = 'VEHICLE')
     his = historyDB.objects.all()
@@ -193,7 +219,7 @@ def vehicle_accept(request, id):
     query.status = "ACCEPTED"
     query.save()
     #createhistory
-    his = historyDB.objects.create(his_name = query.req_name, service = 'VEHICLE', his_form = query.id, his_status=query.status)
+    his = historyDB.objects.create(his_name = query.req_name, service = 'VEHICLE', his_status=query.status)
     his.save()
 
     send_mail(
@@ -209,7 +235,7 @@ def vehicle_decline(request, id):
     query = vehicleDB.objects.get(id=id)
     query.status = "REJECTED"
     query.save()
-    his = historyDB.objects.create(his_name = query.req_name, service = 'VEHICLE', his_form = query.id, his_status=query.status)
+    his = historyDB.objects.create(his_name = query.req_name, service = 'VEHICLE', his_status=query.status)
     his.save()
     return redirect('vehicle')
 

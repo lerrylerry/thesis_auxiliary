@@ -24,6 +24,8 @@ urlpatterns = [
     path('vehicle/a/<int:id>', views.vehicle_accept, name='vehicle_accept'),
     path('vehicle/b/<int:id>', views.vehicle_decline, name='vehicle_decline'),
 
+    path('borrowed/a/<int:id>', views.borrowed_accept, name='borrowed_accept'),
+    path('borrowed/b/<int:id>', views.borrowed, name='borrowed'),
 
     path('admin-form/', views.adminForm, name='admin-form'),
     path('borrow-form/', views.borrowForm, name='borrow-form'),

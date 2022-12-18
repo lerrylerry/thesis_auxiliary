@@ -3,10 +3,11 @@
 
 {% block title %}
 <title>Request | Minor Repair Form</title>
+<link rel="icon" href= "{% static 'media/TUP-LOGO-modified.png'  %}">
 {% endblock title %}
 
 {% block content %}
-<body>
+<body class="images">
     <form action="{% url 'client-form' %}" method="POST">
         {% csrf_token %}
         <div class="container d-flex justify-content-center align-items-center h-100 my-4">

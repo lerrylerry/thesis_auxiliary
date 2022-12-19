@@ -27,13 +27,13 @@
             <tbody>
               {% for key, value in x.items_req.items %}
               {% for y in items %}
-              {% for keys, values in y.itemsName_Quantity.items %}
+              {% if key == y.item_name %}
               <tr>
                 <td>{{ key }}</td>
-                <td>{{values}}<span class="text-danger">(-{{value}})</span></td>
+                <td>{{y.item_quantity}}<span class="text-danger">(-{{value}})</span></td>
                 <td><input class="form-control" type="number" name="quantity" id="" value="{{value}}" disabled></td>
               </tr>
-              {% endfor %}
+              {% endif %}
               {% endfor %}
               {% endfor %}
             </tbody>

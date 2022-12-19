@@ -17,7 +17,6 @@ class CustomUser(AbstractUser):
 class itemsDB(models.Model):
     item_name = models.CharField(max_length=25, null=True, blank=True)
     item_unit = models.CharField(max_length=25, null=True, blank=True)
-    itemsName_Quantity = models.JSONField(default=dict)
     item_quantity = models.IntegerField(null=True, blank=True)
 
 class janitorDB(models.Model):

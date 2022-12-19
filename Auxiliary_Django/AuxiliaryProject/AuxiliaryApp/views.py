@@ -114,7 +114,7 @@ def addItems(request):
                 dict[name] = quantity
                 query = itemsDB.objects.filter(item_name = name).count()
                 if query == 0:
-                    items = itemsDB.objects.create(item_name = name, item_quantity = quantity, item_unit = unit, itemsName_Quantity = dict)
+                    items = itemsDB.objects.create(item_name = name, item_quantity = quantity, item_unit = unit)
                     messages.success(request, 'SUCCESS: successfully added')
                     # form.save()
                     return redirect('/add-items')
@@ -138,7 +138,7 @@ def addSupplies(request):
             check = itemsDB.objects.get(id=itemName)
             new_val = check.item_quantity + quantity
             check.item_quantity = new_val
-            check.itemsName_Quantity[check.item_name] = new_val
+            #check.itemsName_Quantity[check.item_name] = new_val
             check.save()
             return redirect('/add-items')
     else:

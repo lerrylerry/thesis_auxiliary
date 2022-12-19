@@ -97,7 +97,15 @@ def status(request, id):
     # up = janitorDB.objects.all()
     # context = {'up':up}
     # return render(request, 'pages/admin/utilityPersonnelList.html', context)
-
+def mainteStatus(request, id):
+    stats= mainteDB.objects.get(id=id)
+    if stats.mp_status == 'ACTIVE':
+        stats.mp_status = 'INACTIVE'
+        stats.save()
+    else:
+        stats.mp_status = 'ACTIVE'
+        stats.save()
+    return redirect('maintenance-personnel-list')
 @login_required(login_url='index')
 def addItems(request):
     if request.user.userType == 'ADMIN':
@@ -168,7 +176,7 @@ def borrowed_accept(request, id):
     return redirect('borrowed')
 def history(request):
     vehi_his = historyDB.objects.filter(service = 'VEHICLE')
-    his = historyDB.objects.all()
+    his = historyDB.objects.exclude(service = 'VEHICLE')
     context ={
         'his':his,
         'vehi_his':vehi_his

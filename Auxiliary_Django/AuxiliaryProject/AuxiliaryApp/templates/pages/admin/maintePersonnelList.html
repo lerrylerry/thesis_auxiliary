@@ -33,9 +33,9 @@
               {% if mp %}
               {% for x in mp %}
               <td>
-                <a href="person={{x.id}}" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#statusModal{{x.id}}">{{x.mp_name}}</a>
+                <a href="person={{x.id}}" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#maintestatusModal{{x.id}}">{{x.mp_name}}</a>
               </td> 
-              {% include 'pages/modals/status-modal.html' %}
+              {% include 'pages/modals/mainte-status-modal.html' %}
               <td>
                   {{x.mp_status}}
               </td>

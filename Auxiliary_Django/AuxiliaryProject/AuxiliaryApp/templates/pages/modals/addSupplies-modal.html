@@ -2,7 +2,7 @@
   <div class="modal-dialog">
    <div class="modal-content">
     <div class="modal-header">
-     <h5 class="modal-title" id="exampleModalLabel">ADD SUPPLY FORM</h5>
+     <h5 class="modal-title" id="exampleModalLabel">ADD QUANTITY FORM</h5>
      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
@@ -10,9 +10,9 @@
       {% csrf_token %}
       <div class="row">
        <div class="col-md-12 mt-2">
-        <label for="" class="form-label">Supply Name</label>
+        <label for="" class="form-label">Item Name</label>
         <select id="unit" type="text" list="value" class="form-control" name="items" placeholder="Enter Unit" required>
-          {% comment %} <option>Items</option> {% endcomment %}
+          <option disabled selected>Choose an item</option> 
           {% for x in items %}
           <option value={{x.id}}>
             {{x.item_name}}
@@ -26,7 +26,7 @@
         <!--<input id="quantity" type="number" class="form-control" name="Quantities" placeholder="Enter Quantity" required>-->
        </div>
        <div class="col-md-12 mt-4 mb-2" style="text-align: right;">
-        <button id="addsupplies" class="btn btn-danger" type="submit" name="additemlists">Add Supply Lists</button>
+        <button id="addsupplies" class="btn btn-danger" type="submit" name="additemlists">Add Quantity Lists</button>
        </div>
       </div>
      </form>

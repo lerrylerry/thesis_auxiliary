@@ -13,6 +13,13 @@
         <div class="container d-flex justify-content-center align-items-center h-100 my-4">
             <div class="card pb-3">
                 <div class="card-body">
+                    {% for message in messages %}
+                        <div class="container-fluid p-0 mt-3">
+                            <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+                                {{ message }}
+                            </div>
+                        </div>
+                    {% endfor %}
                     <header><strong>REQUESTED BY</strong></header>
                     <hr>
                     <div class="row">
@@ -32,6 +39,12 @@
                             <label>DEPARTMENT</label>
                             {{form.department}}
                             <!-- <input type="text" class="form-control"> -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <label>EMAIL</label>
+                            {{form.email}}
                         </div>
                     </div>
                     <header><strong>DESCRIPTION OF PROPERTY</strong></header>

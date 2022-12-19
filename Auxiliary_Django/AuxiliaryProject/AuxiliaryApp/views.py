@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
+import cv2
 
 '''<-----------------------------HOMEPAGE---------------------------------->'''
 
@@ -44,14 +45,11 @@ def signup(request):
     if request.method == 'POST':
         if CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 2:
             form = userForm(request.POST ,no_delete=True)
-            print("no_delete")
         elif CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 1:
             if CustomUser.objects.filter(userType = 'ADMIN').exists():
                 form = userForm(request.POST, no_admin=True)
-                print("no_admin")
             elif CustomUser.objects.filter(userType = 'ASSISTANT_DIRECTOR').exists():
                 form = userForm(request.POST, no_asst=True)
-                print("no_asst")
         else:
             form = userForm(request.POST)
 
@@ -64,17 +62,13 @@ def signup(request):
     else:
         if CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 2:
             form = userForm(no_delete=True)
-            print("no_delete")
         elif CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 1:
             if CustomUser.objects.filter(userType = 'ADMIN').exists():
                 form = userForm(no_admin=True)
-                print("no_admin")
             elif CustomUser.objects.filter(userType = 'ASSISTANT_DIRECTOR').exists():
                 form = userForm(no_asst=True)
-                print("no_asst")
         else:
             form = userForm()
-            print("nothing")
     return render(request,'pages/homepage/signup.html',{'form':form})
 
 
@@ -106,6 +100,7 @@ def mainteStatus(request, id):
         stats.mp_status = 'ACTIVE'
         stats.save()
     return redirect('maintenance-personnel-list')
+
 @login_required(login_url='index')
 def addItems(request):
     if request.user.userType == 'ADMIN':
@@ -117,9 +112,15 @@ def addItems(request):
                 quantity = request.POST['item_quantity']
                 unit = request.POST['item_unit']
                 dict[name] = quantity
-                items = itemsDB.objects.create(item_name = name, item_quantity = quantity, item_unit = unit, itemsName_Quantity = dict)
-                # form.save()
-                return redirect('/add-items')
+                query = itemsDB.objects.filter(item_name = name).count()
+                if query == 0:
+                    items = itemsDB.objects.create(item_name = name, item_quantity = quantity, item_unit = unit, itemsName_Quantity = dict)
+                    messages.success(request, 'SUCCESS: successfully added')
+                    # form.save()
+                    return redirect('/add-items')
+                else:
+                    messages.error(request, 'FAILED: item already exist')
+                    return redirect('/add-items')
         else:
             form = itemsForm()
         items = itemsDB.objects.all()
@@ -167,6 +168,7 @@ def borrowed_accept(request, id):
     # check.itemsName_Quantity[check.item_name] = new_val
     # check.save()
 
+
     query = borrowDB.objects.get(id=id)
     query.status = "ACCEPTED"
     query.save()
@@ -174,6 +176,7 @@ def borrowed_accept(request, id):
     his = historyDB.objects.create(his_name = query.utility_personnel.up_name, service = 'UTILITY', his_status=query.status)
     his.save()
     return redirect('borrowed')
+
 def history(request):
     vehi_his = historyDB.objects.filter(service = 'VEHICLE')
     his = historyDB.objects.exclude(service = 'VEHICLE')
@@ -227,8 +230,20 @@ def vehicle(request):
     else:
         return redirect('index')
 
-
 def camera(request):
+    cap = cv2.VideoCapture(0)
+    # Check if the webcam is opened correctly
+    if not cap.isOpened():
+        raise IOError("Cannot open webcam")
+    while True:
+        ret, frame = cap.read()
+        frame = cv2.resize(frame, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
+        cv2.imshow('Input', frame)
+        c = cv2.waitKey(1)
+        if c == 27:
+            break
+    cap.release()
+    cv2.destroyAllWindows()
     return render(request, 'pages/admin/camera.html')
 
 def vehicle_accept(request, id):
@@ -306,8 +321,10 @@ def clientForm(request):
         form = clientrepairForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
-            # return redirect('/utility-personnel-list')
+            messages.success(request, "SUCCESS: successfully submitted")
+            return redirect('client-form')
+        else:
+            messages.error(request, "ERROR: please enter valid details")
     else:
         form = clientrepairForm()
     context = {'form':form}

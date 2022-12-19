@@ -69,3 +69,4 @@ class clientrepairDB(models.Model):
     acq_cost = models.IntegerField(null=True, blank=True)
     defect = models.CharField(max_length=500,null=True, blank=True)
     status = models.CharField(max_length=8, default="PENDING")
+    email = models.EmailField(max_length=300, default=None)

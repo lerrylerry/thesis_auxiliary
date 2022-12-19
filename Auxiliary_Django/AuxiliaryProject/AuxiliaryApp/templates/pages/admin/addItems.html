@@ -20,6 +20,13 @@
           <span class="input-group-text bg-danger text-white"><i class='bx bx-search-alt-2 nav_logo-icon'></i></span>
         </div>
       </div>
+      {% for message in messages %}
+        <div class="container-fluid p-0 mt-3">
+          <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+            {{ message }}
+          </div>
+        </div>
+      {% endfor %}
       <div class="tableData overflow-auto">
         <table class="table mt-4 table-hover" id="myTable">
           <thead class="table-dark">

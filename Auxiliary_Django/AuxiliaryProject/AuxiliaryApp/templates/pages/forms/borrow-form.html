@@ -15,22 +15,18 @@
                 <div class="card-body">
                     <header><strong>REQUEST ITEM</strong></header>
                     {% for message in messages %}
-                    {% if borrow.up_code == code %}
-                      <div class="alert alert-primary">
+                    <div class="container-fluid p-0 mt-3">
+                      <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
                         {{ message }}
                       </div>
-                    {%else%}
-                      <div class="alert alert-danger">
-                        {{ message }}
-                      </div>
-                    {%endif%}
-                    {% endfor %}
+                    </div>
+                  {% endfor %}
                     <hr>
                     <div class="row">
                         <div class="col-sm-6">
                             <label for="name">Name</label><br>
-                            <select class="form-select" name="name" id="">
-                                <option disabled selected>Choose a Janitor</option>
+                            <select class="form-select" name="name" id="" required>
+                                <option value="" disabled selected>Choose a Janitor</option>
                                 {% for x in up %}
                                 {%if x.up_status == 'ACTIVE'%}
                                 <option value={{x.id}}>

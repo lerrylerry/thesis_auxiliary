@@ -91,19 +91,22 @@ class itemsForm(forms.ModelForm):
             'item_name': forms.TextInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Ex: Round Rags'
+                    'placeholder': 'Ex: Round Rags',
+                    'required' : True
                     }
             ),
             'item_unit': forms.TextInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Ex: pcs'
+                    'placeholder': 'Ex: pcs',
+                    'required' : True
                     }
             ), 
             'item_quantity': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Ex: 5'
+                    'placeholder': 'Ex: 5',
+                    'required' : True
                     }
             ), 
          }
@@ -217,55 +220,71 @@ class clientrepairForm(forms.ModelForm):
             'name': forms.TextInput(
                 attrs={
                     'class': 'form-control',
+                    'required' : True
                     }
             ), 
             'department': forms.TextInput(
                 attrs={
                     'class': 'form-control',
+                    'required' : True
                     }
             ), 
             'position': forms.TextInput(
                 attrs={
                     'class': 'form-control',
+                    'required' : True
                     }
             ), 
             'prop_type': forms.TextInput(
                 attrs={
                     'class': 'form-control',
+                    'required' : True
                     }
             ), 
             'brand': forms.TextInput(
                 attrs={
                     'class': 'form-control',
+                    'required' : True
                     }
             ), 
             'serial': forms.TextInput(
                 attrs={
                     'class': 'form-control',
+                    'required' : True
                     }
             ), 
             'prop_no': forms.TextInput(
                 attrs={
                     'class': 'form-control',
-
+                    'required' : True
                     }
             ), 
             'acq_date': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
-                    'type':'date'
+                    'type':'date',
+                    'required' : True
                     }
             ),
             'acq_cost': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
+                    'required' : True
                     }
             ),
             'defect': forms.Textarea(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'State your Reason'
+                    'placeholder': 'State your Reason',
+                    'required' : True
                     }
             ), 
-            
+            'email': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'type':'email',
+                    'placeholder': 'Enter Email',
+                    'required' : True
+                    }
+            ),
         }

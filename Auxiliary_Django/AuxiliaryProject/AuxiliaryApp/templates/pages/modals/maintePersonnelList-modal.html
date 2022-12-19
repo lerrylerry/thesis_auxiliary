@@ -1,10 +1,10 @@
 {% load static %}
 {% block content %}
-<div class="modal fade" id="janitorlistModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="maintelistModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
      <div class="modal-content">
       <div class="modal-header">
-       <h5 class="modal-title" id="exampleModalLabel">ADD UTILITY PERSONNEL FORM</h5>
+       <h5 class="modal-title" id="exampleModalLabel">ADD MAINTENANCE PERSONNEL FORM</h5>
        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -13,13 +13,13 @@
         <div class="row">
          <div class="col-md-12 mt-2">
           <label for="" class="form-label">Name</label>
-          {{form.up_name}}
+          {{form.mp_name}}
           <!--<input id="name" type="text" class="form-control" name="names" placeholder="Enter Name" required>-->
          </div>
-         <div class="col-md-12 mt-2">
+         <!-- <div class="col-md-12 mt-2">
           <label for="" class="form-label">Pincode</label>
           {{form.up_code}}
-         </div>
+         </div> -->
          <div class="col-md-12 mt-2">
           <!-- <label for="" class="form-label">Status</label>
           {{form.up_status}} -->
@@ -30,7 +30,7 @@
             </select>-->
          </div>
          <div class="col-md-12 mt-4 mb-2" style="text-align: right;">
-          <button id="janitorlist" class="btn btn-danger" type="submit" name="addjanitorlists">Add Utility Personnel Lists</button>
+          <button id="janitorlist" class="btn btn-danger" type="submit" name="addmaintelists">Add Maintenance Personnel</button>
          </div>
         </div>
        </form>

@@ -6,13 +6,14 @@
 {% endblock title %}
 
 {% block content %}
-<body>
+<body class="images">
     <form action="{% url 'client-form' %}" method="POST">
         {% csrf_token %}
         <div class="container d-flex justify-content-center align-items-center h-100 my-4">
             <div class="card pb-3">
                 <div class="card-body">
                     <header><strong>REQUESTED BY</strong></header>
+                    <hr>
                     <div class="row">
                         <div class="col-sm-8">
                             <label>NAME</label>
@@ -67,8 +68,8 @@
                             <!-- <textarea class="form-control"></textarea> -->
                         </div>
                     </div>
-                <button type="submit" class="btn btn-success btn w-50 mx-auto rounded-pill login">SUBMIT</button>
-            </div>
+                </div>
+            <button type="submit" class="btn btn-success btn w-50 mx-auto rounded-pill login">SUBMIT</button>
         </div>
     </form>
 </body>

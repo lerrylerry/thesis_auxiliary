@@ -12,7 +12,7 @@
     <div class="mt-5">
       <div class="row">
         <div class="col-lg-7">
-          <h4 class="mt-1 mb-1">UTILITY PERSONNEL LIST</h4>
+          <h4 class="mt-1 mb-1">MAINTENANCE PERSONNEL LIST</h4>
         </div>
         <div class="col-lg-5" style="display: inline-flex;">
           <input type="text" class="form-control" id="searchNames" onkeyup="search(0)" placeholder="Search items...">
@@ -24,21 +24,19 @@
           <thead class="table-dark">
             <tr>
               <th scope="col">NAME</th>
-              <th scope="col">PINCODE</th>
               <th scope="col">STATUS</th>
             </tr>
           </thead>
           <tbody id="janitorlistTable">
             <tr>
-              {% if up %}
-              {% for x in up %}
+              {% if mp %}
+              {% for x in mp %}
               <td>
-                <a href="person={{x.id}}" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#statusModal{{x.id}}">{{x.up_name}}</a>
+                <a href="person={{x.id}}" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#statusModal{{x.id}}">{{x.mp_name}}</a>
               </td> 
               {% include 'pages/modals/status-modal.html' %}
-              <td>{{x.up_code}}</td>
               <td>
-                  {{x.up_status}}
+                  {{x.mp_status}}
               </td>
             </tr>
               {% endfor %}
@@ -47,11 +45,11 @@
         </table>
       </div>
     </div>
-    <button type="button" class="btn btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#janitorlistModal">Add Personnel</button>
+    <button type="button" class="btn btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#maintelistModal">Add Personnel</button>
   </div>
 
   <!--MODAL ADD JANITOR-->
-  {% include 'pages/modals/utilityPersonnelList-modal.html' %}
+  {% include 'pages/modals/maintePersonnelList-modal.html' %}
   
   </section>
 </body>

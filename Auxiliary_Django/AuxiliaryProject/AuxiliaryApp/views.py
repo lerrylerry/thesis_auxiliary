@@ -178,8 +178,18 @@ def history(request):
 def adminHomepage(request):
     return render(request, 'pages/admin/homepage.html')
 
-def utilityPersonnel(request):
-    return render(request, 'pages/admin/utilityPersonnel.html')
+def maintenancePersonnelList(request):
+    if request.method == "POST":
+        form = mainteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/maintenance-personnel-list')
+    else:
+        form = mainteForm()
+    mp = mainteDB.objects.all()
+    context = {'form':form, 'mp':mp}
+    return render(request, 'pages/admin/maintePersonnelList.html', context)
+   
 
 def utilityPersonnelList(request):
     if request.method == "POST":
@@ -217,10 +227,10 @@ def vehicle_accept(request, id):
     query = vehicleDB.objects.get(id=id)
     receiver = query.email
     query.status = "ACCEPTED"
-    query.save()
+    # query.save()
     #createhistory
     his = historyDB.objects.create(his_name = query.req_name, service = 'VEHICLE', his_status=query.status)
-    his.save()
+    # his.save()
 
     send_mail(
         subject='Accepted Successfully',
@@ -234,9 +244,9 @@ def vehicle_accept(request, id):
 def vehicle_decline(request, id):
     query = vehicleDB.objects.get(id=id)
     query.status = "REJECTED"
-    query.save()
+    # query.save()
     his = historyDB.objects.create(his_name = query.req_name, service = 'VEHICLE', his_status=query.status)
-    his.save()
+    # his.save()
     return redirect('vehicle')
 
 '''<----------------------------------------------------------------------->'''
@@ -302,7 +312,9 @@ def vehicleForm(request):
     if request.method == "POST":
         form = vehiclesForm(request.POST)
         if form.is_valid():
+            messages.success(request, 'SUCCESS: Request Sent')
             form.save()
+            return redirect('vehicle-form')
     else:
         form = vehiclesForm()
     context = {'form':form}

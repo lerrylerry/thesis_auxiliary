@@ -131,6 +131,20 @@ class janitorForm(forms.ModelForm):
             #         }
             # ), 
          }
+
+class mainteForm(forms.ModelForm):
+    class Meta:
+        model = mainteDB
+        fields = ['mp_name']
+        widgets = {
+            'mp_name': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ex: Juan Dela Cruz'
+                    }
+            )
+        }
+
 class borrowUPForm(forms.ModelForm):
     up_code = forms.CharField(
         max_length=4, widget=forms.PasswordInput(

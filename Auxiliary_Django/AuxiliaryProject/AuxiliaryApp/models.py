@@ -30,6 +30,10 @@ class janitorDB(models.Model):
     up_code = models.CharField(max_length=4, null=True, blank=True)#pin
     up_status = models.CharField(max_length=100, verbose_name='userType', default='ACTIVE')
 
+class mainteDB(models.Model):
+    mp_name = models.CharField(max_length=25,null=True, blank=True)
+    mp_status = models.CharField(max_length=100, default='ACTIVE')
+
 class vehicleDB(models.Model):
     req_name = models.CharField(max_length=25,null=True, blank=True)
     passengers = models.IntegerField(null=True, blank=True)
@@ -46,7 +50,6 @@ class borrowDB(models.Model):
     status = models.CharField(max_length=8, default="PENDING")
 
 class historyDB(models.Model):
-    
     his_name = models.CharField(max_length=50,null=True, blank=True)
     service = models.CharField(max_length=50,null=True, blank=True)
     his_date = models.DateTimeField(auto_now_add=True)

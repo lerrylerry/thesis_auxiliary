@@ -13,6 +13,11 @@
             <div class="card violet pb-3">
                 <div class="card-body">
                     <header><strong>REQUEST FOR VEHICLE RESERVATION FORM</strong></header>
+                    {% for message in messages %}
+                      <div class="alert alert-primary">
+                        {{ message }}
+                      </div>
+                    {% endfor %}
                     <hr>
                     <div class="row">
                         <label>REQUEST MADE BY</label>

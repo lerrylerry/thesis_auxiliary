@@ -53,6 +53,8 @@ class historyDB(models.Model):
     service = models.CharField(max_length=50,null=True, blank=True)
     his_date = models.DateTimeField(auto_now_add=True)
     his_status = models.CharField(max_length=50,null=True, blank=True)
+    borrow = models.ForeignKey(borrowDB, on_delete=models.CASCADE,null=True)
+    vehicle = models.ForeignKey(vehicleDB, on_delete=models.CASCADE,null=True)
 
 class clientrepairDB(models.Model):
     name = models.CharField(max_length=50,null=True, blank=True)
@@ -67,5 +69,32 @@ class clientrepairDB(models.Model):
     acq_date = models.DateField(max_length=10)
     acq_cost = models.IntegerField(null=True, blank=True)
     defect = models.CharField(max_length=500,null=True, blank=True)
-    status = models.CharField(max_length=8, default="PENDING")
+    status = models.CharField(max_length=8, default="PENDING",blank=True)
     email = models.EmailField(max_length=300, default=None)
+
+class adminrepairDB(models.Model):
+    CAN_DO = [
+        ('0', 'Can be Repaired/Fabricated in-house'),
+        ('1', "Can't be Repaired/Fabricated in-house")
+    ]
+    fabricate = models.CharField(max_length=100, choices=CAN_DO)
+    assess = models.CharField(max_length=50,null=True, blank=True)
+    date = models.DateField(auto_now_add=True)
+    assigned = models.CharField(max_length=50,null=True, blank=True)
+
+    DECISION = [
+        ('0', 'APPROVED'),
+        ('1', 'DISAPPROVED'),
+        ('2', 'RESUBMIT REQUEST'),
+    ]
+    prove = models.CharField(max_length=100, choices=DECISION)
+    head = models.CharField(max_length=50,null=True, blank=True)
+    datetime = models.DateTimeField(auto_now_add=True)
+    client = models.ForeignKey(clientrepairDB, on_delete=models.CASCADE)
+
+class mainterepairDB(models.Model):
+    person = models.CharField(max_length=50,null=True, blank=True)
+    start = models.DateTimeField()
+    end = models.DateTimeField()
+    inspect = models.CharField(max_length=50,null=True, blank=True)
+    admin = models.ForeignKey(adminrepairDB, on_delete=models.CASCADE)

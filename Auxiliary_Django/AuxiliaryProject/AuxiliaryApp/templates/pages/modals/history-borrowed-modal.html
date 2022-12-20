@@ -1,4 +1,4 @@
-<div class="modal fade" id="historyborrowModal{{x.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="historyborrowModal{{x.borrow.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -8,45 +8,33 @@
         <div class="modal-body">
           <form method="POST">
           {% csrf_token %}
-          <div class="row">
-              <div class="col-md-12 mt-2">
-                  <label for="name">Utilty Personnel Name</label>
-                  <br>
-                  <input type="text" name="up_name" value="{{x.utility_personnel.up_name}}" class="form-control" disabled>
+          {% comment %} {% for x in vehicles %} {% endcomment %}
+
+            <label for="name">Utilty Personnel Name</label>
+            <input type="text" name="up_name" value="{{x.borrow.utility_personnel.up_name}}" class="form-control" disabled>
+
+            <div class="row mt-3">
+              <div class="d-flex justify-content-around">
+                <label for="name"><b>Item Name</b</label>
+                <label class="text-center" for="name"><b>Borrowed</b></label>
               </div>
-          </div>
-          <div class="row">
-            <table class="table text-center">
-              <thead>
-                <tr>
-                  <th scope="col">Items</th>
-                  <th scope="col">Available</th>
-                  <th scope="col">Quantity</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for key, value in x.items_req.items %}
-                {% for y in items %}
-                {% for keys, values in y.itemsName_Quantity.items%}
-              
-                
-                <tr>
-                  <td>{{ key }}</td>
-                  <td>{{values}}<span class="text-danger">(-{{value}})</span></td>
-                  <td><input class="form-control" type="number" name="quantity" id="" value="{{value}}" disabled></td>
-                </tr>
-                {% endfor %}
-                {% endfor %}
-                {% endfor %}
-              </tbody>
-            </table>
+            </div> 
+            
+            {% for key, value in x.borrow.items_req.items %}
+            <div class="row mt-3">
+              <div class="col-4">                
+                <label for="item">{{ key }}</label>
+              </div>
+              <div class="col">
+                <input type="text" name="up_name" value="{{value}}" class="form-control justify-content-around" disabled>
+              </div>
+            </div>
+            {% endfor %}
             <!-- <div class="col-md-12 mt-4 mb-2 d-flex justify-content-around">
                   <a href="/borrowed/a/{{x.id}}"class="btn btn-success">ACCEPT</a>
                   <button class="btn btn-danger">DECLINE</button>
             </div> -->
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
     </div>
-    </div>
-  </div>
+</div>

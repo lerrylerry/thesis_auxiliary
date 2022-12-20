@@ -177,23 +177,24 @@ def borrowed(request):
 @login_required(login_url='signin')
 def borrowed_accept(request, id):
     if request.user.userType == 'ADMIN':
-        #updatesupplies
-        # borrowItems = borrowDB.objects.all()
-        # allItems = itemsDB.objects.all()
-        
         # quantity = int(request.POST['quantity'])
-        # check = itemsDB.objects.get(id=old)
-        # new_val = check.item_quantity - quantity
-        # check.item_quantity = new_val
-        # check.itemsName_Quantity[check.item_name] = new_val
-        # check.save()
-
-
-        query = borrowDB.objects.get(id=id)
-        query.status = "ACCEPTED"
-        query.save()
+        allItems = borrowDB.objects.get(id=id)
+        print(allItems.items_req)
+        for x in allItems.items_req:
+            print(allItems.items_req[x])
+            req = allItems.items_req[x]
+            availItems = itemsDB.objects.get(item_name = x)
+            old = availItems.item_quantity
+            print(availItems.item_name)
+            print(availItems.item_quantity)
+            new_quantity = int(old) - int(req)
+            print(new_quantity)
+            availItems.item_quantity = new_quantity
+            availItems.save()
+        allItems.status = "ACCEPTED"
+        allItems.save()
         #createhistory
-        his = historyDB.objects.create(his_name = query.utility_personnel.up_name, service = 'UTILITY', his_status=query.status)
+        his = historyDB.objects.create(his_name = allItems.utility_personnel.up_name, service = 'INVENTORY', his_status=allItems.status, borrow=allItems)
         his.save()
         return redirect('borrowed')
 
@@ -204,11 +205,20 @@ def borrowed_accept(request, id):
 def history(request):
     vehi_his = historyDB.objects.filter(service = 'VEHICLE')
     his = historyDB.objects.exclude(service = 'VEHICLE')
+    items= itemsDB.objects.all()
+    gethis = historyDB.objects.get(borrow = 6)
+    name=gethis.borrow.utility_personnel.up_name
+    for x in gethis.borrow.items_req:
+        print(gethis.borrow.items_req[x])
+        print(x)
     context ={
         'his':his,
-        'vehi_his':vehi_his
+        'vehi_his':vehi_his,
+        'items':items
         }
     return render(request, 'pages/admin/history.html',context)
+
+
 
 
 @login_required(login_url='signin')
@@ -301,10 +311,10 @@ def vehicle_accept(request, id):
     query = vehicleDB.objects.get(id=id)
     receiver = query.email
     query.status = "ACCEPTED"
-    # query.save()
+    query.save()
     #createhistory
-    his = historyDB.objects.create(his_name = query.req_name, service = 'VEHICLE', his_status=query.status)
-    # his.save()
+    his = historyDB.objects.create(his_name = query.req_name, service = 'VEHICLE', his_status=query.status, vehicle=query)
+    his.save()
 
     send_mail(
         subject='Accepted Successfully',
@@ -328,8 +338,6 @@ def vehicle_decline(request, id):
 
 '''<-----------------------------FORMSPAGE--------------------------------->'''
 
-def adminForm(request):
-    return render(request, 'pages/forms/admin-form.html')
 
 def borrowForm(request):
     if request.method == "POST":
@@ -374,13 +382,33 @@ def clientForm(request):
         if form.is_valid():
             form.save()
             messages.success(request, "SUCCESS: successfully submitted")
+            
             return redirect('client-form')
         else:
             messages.error(request, "ERROR: please enter valid details")
+        print(form)
     else:
         form = clientrepairForm()
     context = {'form':form}
     return render(request, 'pages/forms/client-form.html', context)
+
+def adminForm(request, id):
+    client = clientrepairDB.objects.get(id=id)
+    form = clientrepairForm(instance=client)
+    mainte = mainteDB.objects.all()
+    if request.method == "POST":
+        forms = adminrepairForm(request.POST)
+        if forms.is_valid():
+            forms.save()
+    else:
+        forms = adminrepairForm()
+    context = {'form':form,
+            'forms':forms,
+            'mainte':mainte,
+            'client':client
+
+            }
+    return render(request, 'pages/forms/admin-form.html', context)
 
 def personnelForm(request):
     return render(request, 'pages/forms/personnel-form.html')

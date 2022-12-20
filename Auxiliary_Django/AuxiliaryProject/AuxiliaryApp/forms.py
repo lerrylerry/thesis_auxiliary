@@ -285,9 +285,45 @@ class clientrepairForm(forms.ModelForm):
             'email': forms.TextInput(
                 attrs={
                     'class': 'form-control',
-                    'type':'email',
-                    'placeholder': 'Enter Email',
                     'required' : True
                     }
             ),
+        }
+
+class adminrepairForm(forms.ModelForm):
+    class Meta:
+        model = adminrepairDB
+        fields = '__all__'
+        widgets ={
+            'fabricate': forms.Select(
+                attrs={
+                    'class': 'form-control',
+                    'required' : True
+                    }
+            ), 
+
+            'assess': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'required' : True
+                    }
+            ), 
+            'assigned': forms.Select(
+                attrs={
+                    'class': 'form-control',
+                    'required' : True
+                    }
+            ), 
+            'prove': forms.Select(
+                attrs={
+                    'class': 'form-control',
+                    'required' : True
+                    }
+            ), 
+            'head': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'required' : True
+                    }
+            ), 
         }

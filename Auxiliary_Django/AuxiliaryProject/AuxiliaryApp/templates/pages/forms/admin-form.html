@@ -9,25 +9,101 @@
 {% block content %}
 <body class="images">
     <form action="#" method="POST">
+        {% csrf_token %}
         <div class="parent2 container d-flex justify-content-center align-items-center h-100 my-5">
             <div class="card violet pb-3">
                 <div class="card-body">
+
+                    {% for message in messages %}
+                        <div class="container-fluid p-0 mt-3">
+                            <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+                                {{ message }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <fieldset disabled>
+                    <header><strong>REQUESTED BY</strong></header>
+                    <hr>
+                    <div class="row">
+                    
+                        <div class="col-sm-8">
+                            <label>NAME</label>
+                            {{form.name}}
+                            <!-- <input type="text" class="form-control"> -->
+                        </div>
+                        <div class="col-sm-4">
+                            <label>POSITION/TITLE</label>
+                            {{form.position}}
+                            <!-- <input type="text" class="form-control"> -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row-sm">
+                            <label>DEPARTMENT</label>
+                            {{form.department}}
+                            <!-- <input type="text" class="form-control"> -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <label>EMAIL</label>
+                            {{form.email}}
+                        </div>
+                    </div>
+                    <header><strong>DESCRIPTION OF PROPERTY</strong></header>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label>TYPE</label>
+                            {{form.prop_type}}
+                            <!-- <input type="text" class="form-control"> -->
+                            <label>SERIAL NO.</label>
+                            {{form.serial}}
+                            <!-- <input type="text" class="form-control"> -->
+                            <label>ACQUISITION DATE</label>
+                            {{form.acq_date}}
+                            <!-- <input type="text" class="form-control"> -->
+                        </div>
+                        <div class="col-sm-6">
+                            <label>BRAND MODEL</label>
+                            {{form.brand}}
+                            <!-- <input type="text" class="form-control"> -->
+                            <label>PROPERTY NO</label>
+                            {{form.prop_no}}
+                            <!-- <input type="text" class="form-control"> -->
+                            <label>ACQUISITION COST</label>
+                            {{form.acq_cost}}
+                            <!-- <input type="text" class="form-control"> -->
+                        </div>
+                    </div>
+                    <header><strong>DEFECTS AND COMPLAINTS</strong></header>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm">
+                            <label>NATURE AND SCOPE OF WORK TO BE DONE</label>
+                            {{form.defect}}
+                            <!-- <textarea class="form-control"></textarea> -->
+                        </div>
+                    </div>
+                </fieldset>
                     <header><strong>INITIAL ASSESSMENT</strong></header>
                     <hr>
                     <div class="row">
                         <div class="d-flex justify-content-around">
-                            <div class="form-check form-check-inline">
+                        {{forms.fabricate}}
+                            {% comment %} <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
                                 <label class="form-check-label" for="inlineRadio1">Can be Repaired/Fabricated in-house</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
                                 <label class="form-check-label" for="inlineRadio2">Cannot be Repaired/Fabricated in-house</label>
-                            </div>
+                            </div> {% endcomment %}
                         </div>
                         <div class="col-sm-4">
                             <label>ASSESSED BY</label>
-                            <input type="text" class="form-control">
+                            {{forms.assess}}
+                            {% comment %} <input type="text" class="form-control"> {% endcomment %}
                         </div>
                         <!--
                         <div class="col-sm-4">
@@ -35,13 +111,22 @@
                             <input type="text" class="form-control">
                         </div>
                         -->
-                        <div class="col-sm-4">
+                        {% comment %} <div class="col-sm-4">
                             <label>Date Assessed</label>
                             <input type="text" class="form-control">
-                        </div>
+                        </div> {% endcomment %}
                         <div class="col-sm-4">
                             <label>Personnel Assigned</label>
-                            <input type="text" class="form-control">
+                            <select class="form-select" name="name" id="" required>
+                                <option value="" disabled selected>Choose Maintenance Personnel</option>
+                                {% for x in mainte %}
+                                {%if x.mp_status == 'ACTIVE'%}
+                                <option value={{x.id}}>
+                                  {{x.mp_name}}
+                                </option>
+                                {% endif %}
+                                {% endfor %}  
+                            </select>
                         </div>
                     </div>
                     <br>
@@ -63,16 +148,6 @@
                                 <td>---</td>
                                 <td>---</td>
                             </tr>
-                            <tr>
-                                <td>---</td>
-                                <td>---</td>
-                                <td>---</td>
-                            </tr>
-                            <tr>
-                                <td>---</td>
-                                <td>---</td>
-                                <td>---</td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -80,28 +155,16 @@
                     <header><strong>APPROVAL</strong></header>
                     <hr>
                     <div class="row">
-                        <div class="d-flex justify-content-around">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                <label class="form-check-label" for="inlineRadio1">APPROVED</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                <label class="form-check-label" for="inlineRadio2">DISAPPROVED</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-                                <label class="form-check-label" for="inlineRadio3">RESUBMIT REQUEST</label>
-                            </div>
-                        </div>
+                    {{forms.prove}}
                     </div>
                     <br>
                     <div class="row">
                         <div class="col-sm-4">
                             <label>HEAD, AUXILIARY SERVICES</label>
-                            <input type="text" class="form-control">
+                        {{forms.head}}
+                            {% comment %} <input type="text" class="form-control"> {% endcomment %}
                         </div>
-                        <div class="col-sm-4">
+                        {% comment %} <div class="col-sm-4">
                             <label>DATE</label>
                             <input type="text" class="form-control">
                         </div>
@@ -113,7 +176,7 @@
                             <label>TIME</label>
                             <input type="text" class="form-control">
                         </div>
-                    </div>
+                    </div> {% endcomment %}
                 </div>
                 <button class="btn btn-success btn w-50 mx-auto rounded-pill login">SUBMIT</button>
             </div>

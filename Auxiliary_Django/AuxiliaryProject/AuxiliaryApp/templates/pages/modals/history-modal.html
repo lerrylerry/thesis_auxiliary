@@ -1,4 +1,4 @@
-<div class="modal fade" id="historyModal{{x.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="historyModal{{x.vehicle.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -13,33 +13,33 @@
               {% comment %} {% for x in vehicles %} {% endcomment %}
               <div class="row">
                   <label>NO OF PASSENGERS</label>
-                  <input type="text" value="{{x.passengers}}" class="form-control" disabled>
+                  <input type="text" value="{{x.vehicle.passengers}}" class="form-control" disabled>
               </div>
               <div class="row">
                   <label>DESTINATION</label>
-                  <input type="text" value="{{x.destination}}" class="form-control" disabled>
+                  <input type="text" value="{{x.vehicle.destination}}" class="form-control" disabled>
               </div>
               <div class="row">
                   <label>PURPOSE</label>
-                  <input type="text" value="{{x.purpose}}" class="form-control" disabled>
+                  <input type="text" value="{{x.vehicle.purpose}}" class="form-control" disabled>
               </div>
               <div class="row">
                   <label>DATE/S</label>
-                  <input type="text" value="{{x.date}}" class="form-control" disabled>
+                  <input type="text" value="{{x.vehicle.date}}" class="form-control" disabled>
               </div>
               <div class="row">
                   <label>REQUEST MADE BY</label>
-                  <input type="text" value="{{x.req_name}}" class="form-control" disabled>
+                  <input type="text" value="{{x.vehicle.req_name}}" class="form-control" disabled>
               </div>
               <div class="row">
                 <label>EMAIL</label>
-                <input type="email" name="email" value="{{x.email}}" class="form-control" disabled>
+                <input type="email" name="email" value="{{x.vehicle.email}}" class="form-control" disabled>
             </div>
             </div>
             {% comment %} {% endfor %} {% endcomment %}
             <div class="col-md-12 mt-2 d-flex justify-content-around">
-              <!-- <a href="/vehicle/{{x.id}}" class="btn btn-success">ACCEPT</a>
-              <button type="button" data-bs-toggle="modal" data-bs-target="#sec">DECLINE</button> -->
+              <a href="" class="btn btn-success">Print Form</a>
+              {% comment %} <button type="button" data-bs-toggle="modal" data-bs-target="#sec">DECLINE</button>  {% endcomment %}
             </div>
           </div>
         </form>

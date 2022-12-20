@@ -29,7 +29,7 @@ urlpatterns = [
     path('borrowed/a/<int:id>', views.borrowed_accept, name='borrowed_accept'),
     path('borrowed/b/<int:id>', views.borrowed, name='borrowed'),
 
-    path('admin-form/', views.adminForm, name='admin-form'),
+    path('admin-form/<int:id>', views.adminForm, name='admin-form'),
     path('borrow-form/', views.borrowForm, name='borrow-form'),
     path('client-form/', views.clientForm, name='client-form'),
     path('personnel-form/', views.personnelForm, name='personnel-form'),

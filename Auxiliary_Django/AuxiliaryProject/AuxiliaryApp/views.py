@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
+from django.http import HttpResponseForbidden
 import cv2
 
 '''<-----------------------------HOMEPAGE---------------------------------->'''
@@ -26,7 +27,6 @@ def signin(request):
             login(request, user)
             return redirect('admin-homepage')
         elif user is not None and user.userType == 'ASSISTANT_DIRECTOR':
-            print('asst-direc')
             login(request, user)
             return redirect('vehicle')
         else:
@@ -36,9 +36,7 @@ def signin(request):
     else:
         x = 0
         if CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() < 2:
-            print("no match")
             return render(request, 'pages/homepage/signin.html', {'x':x})
-        print("match")
         return render(request, 'pages/homepage/signin.html', {'x':x+1})
 
 def signup(request):
@@ -74,34 +72,45 @@ def signup(request):
 
 def logoutUser(request):
     logout(request)
-    return redirect('signin')
+    return redirect('index')
 
 '''<----------------------------------------------------------------------->'''
 
 '''<-----------------------------ADMINPAGE--------------------------------->'''
+@login_required(login_url='signin')
 def status(request, id):
-    stats= janitorDB.objects.get(id=id)
-    if stats.up_status == 'ACTIVE':
-        stats.up_status = 'INACTIVE'
-        stats.save()
+    if request.user.userType == 'ADMIN':
+        stats= janitorDB.objects.get(id=id)
+        if stats.up_status == 'ACTIVE':
+            stats.up_status = 'INACTIVE'
+            stats.save()
+        else:
+            stats.up_status = 'ACTIVE'
+            stats.save()
+        return redirect('utility-personnel-list')
+        # up = janitorDB.objects.all()
+        # context = {'up':up}
+        # return render(request, 'pages/admin/utilityPersonnelList.html', context)
+    
     else:
-        stats.up_status = 'ACTIVE'
-        stats.save()
-    return redirect('utility-personnel-list')
-    # up = janitorDB.objects.all()
-    # context = {'up':up}
-    # return render(request, 'pages/admin/utilityPersonnelList.html', context)
-def mainteStatus(request, id):
-    stats= mainteDB.objects.get(id=id)
-    if stats.mp_status == 'ACTIVE':
-        stats.mp_status = 'INACTIVE'
-        stats.save()
-    else:
-        stats.mp_status = 'ACTIVE'
-        stats.save()
-    return redirect('maintenance-personnel-list')
+        return HttpResponseForbidden()
 
-@login_required(login_url='index')
+@login_required(login_url='signin')
+def mainteStatus(request, id):
+    if request.user.userType == 'ADMIN':
+        stats= mainteDB.objects.get(id=id)
+        if stats.mp_status == 'ACTIVE':
+            stats.mp_status = 'INACTIVE'
+            stats.save()
+        else:
+            stats.mp_status = 'ACTIVE'
+            stats.save()
+        return redirect('maintenance-personnel-list')
+
+    else:
+        return HttpResponseForbidden()
+
+@login_required(login_url='signin')
 def addItems(request):
     if request.user.userType == 'ADMIN':
         if request.method == "POST":
@@ -124,57 +133,74 @@ def addItems(request):
         items = itemsDB.objects.all()
         context = {'form':form, 'items':items}
         return render(request, 'pages/admin/addItems.html', context)
-    else:
-        return redirect('index')
 
+    else:
+        return HttpResponseForbidden()
+
+@login_required(login_url='signin')
 def addSupplies(request):
-    if request.method == "POST":
-        form = itemsForm(request.POST)
-        if form.is_valid():
-            itemName = request.POST['items']
-            quantity = int(request.POST['item_quantity'])
-            check = itemsDB.objects.get(id=itemName)
-            new_val = check.item_quantity + quantity
-            check.item_quantity = new_val
-            #check.itemsName_Quantity[check.item_name] = new_val
-            check.save()
-            return redirect('/add-items')
-    else:
-        form = itemsForm()
-    items = itemsDB.objects.all()
-    context = {'form':form, 'items':items}
-    return render(request, 'pages/admin/addItems.html',context)
-
-def borrowed(request):
-    requests = borrowDB.objects.prefetch_related('utility_personnel').filter(status='PENDING')
-    items = itemsDB.objects.all()
-    context = {
-        'requests':requests,
-        'items':items
-    }
-    return render(request, 'pages/admin/borrowed.html', context)
-
-def borrowed_accept(request, id):
-    #updatesupplies
-    # borrowItems = borrowDB.objects.all()
-    # allItems = itemsDB.objects.all()
+    if request.user.userType == 'ADMIN':
+        if request.method == "POST":
+            form = itemsForm(request.POST)
+            if form.is_valid():
+                itemName = request.POST['items']
+                quantity = int(request.POST['item_quantity'])
+                check = itemsDB.objects.get(id=itemName)
+                new_val = check.item_quantity + quantity
+                check.item_quantity = new_val
+                #check.itemsName_Quantity[check.item_name] = new_val
+                check.save()
+                return redirect('/add-items')
+        else:
+            form = itemsForm()
+        items = itemsDB.objects.all()
+        context = {'form':form, 'items':items}
+        return render(request, 'pages/admin/addItems.html',context)
     
-    # quantity = int(request.POST['quantity'])
-    # check = itemsDB.objects.get(id=old)
-    # new_val = check.item_quantity - quantity
-    # check.item_quantity = new_val
-    # check.itemsName_Quantity[check.item_name] = new_val
-    # check.save()
+    else:
+        return HttpResponseForbidden()
+
+@login_required(login_url='signin')
+def borrowed(request):
+    if request.user.userType == 'ADMIN':
+        requests = borrowDB.objects.prefetch_related('utility_personnel').filter(status='PENDING')
+        items = itemsDB.objects.all()
+        context = {
+            'requests':requests,
+            'items':items
+        }
+        return render(request, 'pages/admin/borrowed.html', context)
+
+    else:
+        return HttpResponseForbidden()
+
+@login_required(login_url='signin')
+def borrowed_accept(request, id):
+    if request.user.userType == 'ADMIN':
+        #updatesupplies
+        # borrowItems = borrowDB.objects.all()
+        # allItems = itemsDB.objects.all()
+        
+        # quantity = int(request.POST['quantity'])
+        # check = itemsDB.objects.get(id=old)
+        # new_val = check.item_quantity - quantity
+        # check.item_quantity = new_val
+        # check.itemsName_Quantity[check.item_name] = new_val
+        # check.save()
 
 
-    query = borrowDB.objects.get(id=id)
-    query.status = "ACCEPTED"
-    query.save()
-    #createhistory
-    his = historyDB.objects.create(his_name = query.utility_personnel.up_name, service = 'UTILITY', his_status=query.status)
-    his.save()
-    return redirect('borrowed')
+        query = borrowDB.objects.get(id=id)
+        query.status = "ACCEPTED"
+        query.save()
+        #createhistory
+        his = historyDB.objects.create(his_name = query.utility_personnel.up_name, service = 'UTILITY', his_status=query.status)
+        his.save()
+        return redirect('borrowed')
 
+    else:
+        return HttpResponseForbidden()
+
+@login_required(login_url='signin')
 def history(request):
     vehi_his = historyDB.objects.filter(service = 'VEHICLE')
     his = historyDB.objects.exclude(service = 'VEHICLE')
@@ -184,38 +210,58 @@ def history(request):
         }
     return render(request, 'pages/admin/history.html',context)
 
+
+@login_required(login_url='signin')
 def adminHomepage(request):
-    return render(request, 'pages/admin/homepage.html')
+    if request.user.userType == 'ADMIN':
+        return render(request, 'pages/admin/homepage.html')
 
+    else:
+        return HttpResponseForbidden()
+
+@login_required(login_url='signin')
 def maintenancePersonnelList(request):
-    if request.method == "POST":
-        form = mainteForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/maintenance-personnel-list')
+    if request.user.userType == 'ADMIN':
+        if request.method == "POST":
+            form = mainteForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('/maintenance-personnel-list')
+        else:
+            form = mainteForm()
+        mp = mainteDB.objects.all()
+        context = {'form':form, 'mp':mp}
+        return render(request, 'pages/admin/maintePersonnelList.html', context)
+
     else:
-        form = mainteForm()
-    mp = mainteDB.objects.all()
-    context = {'form':form, 'mp':mp}
-    return render(request, 'pages/admin/maintePersonnelList.html', context)
+        return HttpResponseForbidden()
    
-
+@login_required(login_url='signin')
 def utilityPersonnelList(request):
-    if request.method == "POST":
-        form = janitorForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/utility-personnel-list')
-    else:
-        form = janitorForm()
-    up = janitorDB.objects.all()
-    context = {'form':form, 'up':up}
-    return render(request, 'pages/admin/utilityPersonnelList.html', context)
+    if request.user.userType == 'ADMIN':
+        if request.method == "POST":
+            form = janitorForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('/utility-personnel-list')
+        else:
+            form = janitorForm()
+        up = janitorDB.objects.all()
+        context = {'form':form, 'up':up}
+        return render(request, 'pages/admin/utilityPersonnelList.html', context)
 
+    else:
+        return HttpResponseForbidden()
+
+@login_required(login_url='signin')
 def minorRepair(request):
-    repair = clientrepairDB.objects.filter(status = 'PENDING')
-    context = {'repair':repair}
-    return render(request, 'pages/admin/minorRepair.html',context)
+    if request.user.userType == 'ADMIN':
+        repair = clientrepairDB.objects.filter(status = 'PENDING')
+        context = {'repair':repair}
+        return render(request, 'pages/admin/minorRepair.html',context)
+
+    else:
+        return HttpResponseForbidden()
 
 @login_required(login_url='index')
 def vehicle(request):
@@ -225,25 +271,32 @@ def vehicle(request):
         #form = vehicleForm(instance=vehicles)
         context = {'vehicles':vehicles}
         return render(request, 'pages/admin/vehicle.html', context)
+
     else:
-        return redirect('index')
+        return HttpResponseForbidden()
 
+@login_required(login_url='signin')
 def camera(request):
-    cap = cv2.VideoCapture(0)
-    # Check if the webcam is opened correctly
-    if not cap.isOpened():
-        raise IOError("Cannot open webcam")
-    while True:
-        ret, frame = cap.read()
-        frame = cv2.resize(frame, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
-        cv2.imshow('Input', frame)
-        c = cv2.waitKey(1)
-        if c == 27:
-            break
-    cap.release()
-    cv2.destroyAllWindows()
-    return render(request, 'pages/admin/camera.html')
+    if request.user.userType == 'ADMIN':
+        cap = cv2.VideoCapture(0)
+        # Check if the webcam is opened correctly
+        if not cap.isOpened():
+            raise IOError("Cannot open webcam")
+        while True:
+            ret, frame = cap.read()
+            frame = cv2.resize(frame, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA)
+            cv2.imshow('Input', frame)
+            c = cv2.waitKey(1)
+            if c == 27:
+                break
+        cap.release()
+        cv2.destroyAllWindows()
+        return render(request, 'pages/admin/camera.html')
 
+    else:
+        return HttpResponseForbidden()
+
+@login_required(login_url='signin')
 def vehicle_accept(request, id):
     query = vehicleDB.objects.get(id=id)
     receiver = query.email
@@ -262,6 +315,7 @@ def vehicle_accept(request, id):
     )
     return redirect('vehicle')
 
+@login_required(login_url='signin')
 def vehicle_decline(request, id):
     query = vehicleDB.objects.get(id=id)
     query.status = "REJECTED"

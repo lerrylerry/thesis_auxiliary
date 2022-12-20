@@ -3,15 +3,18 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import *
 
 USERTYPE = [
+        ('','Select user here'),
         ('ADMIN','ADMIN'),
         ('ASSISTANT_DIRECTOR','ASSISTANT_DIRECTOR'),
     ]
 
 USER_A = [
+    ('','Select user here'),
     ('ADMIN','ADMIN'),
 ]
 
 USER_B = [
+    ('','Select user here'),
     ('ASSISTANT_DIRECTOR','ASSISTANT_DIRECTOR'),
 ]
 

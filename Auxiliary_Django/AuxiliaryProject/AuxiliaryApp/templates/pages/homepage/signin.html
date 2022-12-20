@@ -14,6 +14,13 @@
     <div class="card">
       <div class="card-body">
         <h1 class="card-title">LOGIN</h1>
+        {% for message in messages %}
+        <div class="container-fluid p-0 mt-3">
+          <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+            {{ message }}
+          </div>
+        </div>
+      {% endfor %}
         <form method="POST" name="login" action="/signin/" novalidate>
           {% csrf_token %}
           <div class="mb-3 mt-3">
@@ -42,4 +49,5 @@
   </div>
   {% comment %} {% include 'pages/modals/signup-modal.html' %} {% endcomment %}
 </body>
+
 {% endblock content %}

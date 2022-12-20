@@ -30,25 +30,20 @@
             </tr>
           </thead>
           <tbody>
-            {% comment %} {% if requests %} {% endcomment %}
             {% for x in requests %}
             <tr>
               <td><a href="borrow={{x.id}}" data-bs-toggle="modal" data-bs-target="#borrowModal{{x.id}}">{{ x.utility_personnel.up_name }}</a></td>
               <td>{{ x.status }}</td>
+              {% include 'pages/modals/borrowed-modal.html' %}
             </tr>
-            {% comment %} {% else %}
-              <tr>
-                <td colspan="2">No Requests</td>
-              </tr>
-            {% endif %} {% endcomment %}
+            {%endfor%}
           </tbody>
         </table>
       </div>
     </div>
     <!--BORROWED MODAL-->
-    {% include 'pages/modals/borrowed-modal.html' %}
-    {% endfor %}
+    
+    
               
-  </section>
 </body>
 {% endblock content %}

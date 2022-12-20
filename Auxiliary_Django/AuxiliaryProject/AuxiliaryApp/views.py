@@ -30,8 +30,8 @@ def signin(request):
             login(request, user)
             return redirect('vehicle')
         else:
-            print('Account not found or invalid')
-            return render(request, 'pages/homepage/home.html')
+            messages.error(request, 'FAILED: Invalid Account or Not Found')
+            return render(request, 'pages/homepage/signin.html')
      
     else:
         x = 0
@@ -107,11 +107,9 @@ def addItems(request):
         if request.method == "POST":
             form = itemsForm(request.POST)
             if form.is_valid():
-                dict = {}
                 name = request.POST['item_name']
                 quantity = request.POST['item_quantity']
                 unit = request.POST['item_unit']
-                dict[name] = quantity
                 query = itemsDB.objects.filter(item_name = name).count()
                 if query == 0:
                     items = itemsDB.objects.create(item_name = name, item_quantity = quantity, item_unit = unit)

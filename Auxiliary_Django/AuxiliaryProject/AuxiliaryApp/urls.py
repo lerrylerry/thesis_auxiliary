@@ -34,5 +34,7 @@ urlpatterns = [
     path('client-form/', views.clientForm, name='client-form'),
     path('personnel-form/', views.personnelForm, name='personnel-form'),
     path('vehicle-form/', views.vehicleForm, name='vehicle-form'),
+    path('supply-form/<int:id>', views.supplyForm, name='supply-form'),
+    path('approval-form/<int:id>', views.approvalForm, name='approval-form'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

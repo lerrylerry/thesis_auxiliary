@@ -20,13 +20,8 @@ class itemsDB(models.Model):
     item_quantity = models.IntegerField(null=True, blank=True)
 
 class janitorDB(models.Model):
-    # UP_STATUS = [
-    #     ('ACTIVE','ACTIVE'),
-    #     ('INACTIVE','INACTIVE')
-    # ]
-
     up_name = models.CharField(max_length=25,null=True, blank=True)
-    up_code = models.CharField(max_length=4, null=True, blank=True)#pin
+    up_code = models.CharField(max_length=4, null=True, blank=True)
     up_status = models.CharField(max_length=100, verbose_name='userType', default='ACTIVE')
 
 class mainteDB(models.Model):
@@ -74,22 +69,15 @@ class clientrepairDB(models.Model):
 
 class adminrepairDB(models.Model):
     CAN_DO = [
-        ('0', 'Can be Repaired/Fabricated in-house'),
-        ('1', "Can't be Repaired/Fabricated in-house")
+        ('YES', 'Can be Repaired/Fabricated in-house'),
+        ('NO', "Can't be Repaired/Fabricated in-house")
     ]
     fabricate = models.CharField(max_length=100, choices=CAN_DO)
     assess = models.CharField(max_length=50,null=True, blank=True)
     date = models.DateField(auto_now_add=True)
     assigned = models.CharField(max_length=50,null=True, blank=True)
+    # assigned = models.ForeignKey(janitorDB, on_delete=models.CASCADE)
 
-    DECISION = [
-        ('0', 'APPROVED'),
-        ('1', 'DISAPPROVED'),
-        ('2', 'RESUBMIT REQUEST'),
-    ]
-    prove = models.CharField(max_length=100, choices=DECISION)
-    head = models.CharField(max_length=50,null=True, blank=True)
-    datetime = models.DateTimeField(auto_now_add=True)
     client = models.ForeignKey(clientrepairDB, on_delete=models.CASCADE)
 
 class mainterepairDB(models.Model):
@@ -98,3 +86,28 @@ class mainterepairDB(models.Model):
     end = models.DateTimeField()
     inspect = models.CharField(max_length=50,null=True, blank=True)
     admin = models.ForeignKey(adminrepairDB, on_delete=models.CASCADE)
+
+class returnclientDB(models.Model):
+    DECISION = [
+        ('APPROVED', 'APPROVED'),
+        ('DISAPPROVED', 'DISAPPROVED'),
+    ]
+    requisitioner = models.CharField(max_length=50,null=True, blank=True)
+    datetime = models.DateTimeField(auto_now_add=True)
+    mainte = models.ForeignKey(mainterepairDB, on_delete=models.CASCADE)
+
+class suppmatDB(models.Model):
+    unit = models.CharField(max_length=50,null=True, blank=True)
+    quantity = models.CharField(max_length=50,null=True, blank=True)
+    particulars = models.CharField(max_length=50,null=True, blank=True)
+    client = models.ForeignKey(clientrepairDB, on_delete=models.CASCADE)
+
+class approvalDB(models.Model):
+    DECISION = [
+        ('APPROVED', 'APPROVED'),
+        ('DISAPPROVED', 'DISAPPROVED'),
+        ('RESUBMIT REQUEST', 'RESUBMIT REQUEST'),
+    ]
+    prove = models.CharField(max_length=100, choices=DECISION)
+    head = models.CharField(max_length=50,null=True, blank=True)
+    datetime = models.DateTimeField(auto_now_add=True)

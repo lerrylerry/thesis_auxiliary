@@ -75,9 +75,12 @@
     </li>
     <li>
       <a href="{% url 'logoutUser' %}">
-        <p class='bx bx-log-out' ></p>
-        <p class="link_name">Logout</p>
+        <i class='bx bx-log-out' ></i>
+        <span class="link_name">Logout</span>
       </a>
+      <ul class="sub-menu blank">
+        <li><a class="link_name" href="{% url 'logoutUser' %}">Logout</a></li>
+      </ul>
     </li>
   </ul>    
 </div>
@@ -112,12 +115,17 @@
         </ul>
       </li>    
       <li>
-        <a href="{% url 'logoutUser' %}">
-          <p class='bx bx-log-out' ></p>
-          <p class="link_name">Logout</p>
-        </a>
-      </li>
-    </ul>    
+    <div class="log-details">
+      <div class="profile-content">
+        <a href="{% url 'logoutUser' %}"><i class='bx bx-log-out'></i></a>
+      </div>
+      <div class="#">
+        <div class="out"></div>
+      </div>
+      <a href="{% url 'logoutUser' %}"><i class='' ></i></a>      
+    </div>
+  </li> 
+</ul>    
   </div>
   <section class="home-section">
     <div class="home-content">

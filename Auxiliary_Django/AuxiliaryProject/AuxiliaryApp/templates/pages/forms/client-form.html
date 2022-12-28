@@ -8,9 +8,9 @@
 
 {% block content %}
 <body class="images">
-    <form action="{% url 'client-form' %}" method="POST">
+    <form method="POST">
         {% csrf_token %}
-        <div class="container d-flex justify-content-center align-items-center h-100 my-4">
+        <div class="container my-4">
             <div class="card pb-3">
                 <div class="card-body">
                     {% for message in messages %}

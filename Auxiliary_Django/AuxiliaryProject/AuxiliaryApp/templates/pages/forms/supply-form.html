@@ -1,0 +1,64 @@
+{% extends 'pages/scripts4.html' %}
+{% load static %}
+
+{% block title %}
+<title>Supply | Minor Repair Form </title>
+<link rel="icon" href= "{% static 'media/TUP-LOGO-modified.png' %}">
+{% endblock title %}
+{% block content %}
+<div class="table-responsive-sm">
+    <table class="table caption-bottom">
+        <caption><i>PARTS TO BE REPLACED/SUPPLIED</i></caption>
+        <thead class="table">
+        <tr>
+            <th scope="col">Quantity</th>
+            <th scope="col">Unit</th>
+            <th scope="col">Particulars</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for x in saved %}
+        <tr>
+            <td>{{x.quantity}}</td>
+            <td>{{x.unit}}</td>
+            <td>{{x.particulars}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="row-sm">
+                <label>Unit</label>
+                {{forms.unit}}
+                {% comment %} <input type="text" class="form-control"> {% endcomment %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="row-sm">
+                <label>Quantity</label>
+                {{forms.quantity}}
+                {% comment %} <input type="text" class="form-control">  {% endcomment %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="row-sm">
+                <label>Paticulars</label>
+                {{forms.particulars}}
+                {% comment %} <input type="text" class="form-control">  {% endcomment %}
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            {% comment %} <a href="/supply-form/{{id}}" class="btn btn-success">Add</a> {% endcomment %}
+            <button class="btn btn-primary" type="submit">ADD</button>
+            
+
+        </div>
+        <div class="d-flex justify-content-center">
+            <button name="submit" class="btn btn-success" type="submit">SUBMIT</button>
+            {% comment %} <a href="/supply-form/" class="btn btn-success">SUBMIT</a> {% endcomment %}
+        </div>
+    </form>
+</div>
+{% endblock content %}

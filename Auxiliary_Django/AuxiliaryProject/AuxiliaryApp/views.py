@@ -45,7 +45,7 @@ def signup(request):
             form = userForm(request.POST ,no_delete=True)
         elif CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 1:
             if CustomUser.objects.filter(userType = 'ADMIN').exists():
-                form = userForm(request.POST, no_admin=True)
+                form = userForm(request.POST, no=True)
             elif CustomUser.objects.filter(userType = 'ASSISTANT_DIRECTOR').exists():
                 form = userForm(request.POST, no_asst=True)
         else:
@@ -62,7 +62,7 @@ def signup(request):
             form = userForm(no_delete=True)
         elif CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 1:
             if CustomUser.objects.filter(userType = 'ADMIN').exists():
-                form = userForm(no_admin=True)
+                form = userForm(no=True)
             elif CustomUser.objects.filter(userType = 'ASSISTANT_DIRECTOR').exists():
                 form = userForm(no_asst=True)
         else:
@@ -217,9 +217,6 @@ def history(request):
         'items':items
         }
     return render(request, 'pages/admin/history.html',context)
-
-
-
 
 @login_required(login_url='signin')
 def adminHomepage(request):
@@ -398,17 +395,86 @@ def adminForm(request, id):
     mainte = mainteDB.objects.all()
     if request.method == "POST":
         forms = adminrepairForm(request.POST)
+        fabricated = request.POST['fabricate']
+        assessed = request.POST['assess']
+        assign = request.POST['name']
+    
         if forms.is_valid():
-            forms.save()
+            add = adminrepairDB.objects.create(
+                fabricate=fabricated,
+                assess=assessed, 
+                assigned=assign,
+                client=client
+                )
+            # add = forms.save(commit=False)
+            # add.client_id = form
+            # person = request.POST['name']
+            # add.assigned = person
+            # add.save()
+            # forms.save()
+            if fabricated == "YES":
+                linkname = '/supply-form/' + str(id)
+                return redirect(linkname)
+            else:
+                linkname = '/approval-form/' + str(id)
+                return redirect(linkname)
+
+        else:
+            print("error")
     else:
         forms = adminrepairForm()
     context = {'form':form,
             'forms':forms,
             'mainte':mainte,
             'client':client
-
             }
     return render(request, 'pages/forms/admin-form.html', context)
+
+def supplyForm(request, id):
+    client = clientrepairDB.objects.get(id=id)
+    saved = suppmatDB.objects.filter(client=id)
+    print(saved)
+    if request.method == "POST":
+        forms = suppmatForm(request.POST)
+        unit = request.POST['unit']
+        quantity = request.POST['quantity']
+        particulars = request.POST['particulars']
+        if forms.is_valid():
+            form = suppmatDB.objects.create(
+                unit=unit,
+                quantity=quantity, 
+                particulars=particulars,
+                client=client
+                )
+            linkname = '/supply-form/' + str(id)
+            return redirect(linkname)
+    else:
+        forms = suppmatForm()
+    context = {
+        'forms':forms,
+        'saved':saved
+    }
+        
+    return render(request, 'pages/forms/supply-form.html',context)
+
+def approvalForm(request,id):
+    client = clientrepairDB.objects.get(id=id)
+    if request.method == "POST":
+        forms = approveForm(request.POST)
+        prove = request.POST['prove']
+        head = request.POST['head']
+        if forms.is_valid():
+            form = approvalDB.objects.create(
+                prove=prove,
+                head=head, 
+                client=client
+            )
+    else:
+        forms = approveForm()
+    context = {
+        'forms':forms,
+    }
+    return render(request, 'pages/forms/approval-form.html',context)
 
 def personnelForm(request):
     return render(request, 'pages/forms/personnel-form.html')

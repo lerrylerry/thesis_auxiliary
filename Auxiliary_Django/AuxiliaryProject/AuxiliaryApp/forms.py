@@ -293,7 +293,7 @@ class clientrepairForm(forms.ModelForm):
 class adminrepairForm(forms.ModelForm):
     class Meta:
         model = adminrepairDB
-        fields = '__all__'
+        fields = ['fabricate', 'assess', 'assigned']
         widgets ={
             'fabricate': forms.Select(
                 attrs={
@@ -326,4 +326,48 @@ class adminrepairForm(forms.ModelForm):
                     'required' : True
                     }
             ), 
+        }
+
+class suppmatForm(forms.ModelForm):
+    class Meta:
+        model = suppmatDB
+        fields = ['unit','quantity','particulars']
+        widgets ={
+            'unit': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'required' : True
+                    }
+            ), 
+            'quantity': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'required' : True
+                    }
+            ),
+            'particulars': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'required' : True
+                    }
+            ),
+        }
+
+class approveForm(forms.ModelForm):
+    class Meta:
+        model = approvalDB
+        fields = ['prove','head']
+        widgets ={
+            'prove': forms.Select(
+                attrs={
+                    'class': 'form-control',
+                    'required' : True
+                    }
+            ), 
+            'head': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'required' : True
+                    }
+            ),
         }

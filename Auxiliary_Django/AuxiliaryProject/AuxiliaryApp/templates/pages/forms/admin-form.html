@@ -1,4 +1,4 @@
-{% extends 'pages/scripts2.html' %}
+{% extends 'pages/scripts4.html' %}
 {% load static %}
 
 {% block title %}
@@ -8,10 +8,10 @@
 
 {% block content %}
 <body class="images">
-    <form action="#" method="POST">
+    <form method="POST">
         {% csrf_token %}
-        <div class="parent2 container d-flex justify-content-center align-items-center h-100 my-5">
-            <div class="card violet pb-3">
+        <div class="container py-5">
+            <div class="card pb-3">
                 <div class="card-body">
 
                     {% for message in messages %}
@@ -48,6 +48,10 @@
                         <div class="col-sm">
                             <label>EMAIL</label>
                             {{form.email}}
+                        </div>
+                        <div class="col-sm">
+                            <label>DATE AND TIME SUBMITTED</label>
+                            <input type="text" value="{{client.date}}" class="form-control">
                         </div>
                     </div>
                     <header><strong>DESCRIPTION OF PROPERTY</strong></header>
@@ -89,39 +93,21 @@
                     <header><strong>INITIAL ASSESSMENT</strong></header>
                     <hr>
                     <div class="row">
-                        <div class="d-flex justify-content-around">
-                        {{forms.fabricate}}
-                            {% comment %} <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                <label class="form-check-label" for="inlineRadio1">Can be Repaired/Fabricated in-house</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                <label class="form-check-label" for="inlineRadio2">Cannot be Repaired/Fabricated in-house</label>
-                            </div> {% endcomment %}
+                        <div class="col-sm-4">
+                            <label>APPROVAL</label>
+                            {{forms.fabricate}}
                         </div>
                         <div class="col-sm-4">
                             <label>ASSESSED BY</label>
                             {{forms.assess}}
-                            {% comment %} <input type="text" class="form-control"> {% endcomment %}
                         </div>
-                        <!--
-                        <div class="col-sm-4">
-                            <label>SIGNATURE</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        -->
-                        {% comment %} <div class="col-sm-4">
-                            <label>Date Assessed</label>
-                            <input type="text" class="form-control">
-                        </div> {% endcomment %}
                         <div class="col-sm-4">
                             <label>Personnel Assigned</label>
                             <select class="form-select" name="name" id="" required>
                                 <option value="" disabled selected>Choose Maintenance Personnel</option>
                                 {% for x in mainte %}
                                 {%if x.mp_status == 'ACTIVE'%}
-                                <option value={{x.id}}>
+                                <option value="{{x.mp_name}}">
                                   {{x.mp_name}}
                                 </option>
                                 {% endif %}
@@ -130,55 +116,11 @@
                         </div>
                     </div>
                     <br>
-                    <header><strong>SUPPLIES AND MATERIALS</strong></header>
-                    <hr>
-                    <div class="table-responsive-sm">
-                        <table class="table caption-bottom">
-                            <caption><i>PARTS TO BE REPLACED/SUPPLIED</i></caption>
-                            <thead class="table">
-                            <tr>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Unit</th>
-                                <th scope="col">Particulars</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>---</td>
-                                <td>---</td>
-                                <td>---</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <br>
-                    <header><strong>APPROVAL</strong></header>
-                    <hr>
-                    <div class="row">
-                    {{forms.prove}}
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <label>HEAD, AUXILIARY SERVICES</label>
-                        {{forms.head}}
-                            {% comment %} <input type="text" class="form-control"> {% endcomment %}
-                        </div>
-                        {% comment %} <div class="col-sm-4">
-                            <label>DATE</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="col-sm-4">
-                            <!--
-                            <label>SIGNATURE</label>
-                            <input type="text" class="form-control">
-                            -->
-                            <label>TIME</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </div> {% endcomment %}
+                    
+                <div class="d-flex justify-content-center">
+                    <!--<a href="/supply-form/{{id}}" class="btn btn-success">SUBMIT</a>-->
+                    <button class="btn btn-success" type="submit">Submit</button>
                 </div>
-                <button class="btn btn-success btn w-50 mx-auto rounded-pill login">SUBMIT</button>
             </div>
         </div>
     </form>

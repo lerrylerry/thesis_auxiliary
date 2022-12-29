@@ -45,7 +45,7 @@ def signup(request):
             form = userForm(request.POST ,no_delete=True)
         elif CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 1:
             if CustomUser.objects.filter(userType = 'ADMIN').exists():
-                form = userForm(request.POST, no=True)
+                form = userForm(request.POST, no_admin=True)
             elif CustomUser.objects.filter(userType = 'ASSISTANT_DIRECTOR').exists():
                 form = userForm(request.POST, no_asst=True)
         else:
@@ -53,6 +53,16 @@ def signup(request):
 
         if form.is_valid():
             form.save()
+            name = request.POST['username']
+            password = request.POST['password1']
+            email = request.POST['email']
+            send_mail(
+                subject='Registered Successfully',
+                message="Thank You"+"! \nName: "+name+" \nPassword: "+password,
+                from_email='Developers '+settings.EMAIL_HOST_USER,
+                recipient_list=[email],
+                fail_silently=False
+            )
             return redirect('/signin')
         else: 
             return render(request,'pages/homepage/signup.html',{'form':form})
@@ -62,7 +72,7 @@ def signup(request):
             form = userForm(no_delete=True)
         elif CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 1:
             if CustomUser.objects.filter(userType = 'ADMIN').exists():
-                form = userForm(no=True)
+                form = userForm(no_admin=True)
             elif CustomUser.objects.filter(userType = 'ASSISTANT_DIRECTOR').exists():
                 form = userForm(no_asst=True)
         else:
@@ -469,6 +479,14 @@ def approvalForm(request,id):
                 head=head, 
                 client=client
             )
+
+            if prove == 'APPROVED':
+                pass
+            elif prove == 'DISAPPROVED':
+                pass
+            else:
+                pass
+            return redirect('/admin-homepage/')
     else:
         forms = approveForm()
     context = {

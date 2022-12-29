@@ -55,10 +55,12 @@
             
 
         </div>
+        {% for x in saved %}
         <div class="d-flex justify-content-center">
-            <button name="submit" class="btn btn-success" type="submit">SUBMIT</button>
+        <a href="/approval-form/{{x.client.id}}" name="submit" class="btn btn-success" type="submit">SUBMIT</a>
             {% comment %} <a href="/supply-form/" class="btn btn-success">SUBMIT</a> {% endcomment %}
         </div>
+        {% endfor %}
     </form>
 </div>
 {% endblock content %}

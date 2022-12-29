@@ -1,12 +1,18 @@
 <header><strong>APPROVAL</strong></header>
-                    <hr>
-                    <div class="row">
-                    {{forms.prove}}
-                    </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <label>HEAD, AUXILIARY SERVICES</label>
-                        {{forms.head}}
-                        </div>
-                    </div>
+<hr>
+<form method="POST">
+    {% csrf_token %}
+    <div class="row">
+    {{forms.prove}}
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-4">
+            <label>HEAD, AUXILIARY SERVICES</label>
+        {{forms.head}}
+        </div>
+    </div>
+
+    <button class="btn btn-success" type="submit">SUBMIT</button>
+
+</form>

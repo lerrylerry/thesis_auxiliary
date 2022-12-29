@@ -111,3 +111,4 @@ class approvalDB(models.Model):
     prove = models.CharField(max_length=100, choices=DECISION)
     head = models.CharField(max_length=50,null=True, blank=True)
     datetime = models.DateTimeField(auto_now_add=True)
+    client = models.ForeignKey(clientrepairDB, on_delete=models.CASCADE, default=1)

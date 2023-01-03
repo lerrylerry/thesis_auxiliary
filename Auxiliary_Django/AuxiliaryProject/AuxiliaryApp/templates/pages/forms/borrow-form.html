@@ -26,7 +26,7 @@
                         <div class="col-sm-6">
                             <label for="name">Name</label><br>
                             <select class="form-select" name="name" id="" required>
-                                <option value="" disabled selected>Choose a Janitor</option>
+                                <option value="" disabled selected>Your Name</option>
                                 {% for x in up %}
                                 {%if x.up_status == 'ACTIVE'%}
                                 <option value={{x.id}}>

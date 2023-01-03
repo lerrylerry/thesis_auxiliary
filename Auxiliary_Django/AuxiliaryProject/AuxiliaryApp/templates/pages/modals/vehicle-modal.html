@@ -40,7 +40,6 @@
             <div class="col-md-12 mt-2 d-flex justify-content-around">
               <a href="/vehicle/a/{{x.id}}" class="btn btn-success">ACCEPT</a>
               <a href="/vehicle/b/{{x.id}}" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#remark" class="btn btn-danger">REJECT</a>
-              {% include 'pages/modals/remark-modal.html' %} 
             </div>
           </div>
         </form>
@@ -49,3 +48,5 @@
   </div>
 
   <!--REMARKS-->
+  {% include 'pages/modals/remark-modal.html' %} 
+

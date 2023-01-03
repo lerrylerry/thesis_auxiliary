@@ -121,12 +121,12 @@ def status(request, id):
 @login_required(login_url='signin')
 def mainteStatus(request, id):
     if request.user.userType == 'ADMIN':
-        stats= mainteDB.objects.get(id=id)
-        if stats.mp_status == 'ACTIVE':
-            stats.mp_status = 'INACTIVE'
+        stats= CustomUser.objects.get(id=id)
+        if stats.status == 'ACTIVE':
+            stats.status = 'INACTIVE'
             stats.save()
         else:
-            stats.mp_status = 'ACTIVE'
+            stats.status = 'ACTIVE'
             stats.save()
         return redirect('maintenance-personnel-list')
 

@@ -34,16 +34,16 @@
             <tr>
               <td><a href="borrow={{x.id}}" data-bs-toggle="modal" data-bs-target="#borrowModal{{x.id}}">{{ x.utility_personnel.up_name }}</a></td>
               <td>{{ x.status }}</td>
-              {% include 'pages/modals/borrowed-modal.html' %}
+              
             </tr>
-            {%endfor%}
+            
           </tbody>
         </table>
       </div>
     </div>
     <!--BORROWED MODAL-->
-    
-    
+    {% include 'pages/modals/borrowed-modal.html' %}
+    {%endfor%}
               
 </body>
 {% endblock content %}

@@ -13,10 +13,30 @@
       <div class="card">
         <div class="card-body">
           <h1 class="card-title">SIGN UP</h1>
-          <form method="POST" action="/signup/" novalidate>
+          <form method="POST">
             {% csrf_token %}
+            {% if user.userType == 'ADMIN' %}
+            <div class="row">
+              <div class="col-md-12 mt-2">
+               <label for="" class="form-label">Name:</label>
+               {{form.mp_name}}
+              </div>
+              <div class="col-md-12 mt-2">
+               <label for="" class="form-label">Username:</label>
+               {{form.mp_username}}
+              </div>
+              <div class="col-md-12 my-2">
+               <label for="" class="form-label">Password:</label>
+               {{form.mp_password}}
+              </div>
+            {% else %}
+
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">SUBMIT</button>
+
+            {% endif %}
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="btn btn-primary">SUBMIT</button>
+            </div>
         </form>
     </div>
 </div>

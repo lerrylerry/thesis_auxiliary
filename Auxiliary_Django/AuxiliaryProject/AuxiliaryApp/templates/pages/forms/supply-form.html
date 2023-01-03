@@ -55,12 +55,12 @@
             
 
         </div>
-        {% for x in saved %}
+        {% if data %}
         <div class="d-flex justify-content-center">
-        <a href="/approval-form/{{x.client.id}}" name="submit" class="btn btn-success" type="submit">SUBMIT</a>
+        <a href="/approval-form/{{data}}" name="submit" class="btn btn-success" type="submit">SUBMIT</a>
             {% comment %} <a href="/supply-form/" class="btn btn-success">SUBMIT</a> {% endcomment %}
         </div>
-        {% endfor %}
+        {% endif %}
     </form>
 </div>
 {% endblock content %}

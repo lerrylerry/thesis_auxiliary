@@ -29,6 +29,9 @@ def signin(request):
         elif user is not None and user.userType == 'ASSISTANT_DIRECTOR':
             login(request, user)
             return redirect('vehicle')
+        elif user is not None and user.userType == 'MAINTENANCE':
+            login(request, user)
+            return redirect('maintenance')
         else:
             messages.error(request, 'FAILED: Invalid Account or Not Found')
             return render(request, 'pages/homepage/signin.html')
@@ -40,45 +43,55 @@ def signin(request):
         return render(request, 'pages/homepage/signin.html', {'x':x+1})
 
 def signup(request):
-    if request.method == 'POST':
-        if CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 2:
-            form = userForm(request.POST ,no_delete=True)
-        elif CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 1:
-            if CustomUser.objects.filter(userType = 'ADMIN').exists():
-                form = userForm(request.POST, no_admin=True)
-            elif CustomUser.objects.filter(userType = 'ASSISTANT_DIRECTOR').exists():
-                form = userForm(request.POST, no_asst=True)
-        else:
-            form = userForm(request.POST)
+    if request.user.userType != 'ADMIN':
+        if request.method == 'POST':
+            if CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 2:
+                form = userForm(request.POST ,no_delete=True)
+            elif CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 1:
+                if CustomUser.objects.filter(userType = 'ADMIN').exists():
+                    form = userForm(request.POST, no_admin=True)
+                elif CustomUser.objects.filter(userType = 'ASSISTANT_DIRECTOR').exists():
+                    form = userForm(request.POST, no_asst=True)
+            else:
+                form = userForm(request.POST)
 
-        if form.is_valid():
-            form.save()
-            name = request.POST['username']
-            password = request.POST['password1']
-            email = request.POST['email']
-            send_mail(
-                subject='Registered Successfully',
-                message="Thank You"+"! \nName: "+name+" \nPassword: "+password,
-                from_email='Developers '+settings.EMAIL_HOST_USER,
-                recipient_list=[email],
-                fail_silently=False
-            )
-            return redirect('/signin')
-        else: 
-            return render(request,'pages/homepage/signup.html',{'form':form})
-                
+            if form.is_valid():
+                form.save()
+                name = request.POST['username']
+                password = request.POST['password1']
+                email = request.POST['email']
+                send_mail(
+                    subject='Registered Successfully',
+                    message="Thank You"+"! \nName: "+name+" \nPassword: "+password,
+                    from_email='Developers '+settings.EMAIL_HOST_USER,
+                    recipient_list=[email],
+                    fail_silently=False
+                )
+                return redirect('/signin')
+            else: 
+                return render(request,'pages/homepage/signup.html',{'form':form})
+                    
+        else:
+            if CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 2:
+                form = userForm(no_delete=True)
+            elif CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 1:
+                if CustomUser.objects.filter(userType = 'ADMIN').exists():
+                    form = userForm(no_admin=True)
+                elif CustomUser.objects.filter(userType = 'ASSISTANT_DIRECTOR').exists():
+                    form = userForm(no_asst=True)
+            else:
+                form = userForm()
+        return render(request,'pages/homepage/signup.html',{'form':form})
+
     else:
-        if CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 2:
-            form = userForm(no_delete=True)
-        elif CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 1:
-            if CustomUser.objects.filter(userType = 'ADMIN').exists():
-                form = userForm(no_admin=True)
-            elif CustomUser.objects.filter(userType = 'ASSISTANT_DIRECTOR').exists():
-                form = userForm(no_asst=True)
-        else:
-            form = userForm()
-    return render(request,'pages/homepage/signup.html',{'form':form})
-
+        if request.method == 'POST':
+            form = mainteForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('/admin-homepage')
+        else: 
+            form = mainteForm()
+            return render(request,'pages/homepage/signup.html', {'form':form})
 
 def logoutUser(request):
     logout(request)
@@ -292,6 +305,14 @@ def vehicle(request):
     else:
         return HttpResponseForbidden()
 
+@login_required(login_url='index')
+def maintenance(request):
+    if request.user.userType == 'MAINTENANCE':
+        return render(request, 'pages/admin/vehicle.html')
+
+    else:
+        return HttpResponseForbidden()
+
 @login_required(login_url='signin')
 def camera(request):
     if request.user.userType == 'ADMIN':
@@ -443,7 +464,11 @@ def adminForm(request, id):
 def supplyForm(request, id):
     client = clientrepairDB.objects.get(id=id)
     saved = suppmatDB.objects.filter(client=id)
-    print(saved)
+    try:
+        used = saved[0].client.id
+    except:
+        pass
+
     if request.method == "POST":
         forms = suppmatForm(request.POST)
         unit = request.POST['unit']
@@ -460,10 +485,17 @@ def supplyForm(request, id):
             return redirect(linkname)
     else:
         forms = suppmatForm()
-    context = {
-        'forms':forms,
-        'saved':saved
-    }
+        try:
+            context = {
+                'forms':forms,
+                'saved':saved,
+                'data':used,
+            }
+        except:
+            context = {
+                'forms':forms,
+                'saved':saved,
+            }
         
     return render(request, 'pages/forms/supply-form.html',context)
 
@@ -479,13 +511,35 @@ def approvalForm(request,id):
                 head=head, 
                 client=client
             )
-
             if prove == 'APPROVED':
-                pass
+                client.status = 'APPROVED'
+                send_mail(
+                    subject='APPROVED',
+                    message="Thank You"+"! \n"+client.name+",Your request has been approved!",
+                    from_email='Developers '+settings.EMAIL_HOST_USER,
+                    recipient_list=[client.email],
+                    fail_silently=False
+                )
             elif prove == 'DISAPPROVED':
-                pass
+                client.status = 'DISAPPROVED'
+                send_mail(
+                    subject='DISAPPROVED',
+                    message="We're Sorry"+"! \n"+client.name+",Your request has been decline!",
+                    from_email='Developers '+settings.EMAIL_HOST_USER,
+                    recipient_list=[client.email],
+                    fail_silently=False
+                )
             else:
-                pass
+                client.status = 'RESUBMIT'
+                send_mail(
+                    subject='RESUBMIT',
+                    message="We're Sorry"+"! \n"+client.name+",Please resubmit your request!",
+                    from_email='Developers '+settings.EMAIL_HOST_USER,
+                    recipient_list=[client.email],
+                    fail_silently=False
+                )
+
+            client.save()
             return redirect('/admin-homepage/')
     else:
         forms = approveForm()

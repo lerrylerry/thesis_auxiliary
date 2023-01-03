@@ -21,6 +21,7 @@ urlpatterns = [
     path('utility-personnel-list/', views.utilityPersonnelList, name='utility-personnel-list'),
     path('minor-repair/', views.minorRepair, name='minor-repair'),
     path('vehicle/', views.vehicle, name='vehicle'),
+    path('maintenance/', views.maintenance, name='maintenance'),
     path('camera/', views.camera, name='camera'),
 
     path('vehicle/a/<int:id>', views.vehicle_accept, name='vehicle_accept'),

@@ -141,12 +141,28 @@ class janitorForm(forms.ModelForm):
 class mainteForm(forms.ModelForm):
     class Meta:
         model = mainteDB
-        fields = ['mp_name']
+        fields = ['mp_name','mp_username','mp_password']
         widgets = {
             'mp_name': forms.TextInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Ex: Juan Dela Cruz'
+
+                    'placeholder': 'Ex: Juan Dela Cruz',
+                    'required' : True
+                    }
+            ),
+            'mp_username': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ex: juan123',
+                    'required' : True
+                    }
+            ),
+            'mp_password': forms.PasswordInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'Ex: juanjuan',
+                    'required' : True
                     }
             )
         }
@@ -356,7 +372,7 @@ class suppmatForm(forms.ModelForm):
 class approveForm(forms.ModelForm):
     class Meta:
         model = approvalDB
-        fields = ['prove','head']
+        fields = ['prove','head','optional']
         widgets ={
             'prove': forms.Select(
                 attrs={
@@ -368,6 +384,12 @@ class approveForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                     'required' : True
+                    }
+            ),
+            'optional': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'optional',
                     }
             ),
         }

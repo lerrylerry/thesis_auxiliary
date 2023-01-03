@@ -27,6 +27,9 @@ class janitorDB(models.Model):
 class mainteDB(models.Model):
     mp_name = models.CharField(max_length=25,null=True, blank=True)
     mp_status = models.CharField(max_length=100, default='ACTIVE')
+    mp_username = models.CharField(max_length=25,null=True, blank=True)
+    mp_password = models.CharField(max_length=25,null=True, blank=True)
+    userType = models.CharField(max_length=100, default='MAINTENANCE')
 
 class vehicleDB(models.Model):
     req_name = models.CharField(max_length=25,null=True, blank=True)
@@ -111,4 +114,5 @@ class approvalDB(models.Model):
     prove = models.CharField(max_length=100, choices=DECISION)
     head = models.CharField(max_length=50,null=True, blank=True)
     datetime = models.DateTimeField(auto_now_add=True)
+    optional = models.CharField(max_length=50,null=True, blank=True)
     client = models.ForeignKey(clientrepairDB, on_delete=models.CASCADE, default=1)

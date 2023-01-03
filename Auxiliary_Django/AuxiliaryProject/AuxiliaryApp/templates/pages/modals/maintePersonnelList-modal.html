@@ -10,7 +10,7 @@
       <div class="modal-body">
        <form method="POST">
         {% csrf_token %}
-        <div class="row">
+        {% comment %} <div class="row">
          <div class="col-md-12 mt-2">
           <label for="" class="form-label">Name</label>
           {{form.mp_name}}
@@ -22,7 +22,8 @@
          <div class="col-md-12 mt-2">
           <label for="" class="form-label">Password</label>
           {{form.mp_password}}
-         </div>
+         </div> {% endcomment %}
+         {{form.as_p}}
          <div class="col-md-12 mt-4 mb-2" style="text-align: right;">
           <button id="janitorlist" class="btn btn-danger" type="submit" name="addmaintelists">Add Maintenance Personnel</button>
          </div>

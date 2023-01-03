@@ -46,12 +46,11 @@
         </table>
       </div>
     </div>
-    <a href="{% url 'signup' %}" class="btn btn btn-danger mt-3">Add Personnel</a>
-    {% comment %} <button type="button" class="btn btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#maintelistModal">Add Personnel</button> {% endcomment %}
+    <button type="button" class="btn btn btn-danger mt-3" data-bs-toggle="modal" data-bs-target="#maintelistModal">Add Personnel</button>
   </div>
 
   <!--MODAL ADD JANITOR-->
-  {% comment %} {% include 'pages/modals/maintePersonnelList-modal.html' %} {% endcomment %}
+  {% include 'pages/modals/maintePersonnelList-modal.html' %}
   
   </section>
 </body>

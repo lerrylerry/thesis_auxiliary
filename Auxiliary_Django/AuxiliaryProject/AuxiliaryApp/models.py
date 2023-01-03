@@ -24,13 +24,6 @@ class janitorDB(models.Model):
     up_code = models.CharField(max_length=4, null=True, blank=True)
     up_status = models.CharField(max_length=100, verbose_name='userType', default='ACTIVE')
 
-class mainteDB(models.Model):
-    mp_name = models.CharField(max_length=25,null=True, blank=True)
-    mp_status = models.CharField(max_length=100, default='ACTIVE')
-    mp_username = models.CharField(max_length=25,null=True, blank=True)
-    mp_password = models.CharField(max_length=25,null=True, blank=True)
-    userType = models.CharField(max_length=100, default='MAINTENANCE')
-
 class vehicleDB(models.Model):
     req_name = models.CharField(max_length=25,null=True, blank=True)
     passengers = models.IntegerField(null=True, blank=True)

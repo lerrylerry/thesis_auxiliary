@@ -138,34 +138,55 @@ class janitorForm(forms.ModelForm):
             # ), 
          }
 
-class mainteForm(forms.ModelForm):
-    class Meta:
-        model = mainteDB
-        fields = ['mp_name','mp_username','mp_password']
-        widgets = {
-            'mp_name': forms.TextInput(
-                attrs={
+class mainteForm(UserCreationForm):
+    password1 = forms.CharField(
+        max_length=30, widget=forms.PasswordInput(
+            attrs={
                     'class': 'form-control',
-
-                    'placeholder': 'Ex: Juan Dela Cruz',
-                    'required' : True
-                    }
-            ),
-            'mp_username': forms.TextInput(
-                attrs={
-                    'class': 'form-control',
-                    'placeholder': 'Ex: juan123',
-                    'required' : True
-                    }
-            ),
-            'mp_password': forms.PasswordInput(
-                attrs={
-                    'class': 'form-control',
-                    'placeholder': 'Ex: juanjuan',
-                    'required' : True
-                    }
+                    'placeholder':'Password'
+					}
+                )
             )
-        }
+    password2 = forms.CharField(
+        max_length=30, widget=forms.PasswordInput(
+            attrs={
+                    'class': 'form-control',
+                    'placeholder':'Password'
+					}
+                )
+            )
+
+    class Meta:
+        model= CustomUser
+        fields = ['username','password1','password2','first_name','last_name']
+        widgets = {
+            'username': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'your username'
+                    }
+            ),
+            'first_name': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'your firstname'
+                    }
+            ), 
+            'last_name': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'your lastname'
+                    }
+            ), 
+            'email': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'placeholder': 'your email',
+                    'required' : False
+                    }
+            ), 
+            
+         }
 
 class borrowUPForm(forms.ModelForm):
     up_code = forms.CharField(

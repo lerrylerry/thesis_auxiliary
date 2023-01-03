@@ -252,14 +252,16 @@ def adminHomepage(request):
 @login_required(login_url='signin')
 def maintenancePersonnelList(request):
     if request.user.userType == 'ADMIN':
-        if request.method == "POST":
+        if request.method == "POST":       
             form = mainteForm(request.POST)
             if form.is_valid():
-                form.save()
+                wait = form.save(commit=False)
+                wait.userType = 'MAINTENANCE'
+                wait.save()
                 return redirect('/maintenance-personnel-list')
         else:
             form = mainteForm()
-        mp = mainteDB.objects.all()
+        mp = CustomUser.objects.filter(userType='MAINTENANCE')
         context = {'form':form, 'mp':mp}
         return render(request, 'pages/admin/maintePersonnelList.html', context)
 
@@ -308,7 +310,7 @@ def vehicle(request):
 @login_required(login_url='index')
 def maintenance(request):
     if request.user.userType == 'MAINTENANCE':
-        return render(request, 'pages/admin/vehicle.html')
+        return render(request, 'pages/admin/maintenance.html')
 
     else:
         return HttpResponseForbidden()

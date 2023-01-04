@@ -43,55 +43,44 @@ def signin(request):
         return render(request, 'pages/homepage/signin.html', {'x':x+1})
 
 def signup(request):
-    if request.user.userType != 'ADMIN':
-        if request.method == 'POST':
-            if CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 2:
-                form = userForm(request.POST ,no_delete=True)
-            elif CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 1:
-                if CustomUser.objects.filter(userType = 'ADMIN').exists():
-                    form = userForm(request.POST, no_admin=True)
-                elif CustomUser.objects.filter(userType = 'ASSISTANT_DIRECTOR').exists():
-                    form = userForm(request.POST, no_asst=True)
-            else:
-                form = userForm(request.POST)
-
-            if form.is_valid():
-                form.save()
-                name = request.POST['username']
-                password = request.POST['password1']
-                email = request.POST['email']
-                send_mail(
-                    subject='Registered Successfully',
-                    message="Thank You"+"! \nName: "+name+" \nPassword: "+password,
-                    from_email='Developers '+settings.EMAIL_HOST_USER,
-                    recipient_list=[email],
-                    fail_silently=False
-                )
-                return redirect('/signin')
-            else: 
-                return render(request,'pages/homepage/signup.html',{'form':form})
-                    
+    if request.method == 'POST':
+        if CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 2:
+            form = userForm(request.POST ,no_delete=True)
+        elif CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 1:
+            if CustomUser.objects.filter(userType = 'ADMIN').exists():
+                form = userForm(request.POST, no_admin=True)
+            elif CustomUser.objects.filter(userType = 'ASSISTANT_DIRECTOR').exists():
+                form = userForm(request.POST, no_asst=True)
         else:
-            if CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 2:
-                form = userForm(no_delete=True)
-            elif CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 1:
-                if CustomUser.objects.filter(userType = 'ADMIN').exists():
-                    form = userForm(no_admin=True)
-                elif CustomUser.objects.filter(userType = 'ASSISTANT_DIRECTOR').exists():
-                    form = userForm(no_asst=True)
-            else:
-                form = userForm()
-        return render(request,'pages/homepage/signup.html',{'form':form})
+            form = userForm(request.POST)
 
-    else:
-        if request.method == 'POST':
-            form = mainteForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('/admin-homepage')
+        if form.is_valid():
+            form.save()
+            name = request.POST['username']
+            password = request.POST['password1']
+            email = request.POST['email']
+            send_mail(
+                subject='Registered Successfully',
+                message="Thank You"+"! \nName: "+name+" \nPassword: "+password,
+                from_email='Developers '+settings.EMAIL_HOST_USER,
+                recipient_list=[email],
+                fail_silently=False
+            )
+            return redirect('/signin')
         else: 
-            form = mainteForm()
-            return render(request,'pages/homepage/signup.html', {'form':form})
+            return render(request,'pages/homepage/signup.html',{'form':form})
+                
+    else:
+        if CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 2:
+            form = userForm(no_delete=True)
+        elif CustomUser.objects.filter(userType__in = ['ADMIN','ASSISTANT_DIRECTOR']).count() == 1:
+            if CustomUser.objects.filter(userType = 'ADMIN').exists():
+                form = userForm(no_admin=True)
+            elif CustomUser.objects.filter(userType = 'ASSISTANT_DIRECTOR').exists():
+                form = userForm(no_asst=True)
+        else:
+            form = userForm()
+    return render(request,'pages/homepage/signup.html',{'form':form})
 
 def logoutUser(request):
     logout(request)

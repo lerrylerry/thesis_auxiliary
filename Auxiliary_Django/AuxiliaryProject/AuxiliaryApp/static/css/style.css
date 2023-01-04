@@ -27,7 +27,9 @@ body{
   -moz-background-size: cover;
   -moz-background-size: cover ;
   background-size: cover;
-  background-position: center;          
+  background-position: center;  
+  overflow-y: scroll;
+  scrollbar-width: thin;        
 }
 .image{
   background-image: url("/static/media/home.png");
@@ -37,6 +39,8 @@ body{
   -moz-background-size: cover ;
   background-size: cover;
   background-position: center;
+  -webkit-transform: scale(0.999);
+  transform: scale(0.999);
 }
 
 .bg-image{

@@ -1,23 +1,36 @@
-<header><strong>APPROVAL</strong></header>
-<hr>
-<form method="POST">
-    {% csrf_token %}
-    <div class="row">
-    {{forms.prove}}
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-sm-4">
-            <label>HEAD, AUXILIARY SERVICES</label>
-            <div>{{forms.head}}</div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-4">
-            <label>Feedback</label>
-            <div>{{forms.optional}}</div>
-        </div>
-    </div>
+{% extends 'pages/scripts4.html' %}
+{% load static %}
 
-    <button class="btn btn-success" type="submit">SUBMIT</button>
-</form>
+{% block title %}
+<title>Admin | Approval Form </title>
+<link rel="icon" href= "{% static 'media/TUP-LOGO-modified.png'  %}">
+{% endblock title %}
+
+{% block content %}
+<body class="images">
+    <div class="logIn">
+        <div class="card">
+            <div class="card-body">
+                <header><strong>APPROVAL</strong></header>
+                <hr>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                    {{forms.prove}}
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label>HEAD, AUXILIARY SERVICES</label>
+                        {{forms.head}}
+                        </div>
+                    </div>
+                    <br>
+                    <br>                
+                    <button class="btn btn-success" type="submit">SUBMIT</button>               
+                </form>
+            </div>
+        </div>
+    </div>    
+</body>
+{% endblock content %}

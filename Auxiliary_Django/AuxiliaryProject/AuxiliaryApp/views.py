@@ -287,7 +287,7 @@ def utilityPersonnelList(request):
 
 @login_required(login_url='signin')
 def minorRepair(request):
-    if request.user.userType == 'ADMIN':
+    if request.user.userType == 'ADMIN' or request.user.userType == 'MAINTENANCE':
         repair = clientrepairDB.objects.filter(status = 'PENDING')
         context = {'repair':repair}
         return render(request, 'pages/admin/minorRepair.html',context)
@@ -309,11 +309,18 @@ def vehicle(request):
 
 @login_required(login_url='index')
 def maintenance(request):
+    form = adminrepairDB.objects.all()
+    print(form)
     if request.user.userType == 'MAINTENANCE':
-        return render(request, 'pages/admin/maintenance.html')
+        context = {'form':form}
+        return render(request, 'pages/admin/maintenance.html',context)
 
     else:
         return HttpResponseForbidden()
+
+@login_required(login_url='index')
+def maintenanceHomepage(request):
+    return render(request, 'pages/admin/homepage2.html')
 
 @login_required(login_url='signin')
 def camera(request):
@@ -425,12 +432,12 @@ def clientForm(request):
 def adminForm(request, id):
     client = clientrepairDB.objects.get(id=id)
     form = clientrepairForm(instance=client)
-    mainte = mainteDB.objects.all()
+    mainte = CustomUser.objects.filter(userType='MAINTENANCE', status='ACTIVE')
     if request.method == "POST":
         forms = adminrepairForm(request.POST)
         fabricated = request.POST['fabricate']
         assessed = request.POST['assess']
-        assign = request.POST['name']
+        assign = request.POST['name'].id
     
         if forms.is_valid():
             add = adminrepairDB.objects.create(
@@ -439,12 +446,6 @@ def adminForm(request, id):
                 assigned=assign,
                 client=client
                 )
-            # add = forms.save(commit=False)
-            # add.client_id = form
-            # person = request.POST['name']
-            # add.assigned = person
-            # add.save()
-            # forms.save()
             if fabricated == "YES":
                 linkname = '/supply-form/' + str(id)
                 return redirect(linkname)
@@ -560,6 +561,9 @@ def vehicleForm(request):
             messages.success(request, 'SUCCESS: Request Sent')
             form.save()
             return redirect('vehicle-form')
+        else:
+            messages.error(request, 'FAILED: Please check the details')
+
     else:
         form = vehiclesForm()
     context = {'form':form}

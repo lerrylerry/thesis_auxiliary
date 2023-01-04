@@ -1,0 +1,19 @@
+{% extends 'pages/scripts.html' %}
+{% load static %}
+
+{% block title %}
+<title>Maintenance | Home</title>
+<link rel="icon" href= "{% static 'media/TUP-LOGO-modified.png'  %}">
+{% endblock title %}
+
+{% block content %}
+<body>
+  {% include 'pages/sidebar.html' %} 
+
+      {% block extra %}
+      <h1><b>Welcome Back!</b></h1>
+      {% endblock extra %}
+      
+  </section>
+</body>
+{% endblock content %}

@@ -13,7 +13,8 @@ class CustomUser(AbstractUser):
     # first column => database | second column => html forms
 
     userType = models.CharField(max_length=100, choices=USERTYPE, verbose_name='userType')
-    status = models.CharField(max_length=100, verbose_name='userType', default='ACTIVE')
+    status = models.CharField(max_length=100, default='ACTIVE')
+
 class itemsDB(models.Model):
     item_name = models.CharField(max_length=25, null=True, blank=True)
     item_unit = models.CharField(max_length=25, null=True, blank=True)

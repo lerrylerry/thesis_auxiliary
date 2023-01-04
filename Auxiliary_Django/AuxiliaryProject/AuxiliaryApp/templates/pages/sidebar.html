@@ -143,12 +143,21 @@
   </div>
   <ul class="nav-links">
     <li>
-      <a href="{% url 'vehicle' %}">
-        <i class='bx bx-home-alt nav_icon'></i>
-        <span class="link_name">Minor Repair </span>
+      <a href="{% url 'maintenance-homepage' %}">
+        <i class='bx bx-home-alt nav_icon' ></i>
+        <span class="link_name">Home</span>
       </a>
       <ul class="sub-menu blank">
-        <li><a class="link_name" href="{% url 'vehicle' %}">Minor Repair</a></li>
+        <li><a class="link_name" href="{% url 'maintenance-homepage' %}">Home</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="{% url 'minor-repair' %}">
+        <i class='bx bx-wrench'></i>
+        <span class="link_name">Minor Repair</span>
+      </a>
+      <ul class="sub-menu blank">
+        <li><a class="link_name" href="{% url 'minor-repair' %}">Minor Repair</a></li>
       </ul>
     </li>
 <li>

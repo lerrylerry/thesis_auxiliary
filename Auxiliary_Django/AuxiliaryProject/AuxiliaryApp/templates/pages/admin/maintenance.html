@@ -30,18 +30,19 @@
             </tr>
           </thead>
           <tbody id="vehicleTable">
-            {% for x in vehicles %}
+            {% for x in mainte %}
             <tr>
               <td>
-                <a href="request={{x.id}}" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#vehiclerequestModal{{x.id}}">{{x.req_name}}</a>
+                <a href="/admin-form/{{x.id}}">{{x.name}}</a>
+                {% comment %} <a href="request={{x.id}}" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#vehiclerequestModal{{x.id}}">{{x.name}}</a> {% endcomment %}
               </td>
               <td>
                 {{x.status}}
               </td>
 
-              <!--VEHICLE REQUEST-->
-              {% include 'pages/modals/vehicle-modal.html' %}
-              {% include 'pages/modals/remark-modal.html' %}
+              <!--REPAIR FORM REQUEST-->
+              {% comment %} {% include 'pages/modals/vehicle-modal.html' %}
+              {% include 'pages/modals/remark-modal.html' %} {% endcomment %}
               
             </tr>
             {% endfor %}

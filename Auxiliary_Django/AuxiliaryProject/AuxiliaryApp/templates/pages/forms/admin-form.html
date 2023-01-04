@@ -8,6 +8,7 @@
 
 {% block content %}
 <body class="images">
+    {% if user.userType == 'ADMIN' %}
     <form method="POST">
         {% csrf_token %}
         <div class="container py-5">
@@ -106,15 +107,14 @@
                             <select class="form-select" name="name" id="" required>
                                 <option value="" disabled selected>Choose Maintenance Personnel</option>
                                 {% for x in mainte %}
-                                {%if x.mp_status == 'ACTIVE'%}
-                                <option value="{{x.mp_name}}">
-                                  {{x.mp_name}}
+                                <option value="{{x.id}}">
+                                    {{x.first_name}} {{x.last_name}}
                                 </option>
-                                {% endif %}
                                 {% endfor %}  
                             </select>
                         </div>
                     </div>
+                    
                     <br>
                     
                 <div class="d-flex justify-content-center">
@@ -124,5 +124,115 @@
             </div>
         </div>
     </form>
+
+
+
+    {% else %}
+    <fieldset disabled>
+        <header><strong>REQUESTED BY</strong></header>
+        <hr>
+        <div class="row">
+        
+            <div class="col-sm-8">
+                <label>NAME</label>
+                {{form.name}}
+                <!-- <input type="text" class="form-control"> -->
+            </div>
+            <div class="col-sm-4">
+                <label>POSITION/TITLE</label>
+                {{form.position}}
+                <!-- <input type="text" class="form-control"> -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="row-sm">
+                <label>DEPARTMENT</label>
+                {{form.department}}
+                <!-- <input type="text" class="form-control"> -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <label>EMAIL</label>
+                {{form.email}}
+            </div>
+            <div class="col-sm">
+                <label>DATE AND TIME SUBMITTED</label>
+                <input type="text" value="{{client.date}}" class="form-control">
+            </div>
+        </div>
+        <header><strong>DESCRIPTION OF PROPERTY</strong></header>
+        <hr>
+        <div class="row">
+            <div class="col-sm-6">
+                <label>TYPE</label>
+                {{form.prop_type}}
+                <!-- <input type="text" class="form-control"> -->
+                <label>SERIAL NO.</label>
+                {{form.serial}}
+                <!-- <input type="text" class="form-control"> -->
+                <label>ACQUISITION DATE</label>
+                {{form.acq_date}}
+                <!-- <input type="text" class="form-control"> -->
+            </div>
+            <div class="col-sm-6">
+                <label>BRAND MODEL</label>
+                {{form.brand}}
+                <!-- <input type="text" class="form-control"> -->
+                <label>PROPERTY NO</label>
+                {{form.prop_no}}
+                <!-- <input type="text" class="form-control"> -->
+                <label>ACQUISITION COST</label>
+                {{form.acq_cost}}
+                <!-- <input type="text" class="form-control"> -->
+            </div>
+        </div>
+        <header><strong>DEFECTS AND COMPLAINTS</strong></header>
+        <hr>
+        <div class="row">
+            <div class="col-sm">
+                <label>NATURE AND SCOPE OF WORK TO BE DONE</label>
+                {{form.defect}}
+                <!-- <textarea class="form-control"></textarea> -->
+            </div>
+        </div>
+    </fieldset>
+        <header><strong>INITIAL ASSESSMENT</strong></header>
+        <hr>
+        <fieldset disabled>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>APPROVAL</label>
+                    {{forms.fabricate}}
+                </div>
+                <div class="col-sm-4">
+                    <label>ASSESSED BY</label>
+                    {{forms.assess}}
+                </div>
+                <div class="col-sm-4">
+                    <label>Personnel Assigned</label>
+                    <input class="form-control" disabled>
+
+                    </input>
+                    <select class="form-select" name="name" id="" required>
+                        <option value="" disabled selected>Choose Maintenance Personnel</option>
+                        {% for x in mainte %}
+                        <option value="{{x.id}}">
+                            {{x.first_name}} {{x.last_name}}
+                        </option>
+                        {% endfor %}  
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+        
+        <br>
+        
+    <div class="d-flex justify-content-center">
+        <!--<a href="/supply-form/{{id}}" class="btn btn-success">SUBMIT</a>-->
+        <button class="btn btn-success" type="submit">Submit</button>
+    </div>
+
+    {% endif %}
 </body>
 {% endblock content %}

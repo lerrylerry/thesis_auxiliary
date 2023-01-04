@@ -158,7 +158,7 @@ class mainteForm(UserCreationForm):
 
     class Meta:
         model= CustomUser
-        fields = ['username','password1','password2','first_name','last_name']
+        fields = ['username','password1','password2','first_name','last_name','email']
         widgets = {
             'username': forms.TextInput(
                 attrs={
@@ -182,7 +182,6 @@ class mainteForm(UserCreationForm):
                 attrs={
                     'class': 'form-control',
                     'placeholder': 'your email',
-                    'required' : False
                     }
             ), 
             

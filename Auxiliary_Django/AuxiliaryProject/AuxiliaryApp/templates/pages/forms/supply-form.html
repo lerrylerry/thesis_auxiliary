@@ -26,6 +26,7 @@
         {% endfor %}
         </tbody>
     </table>
+    {% if user.userType == 'ADMIN' %}
     <form method="POST">
         {% csrf_token %}
         <div class="row">
@@ -62,5 +63,7 @@
         </div>
         {% endif %}
     </form>
+    {% else %}
+    {% endif %}
 </div>
 {% endblock content %}

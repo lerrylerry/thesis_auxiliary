@@ -15,9 +15,11 @@
                 <div class="card-body">
                     <header><strong>REQUEST FOR VEHICLE RESERVATION FORM</strong></header>
                     {% for message in messages %}
-                      <div class="alert alert-primary">
-                        {{ message }}
-                      </div>
+                        <div class="container-fluid p-0 mt-3">
+                            <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+                                {{ message }}
+                            </div>
+                        </div>
                     {% endfor %}
                     <hr>
                     <div class="row">

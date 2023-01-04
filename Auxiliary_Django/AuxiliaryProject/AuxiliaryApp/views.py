@@ -437,7 +437,7 @@ def adminForm(request, id):
         forms = adminrepairForm(request.POST)
         fabricated = request.POST['fabricate']
         assessed = request.POST['assess']
-        assign = request.POST['name'].id
+        assign = request.POST['name']
     
         if forms.is_valid():
             add = adminrepairDB.objects.create(

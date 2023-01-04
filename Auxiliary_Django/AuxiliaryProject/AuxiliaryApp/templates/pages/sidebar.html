@@ -42,7 +42,7 @@
       <ul class="sub-menu">
         <li><a class="link_name" >Personnels</a></li>
         <li><a href="{% url 'utility-personnel-list' %}">Utility Personnel List</a></li>
-        <li><a href="{% url 'maintenance-personnel-list' %}">Maintenace Personnel List</a></li>
+        <li><a href="{% url 'maintenance-personnel-list' %}">Maintenance Personnel List</a></li>
 
       </ul>
     </li>
@@ -143,21 +143,12 @@
   </div>
   <ul class="nav-links">
     <li>
-      <a href="{% url 'maintenance-homepage' %}">
+      <a href="{% url 'maintenance' %}">
         <i class='bx bx-home-alt nav_icon' ></i>
         <span class="link_name">Home</span>
       </a>
       <ul class="sub-menu blank">
-        <li><a class="link_name" href="{% url 'maintenance-homepage' %}">Home</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="{% url 'minor-repair' %}">
-        <i class='bx bx-wrench'></i>
-        <span class="link_name">Minor Repair</span>
-      </a>
-      <ul class="sub-menu blank">
-        <li><a class="link_name" href="{% url 'minor-repair' %}">Minor Repair</a></li>
+        <li><a class="link_name" href="{% url 'maintenance' %}">Home</a></li>
       </ul>
     </li>
 <li>

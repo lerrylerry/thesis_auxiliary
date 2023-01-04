@@ -30,14 +30,14 @@
             </tr>
           </thead>
           <tbody id="vehicleTable">
-            {% for x in mainte %}
+            {% for x in form %}
             <tr>
               <td>
-                <a href="/admin-form/{{x.id}}">{{x.name}}</a>
+                <a href="/admin-form/{{x.id}}">{{x.assess}}</a>
                 {% comment %} <a href="request={{x.id}}" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#vehiclerequestModal{{x.id}}">{{x.name}}</a> {% endcomment %}
               </td>
               <td>
-                {{x.status}}
+                {{x.assigned}}
               </td>
 
               <!--REPAIR FORM REQUEST-->

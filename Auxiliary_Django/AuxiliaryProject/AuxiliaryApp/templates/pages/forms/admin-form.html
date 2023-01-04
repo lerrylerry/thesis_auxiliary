@@ -95,7 +95,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-sm-4">
-                            <label>APPROVAL</label>
+                            <label>Repair In house?</label>
                             {{forms.fabricate}}
                         </div>
                         <div class="col-sm-4">
@@ -107,7 +107,7 @@
                             <select class="form-select" name="name" id="" required>
                                 <option value="" disabled selected>Choose Maintenance Personnel</option>
                                 {% for x in mainte %}
-                                <option value="{{x.id}}">
+                                <option value="{{x.first_name}} {{x.last_name}}">
                                     {{x.first_name}} {{x.last_name}}
                                 </option>
                                 {% endfor %}  
